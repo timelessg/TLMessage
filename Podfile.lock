@@ -1,0 +1,34 @@
+PODS:
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - Masonry (1.0.1)
+  - MJExtension (3.0.10)
+  - MJRefresh (3.1.9)
+  - RongCloudIMLib (2.6.4)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
+  - UITableView+FDTemplateLayoutCell (1.4)
+
+DEPENDENCIES:
+  - FMDB
+  - Masonry
+  - MJExtension
+  - MJRefresh
+  - RongCloudIMLib
+  - SDWebImage
+  - UITableView+FDTemplateLayoutCell
+
+SPEC CHECKSUMS:
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
+  MJRefresh: c5f1f1653e5a1b932c90f78074f2bc86f3f9bd5e
+  RongCloudIMLib: 4a2fea2afef095b8d2d52aed7bed1da2ea1756a6
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
+
+PODFILE CHECKSUM: aec3fdbb43bbdadfaedcc0c855ad35c87dcd8102
+
+COCOAPODS: 1.0.1

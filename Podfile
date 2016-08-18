@@ -11,7 +11,7 @@ target "TLMessageView" do
 	pod 'RongCloudIMLib'
 	pod 'MJExtension'
     pod 'UITableView+FDTemplateLayoutCell'
-
+    pod 'SDWebImage'
 end
 
 post_install do |installer|

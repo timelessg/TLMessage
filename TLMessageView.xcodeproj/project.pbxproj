@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
+		6542261A1D65F62F0093D4CB /* TLChatEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 654226191D65F62F0093D4CB /* TLChatEmojiKeyboard.m */; };
 		65485FEA1D65855700C5D48B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FE91D65855700C5D48B /* main.m */; };
 		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
 		65485FF51D65855700C5D48B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF41D65855700C5D48B /* Assets.xcassets */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		654226181D65F62F0093D4CB /* TLChatEmojiKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLChatEmojiKeyboard.h; sourceTree = "<group>"; };
+		654226191D65F62F0093D4CB /* TLChatEmojiKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLChatEmojiKeyboard.m; sourceTree = "<group>"; };
 		65485FE51D65855700C5D48B /* TLMessageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLMessageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65485FE91D65855700C5D48B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				654860201D6585B400C5D48B /* TLChatViewController.m */,
 				654860321D659D4A00C5D48B /* TLChatInputView.h */,
 				654860331D659D4A00C5D48B /* TLChatInputView.m */,
+				654226181D65F62F0093D4CB /* TLChatEmojiKeyboard.h */,
+				654226191D65F62F0093D4CB /* TLChatEmojiKeyboard.m */,
 				654860231D65888F00C5D48B /* TLMessageCell.h */,
 				654860241D65888F00C5D48B /* TLMessageCell.m */,
 				6548601C1D65859D00C5D48B /* TLTextMessageCell.h */,
@@ -390,6 +395,7 @@
 				654860251D65888F00C5D48B /* TLMessageCell.m in Sources */,
 				654860341D659D4A00C5D48B /* TLChatInputView.m in Sources */,
 				654860211D6585B400C5D48B /* TLChatViewController.m in Sources */,
+				6542261A1D65F62F0093D4CB /* TLChatEmojiKeyboard.m in Sources */,
 				65485FED1D65855700C5D48B /* AppDelegate.m in Sources */,
 				654860311D65927D00C5D48B /* NSDate+Utils.m in Sources */,
 				6548601E1D65859D00C5D48B /* TLTextMessageCell.m in Sources */,
