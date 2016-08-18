@@ -1,0 +1,645 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
+		65485FEA1D65855700C5D48B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FE91D65855700C5D48B /* main.m */; };
+		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
+		65485FF51D65855700C5D48B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF41D65855700C5D48B /* Assets.xcassets */; };
+		65485FF81D65855700C5D48B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF61D65855700C5D48B /* LaunchScreen.storyboard */; };
+		654860031D65855700C5D48B /* TLMessageViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860021D65855700C5D48B /* TLMessageViewTests.m */; };
+		6548600E1D65855700C5D48B /* TLMessageViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6548600D1D65855700C5D48B /* TLMessageViewUITests.m */; };
+		6548601E1D65859D00C5D48B /* TLTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6548601D1D65859D00C5D48B /* TLTextMessageCell.m */; };
+		654860211D6585B400C5D48B /* TLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860201D6585B400C5D48B /* TLChatViewController.m */; };
+		654860251D65888F00C5D48B /* TLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860241D65888F00C5D48B /* TLMessageCell.m */; };
+		654860281D65895E00C5D48B /* TLPhotoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860271D65895E00C5D48B /* TLPhotoMessageCell.m */; };
+		6548602B1D6589CB00C5D48B /* TLVoiceMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6548602A1D6589CB00C5D48B /* TLVoiceMessageCell.m */; };
+		654860311D65927D00C5D48B /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860301D65927D00C5D48B /* NSDate+Utils.m */; };
+		654860341D659D4A00C5D48B /* TLChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860331D659D4A00C5D48B /* TLChatInputView.m */; };
+		654860371D65ACB700C5D48B /* LPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860361D65ACB700C5D48B /* LPlaceholderTextView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65485FFF1D65855700C5D48B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65485FDD1D65855700C5D48B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65485FE41D65855700C5D48B;
+			remoteInfo = TLMessageView;
+		};
+		6548600A1D65855700C5D48B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65485FDD1D65855700C5D48B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65485FE41D65855700C5D48B;
+			remoteInfo = TLMessageView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		65485FE51D65855700C5D48B /* TLMessageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLMessageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65485FE91D65855700C5D48B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		65485FEC1D65855700C5D48B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		65485FF41D65855700C5D48B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		65485FF71D65855700C5D48B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		65485FF91D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65485FFE1D65855700C5D48B /* TLMessageViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TLMessageViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		654860021D65855700C5D48B /* TLMessageViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLMessageViewTests.m; sourceTree = "<group>"; };
+		654860041D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		654860091D65855700C5D48B /* TLMessageViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TLMessageViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6548600D1D65855700C5D48B /* TLMessageViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLMessageViewUITests.m; sourceTree = "<group>"; };
+		6548600F1D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6548601C1D65859D00C5D48B /* TLTextMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTextMessageCell.h; sourceTree = "<group>"; };
+		6548601D1D65859D00C5D48B /* TLTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTextMessageCell.m; sourceTree = "<group>"; };
+		6548601F1D6585B400C5D48B /* TLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLChatViewController.h; sourceTree = "<group>"; };
+		654860201D6585B400C5D48B /* TLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLChatViewController.m; sourceTree = "<group>"; };
+		654860221D65867100C5D48B /* TLProjectMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLProjectMacro.h; sourceTree = "<group>"; };
+		654860231D65888F00C5D48B /* TLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMessageCell.h; sourceTree = "<group>"; };
+		654860241D65888F00C5D48B /* TLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMessageCell.m; sourceTree = "<group>"; };
+		654860261D65895E00C5D48B /* TLPhotoMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoMessageCell.h; sourceTree = "<group>"; };
+		654860271D65895E00C5D48B /* TLPhotoMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoMessageCell.m; sourceTree = "<group>"; };
+		654860291D6589CB00C5D48B /* TLVoiceMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLVoiceMessageCell.h; sourceTree = "<group>"; };
+		6548602A1D6589CB00C5D48B /* TLVoiceMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLVoiceMessageCell.m; sourceTree = "<group>"; };
+		6548602F1D65927D00C5D48B /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
+		654860301D65927D00C5D48B /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
+		654860321D659D4A00C5D48B /* TLChatInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLChatInputView.h; sourceTree = "<group>"; };
+		654860331D659D4A00C5D48B /* TLChatInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLChatInputView.m; sourceTree = "<group>"; };
+		654860351D65ACB700C5D48B /* LPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPlaceholderTextView.h; sourceTree = "<group>"; };
+		654860361D65ACB700C5D48B /* LPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPlaceholderTextView.m; sourceTree = "<group>"; };
+		6F96D07CC0AB7C0FE3283500 /* Pods-TLMessageView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLMessageView.release.xcconfig"; path = "Pods/Target Support Files/Pods-TLMessageView/Pods-TLMessageView.release.xcconfig"; sourceTree = "<group>"; };
+		791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TLMessageView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBAD4FEC4CD361ADEA2B4EA9 /* Pods-TLMessageView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLMessageView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TLMessageView/Pods-TLMessageView.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65485FE21D65855700C5D48B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65485FFB1D65855700C5D48B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654860061D65855700C5D48B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		33DFF2A66EB7AB4EA5723794 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BBAD4FEC4CD361ADEA2B4EA9 /* Pods-TLMessageView.debug.xcconfig */,
+				6F96D07CC0AB7C0FE3283500 /* Pods-TLMessageView.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		65485FDC1D65855700C5D48B = {
+			isa = PBXGroup;
+			children = (
+				65485FE71D65855700C5D48B /* TLMessageView */,
+				654860011D65855700C5D48B /* TLMessageViewTests */,
+				6548600C1D65855700C5D48B /* TLMessageViewUITests */,
+				65485FE61D65855700C5D48B /* Products */,
+				33DFF2A66EB7AB4EA5723794 /* Pods */,
+				66BC6806D7F92D743898AEB3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		65485FE61D65855700C5D48B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65485FE51D65855700C5D48B /* TLMessageView.app */,
+				65485FFE1D65855700C5D48B /* TLMessageViewTests.xctest */,
+				654860091D65855700C5D48B /* TLMessageViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65485FE71D65855700C5D48B /* TLMessageView */ = {
+			isa = PBXGroup;
+			children = (
+				6548601B1D65857C00C5D48B /* Chat */,
+				65485FEB1D65855700C5D48B /* AppDelegate.h */,
+				65485FEC1D65855700C5D48B /* AppDelegate.m */,
+				654860221D65867100C5D48B /* TLProjectMacro.h */,
+				65485FF41D65855700C5D48B /* Assets.xcassets */,
+				65485FF61D65855700C5D48B /* LaunchScreen.storyboard */,
+				65485FF91D65855700C5D48B /* Info.plist */,
+				65485FE81D65855700C5D48B /* Supporting Files */,
+			);
+			path = TLMessageView;
+			sourceTree = "<group>";
+		};
+		65485FE81D65855700C5D48B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65485FE91D65855700C5D48B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		654860011D65855700C5D48B /* TLMessageViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				654860021D65855700C5D48B /* TLMessageViewTests.m */,
+				654860041D65855700C5D48B /* Info.plist */,
+			);
+			path = TLMessageViewTests;
+			sourceTree = "<group>";
+		};
+		6548600C1D65855700C5D48B /* TLMessageViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6548600D1D65855700C5D48B /* TLMessageViewUITests.m */,
+				6548600F1D65855700C5D48B /* Info.plist */,
+			);
+			path = TLMessageViewUITests;
+			sourceTree = "<group>";
+		};
+		6548601B1D65857C00C5D48B /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				6548601F1D6585B400C5D48B /* TLChatViewController.h */,
+				654860201D6585B400C5D48B /* TLChatViewController.m */,
+				654860321D659D4A00C5D48B /* TLChatInputView.h */,
+				654860331D659D4A00C5D48B /* TLChatInputView.m */,
+				654860231D65888F00C5D48B /* TLMessageCell.h */,
+				654860241D65888F00C5D48B /* TLMessageCell.m */,
+				6548601C1D65859D00C5D48B /* TLTextMessageCell.h */,
+				6548601D1D65859D00C5D48B /* TLTextMessageCell.m */,
+				654860261D65895E00C5D48B /* TLPhotoMessageCell.h */,
+				654860271D65895E00C5D48B /* TLPhotoMessageCell.m */,
+				654860291D6589CB00C5D48B /* TLVoiceMessageCell.h */,
+				6548602A1D6589CB00C5D48B /* TLVoiceMessageCell.m */,
+				6548602F1D65927D00C5D48B /* NSDate+Utils.h */,
+				654860301D65927D00C5D48B /* NSDate+Utils.m */,
+				654860351D65ACB700C5D48B /* LPlaceholderTextView.h */,
+				654860361D65ACB700C5D48B /* LPlaceholderTextView.m */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		66BC6806D7F92D743898AEB3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65485FE41D65855700C5D48B /* TLMessageView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654860121D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageView" */;
+			buildPhases = (
+				7E797B18E759AD7584E7CFD7 /* [CP] Check Pods Manifest.lock */,
+				65485FE11D65855700C5D48B /* Sources */,
+				65485FE21D65855700C5D48B /* Frameworks */,
+				65485FE31D65855700C5D48B /* Resources */,
+				3B6815014C1B9E5F03BF85DA /* [CP] Embed Pods Frameworks */,
+				CD6DB996E86EB8ECBAE140AF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TLMessageView;
+			productName = TLMessageView;
+			productReference = 65485FE51D65855700C5D48B /* TLMessageView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		65485FFD1D65855700C5D48B /* TLMessageViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654860151D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewTests" */;
+			buildPhases = (
+				65485FFA1D65855700C5D48B /* Sources */,
+				65485FFB1D65855700C5D48B /* Frameworks */,
+				65485FFC1D65855700C5D48B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				654860001D65855700C5D48B /* PBXTargetDependency */,
+			);
+			name = TLMessageViewTests;
+			productName = TLMessageViewTests;
+			productReference = 65485FFE1D65855700C5D48B /* TLMessageViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		654860081D65855700C5D48B /* TLMessageViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654860181D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewUITests" */;
+			buildPhases = (
+				654860051D65855700C5D48B /* Sources */,
+				654860061D65855700C5D48B /* Frameworks */,
+				654860071D65855700C5D48B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6548600B1D65855700C5D48B /* PBXTargetDependency */,
+			);
+			name = TLMessageViewUITests;
+			productName = TLMessageViewUITests;
+			productReference = 654860091D65855700C5D48B /* TLMessageViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65485FDD1D65855700C5D48B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = com.garry.message;
+				TargetAttributes = {
+					65485FE41D65855700C5D48B = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					65485FFD1D65855700C5D48B = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 65485FE41D65855700C5D48B;
+					};
+					654860081D65855700C5D48B = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 65485FE41D65855700C5D48B;
+					};
+				};
+			};
+			buildConfigurationList = 65485FE01D65855700C5D48B /* Build configuration list for PBXProject "TLMessageView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 65485FDC1D65855700C5D48B;
+			productRefGroup = 65485FE61D65855700C5D48B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65485FE41D65855700C5D48B /* TLMessageView */,
+				65485FFD1D65855700C5D48B /* TLMessageViewTests */,
+				654860081D65855700C5D48B /* TLMessageViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		65485FE31D65855700C5D48B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65485FF81D65855700C5D48B /* LaunchScreen.storyboard in Resources */,
+				65485FF51D65855700C5D48B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65485FFC1D65855700C5D48B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654860071D65855700C5D48B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3B6815014C1B9E5F03BF85DA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TLMessageView/Pods-TLMessageView-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E797B18E759AD7584E7CFD7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CD6DB996E86EB8ECBAE140AF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TLMessageView/Pods-TLMessageView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65485FE11D65855700C5D48B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654860281D65895E00C5D48B /* TLPhotoMessageCell.m in Sources */,
+				654860251D65888F00C5D48B /* TLMessageCell.m in Sources */,
+				654860341D659D4A00C5D48B /* TLChatInputView.m in Sources */,
+				654860211D6585B400C5D48B /* TLChatViewController.m in Sources */,
+				65485FED1D65855700C5D48B /* AppDelegate.m in Sources */,
+				654860311D65927D00C5D48B /* NSDate+Utils.m in Sources */,
+				6548601E1D65859D00C5D48B /* TLTextMessageCell.m in Sources */,
+				6548602B1D6589CB00C5D48B /* TLVoiceMessageCell.m in Sources */,
+				654860371D65ACB700C5D48B /* LPlaceholderTextView.m in Sources */,
+				65485FEA1D65855700C5D48B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65485FFA1D65855700C5D48B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654860031D65855700C5D48B /* TLMessageViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654860051D65855700C5D48B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6548600E1D65855700C5D48B /* TLMessageViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		654860001D65855700C5D48B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65485FE41D65855700C5D48B /* TLMessageView */;
+			targetProxy = 65485FFF1D65855700C5D48B /* PBXContainerItemProxy */;
+		};
+		6548600B1D65855700C5D48B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65485FE41D65855700C5D48B /* TLMessageView */;
+			targetProxy = 6548600A1D65855700C5D48B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		65485FF61D65855700C5D48B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65485FF71D65855700C5D48B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		654860101D65855700C5D48B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		654860111D65855700C5D48B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		654860131D65855700C5D48B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBAD4FEC4CD361ADEA2B4EA9 /* Pods-TLMessageView.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = TLMessageView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		654860141D65855700C5D48B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F96D07CC0AB7C0FE3283500 /* Pods-TLMessageView.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = TLMessageView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		654860161D65855700C5D48B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TLMessageViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TLMessageView.app/TLMessageView";
+			};
+			name = Debug;
+		};
+		654860171D65855700C5D48B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TLMessageViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TLMessageView.app/TLMessageView";
+			};
+			name = Release;
+		};
+		654860191D65855700C5D48B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TLMessageViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TLMessageView;
+			};
+			name = Debug;
+		};
+		6548601A1D65855700C5D48B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TLMessageViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TLMessageView;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		65485FE01D65855700C5D48B /* Build configuration list for PBXProject "TLMessageView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654860101D65855700C5D48B /* Debug */,
+				654860111D65855700C5D48B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		654860121D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654860131D65855700C5D48B /* Debug */,
+				654860141D65855700C5D48B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		654860151D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654860161D65855700C5D48B /* Debug */,
+				654860171D65855700C5D48B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		654860181D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654860191D65855700C5D48B /* Debug */,
+				6548601A1D65855700C5D48B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 65485FDD1D65855700C5D48B /* Project object */;
+}
