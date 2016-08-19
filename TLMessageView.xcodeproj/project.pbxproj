@@ -10,6 +10,7 @@
 		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
 		6532C5DF1D66B304004099FE /* TLRecordVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532C5DE1D66B304004099FE /* TLRecordVoice.m */; };
 		6532C5E21D66BADA004099FE /* TLRecordVoiceHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532C5E11D66BADA004099FE /* TLRecordVoiceHUD.m */; };
+		6532C5E71D670EB7004099FE /* TLVoicePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532C5E61D670EB7004099FE /* TLVoicePlayer.m */; };
 		6542261A1D65F62F0093D4CB /* TLChatEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 654226191D65F62F0093D4CB /* TLChatEmojiKeyboard.m */; };
 		65485FEA1D65855700C5D48B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FE91D65855700C5D48B /* main.m */; };
 		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
@@ -49,6 +50,8 @@
 		6532C5DE1D66B304004099FE /* TLRecordVoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRecordVoice.m; sourceTree = "<group>"; };
 		6532C5E01D66BADA004099FE /* TLRecordVoiceHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLRecordVoiceHUD.h; sourceTree = "<group>"; };
 		6532C5E11D66BADA004099FE /* TLRecordVoiceHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRecordVoiceHUD.m; sourceTree = "<group>"; };
+		6532C5E51D670EB7004099FE /* TLVoicePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLVoicePlayer.h; sourceTree = "<group>"; };
+		6532C5E61D670EB7004099FE /* TLVoicePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLVoicePlayer.m; sourceTree = "<group>"; };
 		654226181D65F62F0093D4CB /* TLChatEmojiKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLChatEmojiKeyboard.h; sourceTree = "<group>"; };
 		654226191D65F62F0093D4CB /* TLChatEmojiKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLChatEmojiKeyboard.m; sourceTree = "<group>"; };
 		65485FE51D65855700C5D48B /* TLMessageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLMessageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +196,8 @@
 				654860331D659D4A00C5D48B /* TLChatInputView.m */,
 				6532C5DD1D66B304004099FE /* TLRecordVoice.h */,
 				6532C5DE1D66B304004099FE /* TLRecordVoice.m */,
+				6532C5E51D670EB7004099FE /* TLVoicePlayer.h */,
+				6532C5E61D670EB7004099FE /* TLVoicePlayer.m */,
 				6532C5E01D66BADA004099FE /* TLRecordVoiceHUD.h */,
 				6532C5E11D66BADA004099FE /* TLRecordVoiceHUD.m */,
 				654226181D65F62F0093D4CB /* TLChatEmojiKeyboard.h */,
@@ -406,6 +411,7 @@
 				6532C5E21D66BADA004099FE /* TLRecordVoiceHUD.m in Sources */,
 				654860341D659D4A00C5D48B /* TLChatInputView.m in Sources */,
 				654860211D6585B400C5D48B /* TLChatViewController.m in Sources */,
+				6532C5E71D670EB7004099FE /* TLVoicePlayer.m in Sources */,
 				6542261A1D65F62F0093D4CB /* TLChatEmojiKeyboard.m in Sources */,
 				65485FED1D65855700C5D48B /* AppDelegate.m in Sources */,
 				654860311D65927D00C5D48B /* NSDate+Utils.m in Sources */,

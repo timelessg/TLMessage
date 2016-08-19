@@ -113,18 +113,23 @@
 
 -(void)beginRecordVoice:(UIButton *)sender{
     [self.recorder startRecord];
+    sender.backgroundColor = UIColorFromRGB(0x333333);
 }
--(void)endRecordVoice:(UIButton *)sener{
+-(void)endRecordVoice:(UIButton *)sender{
     [self.recorder completeRecord];
+    sender.backgroundColor = UIColorFromRGB(0xdddddd);
 }
 -(void)cancelRecordVoice:(UIButton *)sender{
     [self.recorder cancelRecord];
+    sender.backgroundColor = UIColorFromRGB(0xdddddd);
 }
 -(void)remindDragExit:(UIButton *)sender{
     [TLRecordVoiceHUD showWCancel];
+    sender.backgroundColor = UIColorFromRGB(0xdddddd);
 }
 -(void)remindDragEnter:(UIButton *)sender{
     [TLRecordVoiceHUD showRecording];
+    sender.backgroundColor = UIColorFromRGB(0x333333);
 }
 -(TLRecordVoice *)recorder{
     if (!_recorder) {
@@ -159,11 +164,12 @@
 -(UIButton *)tapVoiceBtn{
     if (!_tapVoiceBtn) {
         _tapVoiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_tapVoiceBtn setTitle:@"按住说话" forState:UIControlStateNormal];
+        [_tapVoiceBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
+        [_tapVoiceBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         _tapVoiceBtn.backgroundColor = UIColorFromRGB(0xdddddd);
         _tapVoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         _tapVoiceBtn.hidden = YES;
-        _tapVoiceBtn.layer.cornerRadius = 2.0f;
+        _tapVoiceBtn.layer.cornerRadius = 4.0;
         _tapVoiceBtn.layer.borderColor = UIColorFromRGB(0xcccccc).CGColor;
         _tapVoiceBtn.layer.borderWidth = 0.5;
         [_tapVoiceBtn addTarget:self action:@selector(beginRecordVoice:) forControlEvents:UIControlEventTouchDown];
@@ -181,7 +187,7 @@
         _inputTextView.tintColor = UIColorFromRGB(0x999999);
         _inputTextView.placeholderText = @"聊点什么吧";
         _inputTextView.placeholderColor = UIColorFromRGB(0x999999);
-        _inputTextView.layer.cornerRadius = 2.0f;
+        _inputTextView.layer.cornerRadius = 4.0;
         _inputTextView.delegate = self;
         _inputTextView.returnKeyType = UIReturnKeySend;
         _inputTextView.maxTextViewHeight = 60;

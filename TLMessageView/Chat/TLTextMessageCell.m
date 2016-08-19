@@ -17,7 +17,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.bubbleImageView addSubview:self.messageLabel];
         [self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_offset(UIEdgeInsetsMake(10, 10, 10, 10));
+            make.edges.mas_offset(UIEdgeInsetsMake(10, 10, 10, 15));
         }];
     }
     return self;

@@ -9,5 +9,5 @@
 #import "TLMessageCell.h"
 
 @interface TLVoiceMessageCell : TLMessageCell
-
+@property(nonatomic,assign)BOOL isPlaying;
 @end

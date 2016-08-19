@@ -12,6 +12,8 @@
 #import <Masonry.h>
 #import <RongIMLib/RongIMLib.h>
 
+#define SMAS(x) [self.constraints addObject:x]
+
 @interface TLMessageCell : UITableViewCell
 @property(nonatomic,strong)UIImageView *bubbleImageView;
 @property(nonatomic,strong)UIImageView *arrowImageView;
@@ -23,5 +25,6 @@
 @property(nonatomic,strong)UILabel *dateTimeLabel;
 
 @property(nonatomic,strong)RCMessage *message;
+-(void)updateDirection:(RCMessageDirection)direction;
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate;
 @end

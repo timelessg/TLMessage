@@ -8,9 +8,6 @@
 
 #import "TLMessageCell.h"
 
-#define SMAS(x) [self.constraints addObject:x]
-
-
 @interface TLMessageCell ()
 @end
 
@@ -45,12 +42,6 @@
             SMAS(make.right.lessThanOrEqualTo(self.contentView.mas_right).offset(-78));
         }];
         
-        [self.contentView addSubview:self.arrowImageView];
-        [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.bubbleImageView.mas_top).offset(12);
-            SMAS(make.right.equalTo(self.bubbleImageView.mas_left).offset(1));
-        }];
-        
         [self.contentView addSubview:self.statusView];
         [self.statusView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.bubbleImageView.mas_centerY).offset(0);
@@ -77,9 +68,9 @@
 -(void)updateDirection:(RCMessageDirection)direction{
     [self removeAllConstraints];
     
-    NSString *bubbleNamed = direction == MessageDirection_RECEIVE ? @"bubble" : @"bubble_me";
-    self.bubbleImageView.image = [[UIImage imageNamed:bubbleNamed] stretchableImageWithLeftCapWidth:10 topCapHeight:25];
-    self.arrowImageView.image = direction == MessageDirection_RECEIVE ? [UIImage imageNamed:@"sharp"] : [UIImage imageNamed:@"sharp_me"];
+    NSString *bubbleNamed = direction == MessageDirection_RECEIVE ? @"chat_from_bg_normal" : @"chat_to_bg_normal";
+    self.bubbleImageView.image = [[UIImage imageNamed:bubbleNamed] stretchableImageWithLeftCapWidth:15 topCapHeight:25];
+    
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (direction == MessageDirection_RECEIVE) {
             SMAS(make.left.equalTo(self.contentView.mas_left).offset(10));
@@ -95,14 +86,6 @@
         }else{
             SMAS(make.right.equalTo(self.avatarImageView.mas_left).offset(-7));
             SMAS(make.left.greaterThanOrEqualTo(self.contentView.mas_left).offset(78));
-        }
-    }];
-    
-    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        if (direction == MessageDirection_RECEIVE) {
-            SMAS(make.right.equalTo(self.bubbleImageView.mas_left).offset(1));
-        }else{
-            SMAS(make.left.equalTo(self.bubbleImageView.mas_right).offset(-1));
         }
     }];
     
@@ -161,7 +144,7 @@
 }
 -(UIImageView *)avatarImageView{
     if (!_avatarImageView) {
-        _avatarImageView = [[UIImageView alloc] init];
+        _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatfrom_doctor_icon"]];
         _avatarImageView.layer.cornerRadius = 15;
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.userInteractionEnabled = YES;
