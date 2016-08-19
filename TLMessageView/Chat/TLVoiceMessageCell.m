@@ -16,7 +16,7 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.bubbleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_offset(CGSizeMake(100, 50));
+            make.size.mas_offset(CGSizeMake(120, 40));
         }];
         
         [self.bubbleImageView addSubview:self.voicePlayingImageView];

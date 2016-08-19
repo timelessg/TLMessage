@@ -44,7 +44,12 @@
     }];
     
     weakifySelf;
-    self.inputView.sendMessageAction = ^(NSString *x){
+    self.inputView.sendTextMsgAction = ^(RCTextMessage *x){
+        strongifySelf;
+        [self sendMessage:x];
+    };
+    
+    self.inputView.sendVoiceMsgAction = ^(RCVoiceMessage *x){
         strongifySelf;
         [self sendMessage:x];
     };
@@ -61,10 +66,11 @@
 
 #pragma - mark tableviewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TLTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"textcell"];
-    
     RCMessage *msg = self.messages[indexPath.row];
     RCMessage *lastMsg = [self lasetMsgWithIndex:indexPath.row];
+    
+    TLMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierWithMsg:msg]];
+    
     [cell updateMessage:msg showDate:(msg.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
 
     return cell;
@@ -73,20 +79,17 @@
     return self.messages.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    weakifySelf;
-    CGFloat height = [tableView fd_heightForCellWithIdentifier:@"textcell" cacheByIndexPath:indexPath configuration:^(TLTextMessageCell *cell) {
-        strongifySelf;
-        RCMessage *msg = self.messages[indexPath.row];
-        RCMessage *lastMsg = [self lasetMsgWithIndex:indexPath.row];
+    RCMessage *msg = self.messages[indexPath.row];
+    RCMessage *lastMsg = [self lasetMsgWithIndex:indexPath.row];
+    CGFloat height = [tableView fd_heightForCellWithIdentifier:[self cellIdentifierWithMsg:msg] cacheByIndexPath:indexPath configuration:^(TLMessageCell *cell) {
         [cell updateMessage:msg showDate:(msg.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
     }];
     return height;
 }
 
 #pragma - mark private
--(void)sendMessage:(NSString *)message{
-    RCTextMessage *textMessage = [RCTextMessage messageWithContent:message];
-    RCMessage *msg = [[RCMessage alloc] initWithType:ConversationType_PRIVATE targetId:@"111" direction:MessageDirection_SEND messageId:0 content:textMessage];
+-(void)sendMessage:(id)message{
+    RCMessage *msg = [[RCMessage alloc] initWithType:ConversationType_PRIVATE targetId:@"111" direction:MessageDirection_SEND messageId:0 content:message];
     msg.sentStatus = SentStatus_SENDING;
     msg.receivedStatus = ReceivedStatus_READ;
     [self insertMessage:msg];
@@ -99,10 +102,13 @@
 -(NSIndexPath *)lastMessageIndexPath{
     return [NSIndexPath indexPathForItem:self.messages.count - 1 inSection:0];
 }
-- (RCMessage *)lasetMsgWithIndex:(NSInteger)index{
+-(RCMessage *)lasetMsgWithIndex:(NSInteger)index{
     return index > 0 ? self.messages[index - 1] : nil;
 }
-
+-(NSString *)cellIdentifierWithMsg:(RCMessage *)msg{
+    NSDictionary *dic = @{@"RCTextMessage":@"textcell",@"RCVoiceMessage":@"voicecell",@"RCImageMessage":@"photocell"};
+    return  dic[NSStringFromClass([msg.content class])];
+}
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
     NSDictionary *userInfo = [sender userInfo];

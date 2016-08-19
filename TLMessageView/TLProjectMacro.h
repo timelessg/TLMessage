@@ -18,6 +18,8 @@ __weak __typeof(&*self)weakSelf = self;
 #define strongifySelf \
 __strong __typeof(&*weakSelf)self = weakSelf;
 
+#define kKeyWindow [UIApplication sharedApplication].keyWindow
+
 /**
  *  Color
  */

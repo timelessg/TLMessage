@@ -25,8 +25,8 @@
 }
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
     [super updateMessage:message showDate:showDate];
-    RCImageMessage *imgMessage = message.content;
-    [self.photoImageView sd_setImageWithURL:imgMessage.imageUrl];
+    RCImageMessage *imgMessage = (RCImageMessage *)message.content;
+    [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:imgMessage.imageUrl]];
 }
 -(UIImageView *)photoImageView{
     if (!_photoImageView) {

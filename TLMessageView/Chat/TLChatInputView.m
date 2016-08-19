@@ -10,13 +10,16 @@
 #import "TLProjectMacro.h"
 #import <Masonry.h>
 #import "LPlaceholderTextView.h"
+#import "TLRecordVoice.h"
+#import "TLRecordVoiceHUD.h"
 
-@interface TLChatInputView () <UITextViewDelegate>
+@interface TLChatInputView () <UITextViewDelegate,TLRecorderVoiceDelegate>
 @property(nonatomic,strong)LPlaceholderTextView *inputTextView;
 @property(nonatomic,strong)UIButton *voiceKeybaordBtn;
 @property(nonatomic,strong)UIButton *emojiKeyboardBtn;
 @property(nonatomic,strong)UIButton *moreBtn;
 @property(nonatomic,strong)UIButton *tapVoiceBtn;
+@property(nonatomic,strong)TLRecordVoice *recorder;
 @end
 
 @implementation TLChatInputView
@@ -63,6 +66,12 @@
     }
     return self;
 }
+-(void)recorderVoiceSuccessWithVoiceData:(NSData *)voiceData duration:(long)duration{
+    if (self.sendVoiceMsgAction) self.sendVoiceMsgAction([RCVoiceMessage messageWithAudio:voiceData duration:duration]);
+}
+-(void)recorderVoiceFailure{
+    
+}
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]) {
         [self sendMessage];
@@ -84,7 +93,7 @@
     if ([text isEqualToString:@""] || !text) {
         return;
     }
-    if (self.sendMessageAction) self.sendMessageAction(text);
+    if (self.sendTextMsgAction) self.sendTextMsgAction([RCTextMessage messageWithContent:text]);
     
     self.inputTextView.text = @"";
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -97,9 +106,31 @@
     sender.selected ? [self.inputTextView resignFirstResponder] : [self.inputTextView becomeFirstResponder];
 }
 -(void)resignInputTextViewFirstResponder{
-//    self.voiceKeybaordBtn.selected = NO;
-//    self.tapVoiceBtn.hidden = YES;
     [self.inputTextView resignFirstResponder];
+}
+
+#pragma - mark tapVoiceBtnAction
+
+-(void)beginRecordVoice:(UIButton *)sender{
+    [self.recorder startRecord];
+}
+-(void)endRecordVoice:(UIButton *)sener{
+    [self.recorder completeRecord];
+}
+-(void)cancelRecordVoice:(UIButton *)sender{
+    [self.recorder cancelRecord];
+}
+-(void)remindDragExit:(UIButton *)sender{
+    [TLRecordVoiceHUD showWCancel];
+}
+-(void)remindDragEnter:(UIButton *)sender{
+    [TLRecordVoiceHUD showRecording];
+}
+-(TLRecordVoice *)recorder{
+    if (!_recorder) {
+        _recorder = [[TLRecordVoice alloc] initWithDelegate:self];
+    }
+    return _recorder;
 }
 -(UIButton *)voiceKeybaordBtn{
     if (!_voiceKeybaordBtn) {
@@ -135,6 +166,11 @@
         _tapVoiceBtn.layer.cornerRadius = 2.0f;
         _tapVoiceBtn.layer.borderColor = UIColorFromRGB(0xcccccc).CGColor;
         _tapVoiceBtn.layer.borderWidth = 0.5;
+        [_tapVoiceBtn addTarget:self action:@selector(beginRecordVoice:) forControlEvents:UIControlEventTouchDown];
+        [_tapVoiceBtn addTarget:self action:@selector(endRecordVoice:) forControlEvents:UIControlEventTouchUpInside];
+        [_tapVoiceBtn addTarget:self action:@selector(cancelRecordVoice:) forControlEvents:UIControlEventTouchUpOutside | UIControlEventTouchCancel];
+        [_tapVoiceBtn addTarget:self action:@selector(remindDragExit:) forControlEvents:UIControlEventTouchDragExit];
+        [_tapVoiceBtn addTarget:self action:@selector(remindDragEnter:) forControlEvents:UIControlEventTouchDragEnter];
     }
     return _tapVoiceBtn;
 }

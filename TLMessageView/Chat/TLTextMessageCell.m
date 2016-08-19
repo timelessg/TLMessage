@@ -27,9 +27,6 @@
     
     RCTextMessage* textMessage = (RCTextMessage*)message.content;
     self.messageLabel.text = textMessage.content;
-    
-//    NSString *avatarUrl = message.messageDirection == MessageDirection_SEND ? [JXUserManager sharedManager].currentUser.headUrl : [textMessage.extra mj_JSONObject][@"avatar"];
-//    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:avatarUrl]];
 }
 -(UILabel *)messageLabel{
     if (!_messageLabel) {

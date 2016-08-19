@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RongIMLib/RongIMLib.h>
 
 @interface TLChatInputView : UIView
-@property(nonatomic,copy)void (^sendMessageAction)(NSString *x);
+@property(nonatomic,copy)void (^sendTextMsgAction)(RCTextMessage *x);
+@property(nonatomic,copy)void (^sendVoiceMsgAction)(RCVoiceMessage *x);
 -(void)resignInputTextViewFirstResponder;
 @end
