@@ -20,6 +20,7 @@
 @property(nonatomic,strong)UIButton *moreBtn;
 @property(nonatomic,strong)UIButton *tapVoiceBtn;
 @property(nonatomic,strong)TLRecordVoice *recorder;
+
 @end
 
 @implementation TLChatInputView
@@ -105,6 +106,9 @@
     self.tapVoiceBtn.hidden = !sender.selected;
     sender.selected ? [self.inputTextView resignFirstResponder] : [self.inputTextView becomeFirstResponder];
 }
+-(void)didClickMore:(UIButton *)sender{
+    if (self.didClickPlugin) self.didClickPlugin();
+}
 -(void)resignInputTextViewFirstResponder{
     [self.inputTextView resignFirstResponder];
 }
@@ -158,6 +162,7 @@
     if (!_moreBtn) {
         _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_moreBtn setImage:[UIImage imageNamed:@"icon_+"] forState:UIControlStateNormal];
+        [_moreBtn addTarget:self action:@selector(didClickMore:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _moreBtn;
 }
@@ -191,7 +196,7 @@
         _inputTextView.delegate = self;
         _inputTextView.returnKeyType = UIReturnKeySend;
         _inputTextView.maxTextViewHeight = 60;
-        _inputTextView.layer.cornerRadius = 2.0f;
+        _inputTextView.layer.cornerRadius = 4.0f;
         _inputTextView.layer.borderColor = UIColorFromRGB(0xcccccc).CGColor;
         _inputTextView.layer.borderWidth = 0.5;
         [_inputTextView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];

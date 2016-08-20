@@ -18,7 +18,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.bubbleImageView addSubview:self.photoImageView];
         [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_offset(UIEdgeInsetsMake(5, 5, 5, 5));
+            make.edges.equalTo(self.bubbleImageView);
         }];
     }
     return self;
@@ -26,13 +26,22 @@
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
     [super updateMessage:message showDate:showDate];
     RCImageMessage *imgMessage = (RCImageMessage *)message.content;
-    [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:imgMessage.imageUrl]];
+    self.photoImageView.image = imgMessage.thumbnailImage;    
 }
 -(UIImageView *)photoImageView{
     if (!_photoImageView) {
         _photoImageView = [[UIImageView alloc] init];
-        _photoImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _photoImageView;
+}
+- (void)makeMaskView:(UIView *)view withImage:(UIImage *)image{
+    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:image];
+    imageViewMask.frame = CGRectInset(view.frame, 0.0f, 0.0f);
+    view.layer.mask = imageViewMask.layer;
+}
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    [self makeMaskView:self.photoImageView withImage:self.bubbleImageView.image];
 }
 @end
