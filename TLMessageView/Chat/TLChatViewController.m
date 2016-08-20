@@ -191,6 +191,10 @@
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
     }];
+    
+    if (show) {
+        [self chatTableViewScrollToBottomWithoffsetY:240];
+    }
 }
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
@@ -205,15 +209,8 @@
         [self.view layoutIfNeeded];
     }];
     CGFloat offsetY = self.chatTableView.contentSize.height - self.chatTableView.bounds.size.height + keyboardRect.size.height;
-    if (offsetY > 0) {
-        [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
-    }
     
-    if (self.messages.count) {
-        [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    }
-    
-    [self.chatTableView addGestureRecognizer:self.touchTap];
+    [self chatTableViewScrollToBottomWithoffsetY:offsetY];
 }
 - (void)keyboardWillHide:(NSNotification *)sender{
     NSDictionary *userInfo = [sender userInfo];
@@ -226,10 +223,23 @@
         [self.view layoutIfNeeded];
         [self.chatTableView endUpdates];
     }];
-    [self.chatTableView removeGestureRecognizer:self.touchTap];
 }
 - (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
     [self.inputView resignInputTextViewFirstResponder];
+    [self showPluginBoard:NO];
+    
+    [self.chatTableView removeGestureRecognizer:self.touchTap];
+}
+- (void)chatTableViewScrollToBottomWithoffsetY:(CGFloat)offsetY{
+    if (offsetY > 0) {
+        [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+    }
+    
+    if (self.messages.count) {
+        [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    
+    [self.chatTableView addGestureRecognizer:self.touchTap];
 }
 
 #pragma - mark getter

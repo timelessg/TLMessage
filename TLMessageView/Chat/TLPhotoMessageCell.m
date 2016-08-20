@@ -17,6 +17,11 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.bubbleImageView addSubview:self.photoImageView];
+        
+        [self.bubbleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_offset(CGSizeMake(100, 100));
+        }];
+        
         [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.bubbleImageView);
         }];
@@ -26,7 +31,7 @@
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
     [super updateMessage:message showDate:showDate];
     RCImageMessage *imgMessage = (RCImageMessage *)message.content;
-    self.photoImageView.image = imgMessage.thumbnailImage;    
+    self.photoImageView.image = imgMessage.thumbnailImage;
 }
 -(UIImageView *)photoImageView{
     if (!_photoImageView) {
@@ -35,13 +40,10 @@
     }
     return _photoImageView;
 }
-- (void)makeMaskView:(UIView *)view withImage:(UIImage *)image{
-    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:image];
-    imageViewMask.frame = CGRectInset(view.frame, 0.0f, 0.0f);
-    view.layer.mask = imageViewMask.layer;
-}
 -(void)layoutSubviews{
     [super layoutSubviews];
-    [self makeMaskView:self.photoImageView withImage:self.bubbleImageView.image];
+    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:self.bubbleImageView.image];
+    imageViewMask.frame = self.photoImageView.bounds;
+    self.photoImageView.layer.mask = imageViewMask.layer;
 }
 @end
