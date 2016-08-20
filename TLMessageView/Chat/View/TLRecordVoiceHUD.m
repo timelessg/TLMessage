@@ -55,6 +55,9 @@
             break;
         }
     }
+    if (!value) {
+        return;
+    }
     
     hud.recordTipImage.image = [UIImage imageNamed:value];
 }
