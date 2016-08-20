@@ -73,6 +73,8 @@
             SMAS(make.left.equalTo(self.bubbleImageView.mas_left).offset(10));
         }
     }];
+    
+    self.voiceDurationLabel.textColor = direction == MessageDirection_RECEIVE ? UIColorFromRGB(0xa2a2a2) : UIColorFromRGB(0x4182b5);
 }
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
     [super updateMessage:message showDate:showDate];

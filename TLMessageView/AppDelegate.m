@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TLChatViewController.h"
+#import "TLRCManager.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +25,8 @@
     
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
+    
+    [[TLRCManager shareManager] initEnv];
     
     return YES;
 }

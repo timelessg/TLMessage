@@ -15,8 +15,9 @@
 #import "TLVoiceMessageCell.h"
 #import "TLChatInputView.h"
 #import "TLPluginBoardView.h"
+#import "TLRCManager.h"
 
-@interface TLChatViewController () <UITableViewDelegate,UITableViewDataSource,TLPluginBoardViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface TLChatViewController () <UITableViewDelegate,UITableViewDataSource,TLPluginBoardViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,TLRCManagerDelegate>
 @property(nonatomic,strong)UITableView *chatTableView;
 @property(nonatomic,strong)TLChatInputView *inputView;
 @property(nonatomic,strong)TLPluginBoardView *pluginBoard;
@@ -28,6 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[TLRCManager shareManager] connectWithToken:@"jqAhQVLtdDAJsN+nYuGMg+SZkEN9cVfzRVKTg8tY0IOhDwJ1Cn3qxdbPXWTk4XVCfZLmci9yJ2QWgjEOhUtgXg=="];
+    [TLRCManager shareManager].delegate = self;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -83,11 +87,23 @@
 }
 
 #pragma - mark tableviewDelegate
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RCMessage *msg = self.messages[indexPath.row];
     RCMessage *lastMsg = [self lasetMsgWithIndex:indexPath.row];
     
     TLMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierWithMsg:msg]];
+    
+    weakifySelf;
+    cell.reSendAction = ^(RCMessage *msg){
+        strongifySelf;
+        msg.sentStatus = SentStatus_SENDING;
+        [self retrySendMessage:msg];
+    };
+    
+    cell.clickAvatar = ^(RCMessageDirection msgDirection){
+        
+    };
     
     [cell updateMessage:msg showDate:(msg.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
     
@@ -144,6 +160,8 @@
             break;
     }
 }
+
+#pragma - mark UIImagePickerControllerDelegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     [self dismissViewControllerAnimated:YES completion:^{
@@ -155,27 +173,41 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma - mark RCManagerDelegate
+
+-(void)rcManagerReceiveMsg:(RCMessage *)msg{
+    msg.sentStatus = SentStatus_RECEIVED;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self insertMessage:msg];
+    });
+}
+
 #pragma - mark private
 -(void)sendMessage:(id)message{
     RCMessage *msg = [[RCMessage alloc] initWithType:ConversationType_PRIVATE targetId:@"111" direction:MessageDirection_SEND messageId:0 content:message];
     msg.sentStatus = SentStatus_SENDING;
     msg.receivedStatus = ReceivedStatus_READ;
     [self insertMessage:msg];
+    [self retrySendMessage:msg];
 }
 - (void)insertMessage:(RCMessage *)message{
     [self.messages addObject:message];
     [self.chatTableView insertRowsAtIndexPaths:@[[self lastMessageIndexPath]] withRowAnimation:UITableViewRowAnimationBottom];
     [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
--(NSIndexPath *)lastMessageIndexPath{
-    return [NSIndexPath indexPathForItem:self.messages.count - 1 inSection:0];
-}
--(RCMessage *)lasetMsgWithIndex:(NSInteger)index{
-    return index > 0 ? self.messages[index - 1] : nil;
-}
--(NSString *)cellIdentifierWithMsg:(RCMessage *)msg{
-    NSDictionary *dic = @{@"RCTextMessage":@"textcell",@"RCVoiceMessage":@"voicecell",@"RCImageMessage":@"photocell"};
-    return  dic[NSStringFromClass([msg.content class])];
+- (void)retrySendMessage:(RCMessage *)message{
+    __block NSInteger index = [self.messages indexOfObject:message];
+    __block TLMessageCell *cell = [self.chatTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    RCMessage *lastMsg = [self lasetMsgWithIndex:index];
+    [cell updateMessage:message showDate:(message.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
+    [[TLRCManager shareManager] sendMessage:message successBlock:^(){
+        message.sentStatus = SentStatus_SENT;
+        [cell updateMessage:message showDate:(message.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
+    } failedBlock:^{
+        message.sentStatus = SentStatus_FAILED;
+        [cell updateMessage:message showDate:(message.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
+    }];
 }
 -(void)showPluginBoard:(BOOL)show{
     self.pluginBoard.show = show;
@@ -196,6 +228,34 @@
         [self chatTableViewScrollToBottomWithoffsetY:240];
     }
 }
+- (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
+    [self.inputView resignInputTextViewFirstResponder];
+    [self showPluginBoard:NO];
+    
+    [self.chatTableView removeGestureRecognizer:self.touchTap];
+}
+- (void)chatTableViewScrollToBottomWithoffsetY:(CGFloat)offsetY{
+    if (offsetY > 0) {
+        [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+    }
+    
+    if (self.messages.count) {
+        [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    
+    [self.chatTableView addGestureRecognizer:self.touchTap];
+}
+-(NSIndexPath *)lastMessageIndexPath{
+    return [NSIndexPath indexPathForItem:self.messages.count - 1 inSection:0];
+}
+-(RCMessage *)lasetMsgWithIndex:(NSInteger)index{
+    return index > 0 ? self.messages[index - 1] : nil;
+}
+-(NSString *)cellIdentifierWithMsg:(RCMessage *)msg{
+    NSDictionary *dic = @{@"RCTextMessage":@"textcell",@"RCVoiceMessage":@"voicecell",@"RCImageMessage":@"photocell"};
+    return  dic[NSStringFromClass([msg.content class])];
+}
+
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
     [self showPluginBoard:NO];
@@ -223,23 +283,6 @@
         [self.view layoutIfNeeded];
         [self.chatTableView endUpdates];
     }];
-}
-- (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
-    [self.inputView resignInputTextViewFirstResponder];
-    [self showPluginBoard:NO];
-    
-    [self.chatTableView removeGestureRecognizer:self.touchTap];
-}
-- (void)chatTableViewScrollToBottomWithoffsetY:(CGFloat)offsetY{
-    if (offsetY > 0) {
-        [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
-    }
-    
-    if (self.messages.count) {
-        [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    }
-    
-    [self.chatTableView addGestureRecognizer:self.touchTap];
 }
 
 #pragma - mark getter

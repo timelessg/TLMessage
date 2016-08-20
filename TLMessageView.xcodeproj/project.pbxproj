@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
+		6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C9991D686F46001FB89A /* TLRCManager.m */; };
 		65485FEA1D65855700C5D48B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FE91D65855700C5D48B /* main.m */; };
 		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
 		65485FF51D65855700C5D48B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF41D65855700C5D48B /* Assets.xcassets */; };
@@ -47,10 +48,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6529C9981D686F46001FB89A /* TLRCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLRCManager.h; sourceTree = "<group>"; };
+		6529C9991D686F46001FB89A /* TLRCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRCManager.m; sourceTree = "<group>"; };
 		65485FE51D65855700C5D48B /* TLMessageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLMessageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65485FE91D65855700C5D48B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		65485FEC1D65855700C5D48B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
+		65485FEC1D65855700C5D48B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
 		65485FF41D65855700C5D48B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65485FF71D65855700C5D48B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65485FF91D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,8 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				6548601B1D65857C00C5D48B /* Chat */,
-				65485FEB1D65855700C5D48B /* AppDelegate.h */,
-				65485FEC1D65855700C5D48B /* AppDelegate.m */,
 				654860221D65867100C5D48B /* TLProjectMacro.h */,
 				65485FF41D65855700C5D48B /* Assets.xcassets */,
 				65485FF61D65855700C5D48B /* LaunchScreen.storyboard */,
@@ -193,6 +194,8 @@
 		6548601B1D65857C00C5D48B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				65485FEB1D65855700C5D48B /* AppDelegate.h */,
+				65485FEC1D65855700C5D48B /* AppDelegate.m */,
 				659A76321D6868B300329C83 /* View */,
 				659A762E1D6868A700329C83 /* Controller */,
 				659A76111D68669B00329C83 /* Vendor */,
@@ -227,6 +230,8 @@
 				659A76271D68689000329C83 /* TLRecordVoice.m */,
 				659A76281D68689000329C83 /* TLVoicePlayer.h */,
 				659A76291D68689000329C83 /* TLVoicePlayer.m */,
+				6529C9981D686F46001FB89A /* TLRCManager.h */,
+				6529C9991D686F46001FB89A /* TLRCManager.m */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -451,6 +456,7 @@
 				65485FED1D65855700C5D48B /* AppDelegate.m in Sources */,
 				659A76041D68660400329C83 /* TLPhotoMessageCell.m in Sources */,
 				659A762D1D68689000329C83 /* TLVoicePlayer.m in Sources */,
+				6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */,
 				659A76051D68660400329C83 /* TLTextMessageCell.m in Sources */,
 				659A763B1D6868B300329C83 /* TLChatEmojiBoard.m in Sources */,
 				659A763E1D6868B300329C83 /* TLRecordVoiceHUD.m in Sources */,

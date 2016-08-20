@@ -25,6 +25,10 @@
 @property(nonatomic,strong)UILabel *dateTimeLabel;
 
 @property(nonatomic,strong)RCMessage *message;
+
+@property(nonatomic, copy)void(^reSendAction)(RCMessage *message);
+@property(nonatomic,strong)void(^clickAvatar)(RCMessageDirection msgDirection);
+
 -(void)updateDirection:(RCMessageDirection)direction;
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate;
 @end

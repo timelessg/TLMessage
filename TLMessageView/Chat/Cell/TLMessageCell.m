@@ -127,6 +127,22 @@
     [self updateDirection:message.messageDirection];
     [self updateDate:message.sentTime showDate:showDate];
     self.message = message;
+    self.msgStatus = message.sentStatus;
+}
+-(void)setMsgStatus:(RCSentStatus)msgStatus{
+    self.message.sentStatus = msgStatus;
+    if (msgStatus == SentStatus_SENT) {
+        self.retryBtn.hidden = YES;
+        self.activityIndicator.hidden = YES;
+    }
+    self.retryBtn.hidden = msgStatus != SentStatus_FAILED;
+    if (msgStatus == SentStatus_SENDING) {
+        [self.activityIndicator startAnimating];
+        self.activityIndicator.hidden = NO;
+    }else{
+        [self.activityIndicator stopAnimating];
+        self.activityIndicator.hidden = YES;
+    }
 }
 -(void)removeAllConstraints{
     for (MASConstraint *constraint in self.constraints) {
