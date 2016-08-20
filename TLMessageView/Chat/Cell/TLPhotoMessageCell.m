@@ -15,11 +15,14 @@
 
 @implementation TLPhotoMessageCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {        
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self.bubbleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_offset(CGSizeMake(100, 100)).priorityHigh(1);
+        }];
+        
         [self.bubbleImageView addSubview:self.photoImageView];
         [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.bubbleImageView);
-            make.size.mas_offset(CGSizeMake(100, 100));
         }];
     }
     return self;
@@ -38,6 +41,7 @@
         _photoImageView = [[UIImageView alloc] init];
         _photoImageView.layer.masksToBounds = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [_photoImageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     }
     return _photoImageView;
 }
