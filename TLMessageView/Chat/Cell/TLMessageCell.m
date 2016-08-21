@@ -61,9 +61,11 @@
             make.centerY.equalTo(self.statusView.mas_centerY).offset(0);
             make.centerX.equalTo(self.statusView.mas_centerX).offset(0);
         }];
-
     }
     return self;
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    self.msgStatus = self.message.sentStatus;
 }
 -(void)updateDirection:(RCMessageDirection)direction{
     [self removeAllConstraints];
@@ -127,10 +129,9 @@
     [self updateDirection:message.messageDirection];
     [self updateDate:message.sentTime showDate:showDate];
     self.message = message;
-    self.msgStatus = message.sentStatus;
+    self.msgStatus = message.sentStatus;    
 }
 -(void)setMsgStatus:(RCSentStatus)msgStatus{
-    self.message.sentStatus = msgStatus;
     if (msgStatus == SentStatus_SENT) {
         self.retryBtn.hidden = YES;
         self.activityIndicator.hidden = YES;

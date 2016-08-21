@@ -18,7 +18,7 @@
 >
 >2·支持发送状态提示，失败后可点击重发
 >
->3·布局完全使用Masonry（Masonry）
+>3·布局完全使用Masonry（AutoLayout）
 >
 >4·支持扩展面板扩展
 >
@@ -33,6 +33,8 @@
 >
 >SDWebImage 只是用了UIImageView + WebCache
 
+##使用说明
+>克隆项目后，需要使用Cocoapods updte/install
 
 ##截图
 

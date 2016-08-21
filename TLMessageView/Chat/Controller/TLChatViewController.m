@@ -120,7 +120,14 @@
     }];
     return height;
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    RCMessage *msg = self.messages[indexPath.row];
+    [msg addObserver:cell forKeyPath:@"sentStatus" options:NSKeyValueObservingOptionNew context:nil];
+}
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    RCMessage *msg = self.messages[indexPath.row];
+    [msg removeObserver:cell forKeyPath:@"sentStatus"];
+}
 #pragma - mark pluginBoardViewDelegate
 
 -(NSArray *)pluginBoardItems{
@@ -197,16 +204,10 @@
     [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 - (void)retrySendMessage:(RCMessage *)message{
-    __block NSInteger index = [self.messages indexOfObject:message];
-    __block TLMessageCell *cell = [self.chatTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    RCMessage *lastMsg = [self lasetMsgWithIndex:index];
-    [cell updateMessage:message showDate:(message.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
     [[TLRCManager shareManager] sendMessage:message successBlock:^(){
         message.sentStatus = SentStatus_SENT;
-        [cell updateMessage:message showDate:(message.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
     } failedBlock:^{
         message.sentStatus = SentStatus_FAILED;
-        [cell updateMessage:message showDate:(message.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
     }];
 }
 -(void)showPluginBoard:(BOOL)show{
