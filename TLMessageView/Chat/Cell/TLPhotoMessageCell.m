@@ -35,8 +35,15 @@
 -(void)didClickImage{
     RCImageMessage *imgMessage = (RCImageMessage *)self.message.content;
     
-    [TLPhotoBrowser showOriginalImage:imgMessage.originalImage];
+    if (imgMessage.originalImage) {
+        [TLPhotoBrowser showOriginalImage:imgMessage.originalImage];
+    }else{
+        [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:imgMessage.imageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [TLPhotoBrowser showOriginalImage:image];
+        }];
+    }
 }
+
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
     [super updateMessage:message showDate:showDate];
     RCImageMessage *imgMessage = (RCImageMessage *)message.content;
