@@ -8,6 +8,7 @@
 
 #import "TLPhotoMessageCell.h"
 #import <UIImageView+WebCache.h>
+#import "TLPhotoBrowser.h"
 
 @interface TLPhotoMessageCell ()
 @property(nonatomic,strong)UIImageView *photoImageView;
@@ -24,8 +25,17 @@
         [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.bubbleImageView);
         }];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickImage)];
+        [self.photoImageView addGestureRecognizer:tap];
+        
     }
     return self;
+}
+-(void)didClickImage{
+    RCImageMessage *imgMessage = (RCImageMessage *)self.message.content;
+    
+    [TLPhotoBrowser showOriginalImage:imgMessage.originalImage];
 }
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
     [super updateMessage:message showDate:showDate];
@@ -40,6 +50,7 @@
     if (!_photoImageView) {
         _photoImageView = [[UIImageView alloc] init];
         _photoImageView.layer.masksToBounds = YES;
+        _photoImageView.userInteractionEnabled = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
         [_photoImageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     }

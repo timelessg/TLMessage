@@ -193,6 +193,7 @@
 -(UIImageView *)bubbleImageView{
     if (!_bubbleImageView) {
         _bubbleImageView = [[UIImageView alloc] init];
+        _bubbleImageView.userInteractionEnabled = YES;
     }
     return _bubbleImageView;
 }

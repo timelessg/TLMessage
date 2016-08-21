@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
 		6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C9991D686F46001FB89A /* TLRCManager.m */; };
+		6529C9A01D69AF3E001FB89A /* TLPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */; };
 		65485FEA1D65855700C5D48B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FE91D65855700C5D48B /* main.m */; };
 		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
 		65485FF51D65855700C5D48B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF41D65855700C5D48B /* Assets.xcassets */; };
 		65485FF81D65855700C5D48B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF61D65855700C5D48B /* LaunchScreen.storyboard */; };
-		654860031D65855700C5D48B /* TLMessageViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 654860021D65855700C5D48B /* TLMessageViewTests.m */; };
-		6548600E1D65855700C5D48B /* TLMessageViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6548600D1D65855700C5D48B /* TLMessageViewUITests.m */; };
 		659A76031D68660400329C83 /* TLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A75FC1D68660400329C83 /* TLMessageCell.m */; };
 		659A76041D68660400329C83 /* TLPhotoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A75FE1D68660400329C83 /* TLPhotoMessageCell.m */; };
 		659A76051D68660400329C83 /* TLTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A76001D68660400329C83 /* TLTextMessageCell.m */; };
@@ -30,26 +29,11 @@
 		659A763E1D6868B300329C83 /* TLRecordVoiceHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A763A1D6868B300329C83 /* TLRecordVoiceHUD.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		65485FFF1D65855700C5D48B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65485FDD1D65855700C5D48B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 65485FE41D65855700C5D48B;
-			remoteInfo = TLMessageView;
-		};
-		6548600A1D65855700C5D48B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65485FDD1D65855700C5D48B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 65485FE41D65855700C5D48B;
-			remoteInfo = TLMessageView;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		6529C9981D686F46001FB89A /* TLRCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLRCManager.h; sourceTree = "<group>"; };
 		6529C9991D686F46001FB89A /* TLRCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRCManager.m; sourceTree = "<group>"; };
+		6529C99E1D69AF3E001FB89A /* TLPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoBrowser.h; sourceTree = "<group>"; };
+		6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoBrowser.m; sourceTree = "<group>"; };
 		65485FE51D65855700C5D48B /* TLMessageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLMessageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65485FE91D65855700C5D48B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
@@ -57,12 +41,6 @@
 		65485FF41D65855700C5D48B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65485FF71D65855700C5D48B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65485FF91D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65485FFE1D65855700C5D48B /* TLMessageViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TLMessageViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		654860021D65855700C5D48B /* TLMessageViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLMessageViewTests.m; sourceTree = "<group>"; };
-		654860041D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		654860091D65855700C5D48B /* TLMessageViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TLMessageViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6548600D1D65855700C5D48B /* TLMessageViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLMessageViewUITests.m; sourceTree = "<group>"; };
-		6548600F1D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		654860221D65867100C5D48B /* TLProjectMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLProjectMacro.h; sourceTree = "<group>"; };
 		659A75FB1D68660400329C83 /* TLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMessageCell.h; sourceTree = "<group>"; };
 		659A75FC1D68660400329C83 /* TLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMessageCell.m; sourceTree = "<group>"; };
@@ -104,20 +82,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65485FFB1D65855700C5D48B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654860061D65855700C5D48B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -134,8 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				65485FE71D65855700C5D48B /* TLMessageView */,
-				654860011D65855700C5D48B /* TLMessageViewTests */,
-				6548600C1D65855700C5D48B /* TLMessageViewUITests */,
 				65485FE61D65855700C5D48B /* Products */,
 				33DFF2A66EB7AB4EA5723794 /* Pods */,
 				66BC6806D7F92D743898AEB3 /* Frameworks */,
@@ -146,8 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				65485FE51D65855700C5D48B /* TLMessageView.app */,
-				65485FFE1D65855700C5D48B /* TLMessageViewTests.xctest */,
-				654860091D65855700C5D48B /* TLMessageViewUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,24 +131,6 @@
 				65485FE91D65855700C5D48B /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		654860011D65855700C5D48B /* TLMessageViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				654860021D65855700C5D48B /* TLMessageViewTests.m */,
-				654860041D65855700C5D48B /* Info.plist */,
-			);
-			path = TLMessageViewTests;
-			sourceTree = "<group>";
-		};
-		6548600C1D65855700C5D48B /* TLMessageViewUITests */ = {
-			isa = PBXGroup;
-			children = (
-				6548600D1D65855700C5D48B /* TLMessageViewUITests.m */,
-				6548600F1D65855700C5D48B /* Info.plist */,
-			);
-			path = TLMessageViewUITests;
 			sourceTree = "<group>";
 		};
 		6548601B1D65857C00C5D48B /* Chat */ = {
@@ -256,6 +198,8 @@
 				659A76381D6868B300329C83 /* TLPluginBoardView.m */,
 				659A76391D6868B300329C83 /* TLRecordVoiceHUD.h */,
 				659A763A1D6868B300329C83 /* TLRecordVoiceHUD.m */,
+				6529C99E1D69AF3E001FB89A /* TLPhotoBrowser.h */,
+				6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -291,42 +235,6 @@
 			productReference = 65485FE51D65855700C5D48B /* TLMessageView.app */;
 			productType = "com.apple.product-type.application";
 		};
-		65485FFD1D65855700C5D48B /* TLMessageViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 654860151D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewTests" */;
-			buildPhases = (
-				65485FFA1D65855700C5D48B /* Sources */,
-				65485FFB1D65855700C5D48B /* Frameworks */,
-				65485FFC1D65855700C5D48B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				654860001D65855700C5D48B /* PBXTargetDependency */,
-			);
-			name = TLMessageViewTests;
-			productName = TLMessageViewTests;
-			productReference = 65485FFE1D65855700C5D48B /* TLMessageViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		654860081D65855700C5D48B /* TLMessageViewUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 654860181D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewUITests" */;
-			buildPhases = (
-				654860051D65855700C5D48B /* Sources */,
-				654860061D65855700C5D48B /* Frameworks */,
-				654860071D65855700C5D48B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6548600B1D65855700C5D48B /* PBXTargetDependency */,
-			);
-			name = TLMessageViewUITests;
-			productName = TLMessageViewUITests;
-			productReference = 654860091D65855700C5D48B /* TLMessageViewUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -338,14 +246,6 @@
 				TargetAttributes = {
 					65485FE41D65855700C5D48B = {
 						CreatedOnToolsVersion = 7.3.1;
-					};
-					65485FFD1D65855700C5D48B = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 65485FE41D65855700C5D48B;
-					};
-					654860081D65855700C5D48B = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 65485FE41D65855700C5D48B;
 					};
 				};
 			};
@@ -363,8 +263,6 @@
 			projectRoot = "";
 			targets = (
 				65485FE41D65855700C5D48B /* TLMessageView */,
-				65485FFD1D65855700C5D48B /* TLMessageViewTests */,
-				654860081D65855700C5D48B /* TLMessageViewUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -376,20 +274,6 @@
 			files = (
 				65485FF81D65855700C5D48B /* LaunchScreen.storyboard in Resources */,
 				65485FF51D65855700C5D48B /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65485FFC1D65855700C5D48B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654860071D65855700C5D48B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6529C9A01D69AF3E001FB89A /* TLPhotoBrowser.m in Sources */,
 				659A76161D68669B00329C83 /* LPlaceholderTextView.m in Sources */,
 				659A76031D68660400329C83 /* TLMessageCell.m in Sources */,
 				659A76171D68669B00329C83 /* NSDate+Utils.m in Sources */,
@@ -467,36 +352,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65485FFA1D65855700C5D48B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				654860031D65855700C5D48B /* TLMessageViewTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		654860051D65855700C5D48B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6548600E1D65855700C5D48B /* TLMessageViewUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		654860001D65855700C5D48B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 65485FE41D65855700C5D48B /* TLMessageView */;
-			targetProxy = 65485FFF1D65855700C5D48B /* PBXContainerItemProxy */;
-		};
-		6548600B1D65855700C5D48B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 65485FE41D65855700C5D48B /* TLMessageView */;
-			targetProxy = 6548600A1D65855700C5D48B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		65485FF61D65855700C5D48B /* LaunchScreen.storyboard */ = {
@@ -622,52 +478,6 @@
 			};
 			name = Release;
 		};
-		654860161D65855700C5D48B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = TLMessageViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TLMessageView.app/TLMessageView";
-			};
-			name = Debug;
-		};
-		654860171D65855700C5D48B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = TLMessageViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TLMessageView.app/TLMessageView";
-			};
-			name = Release;
-		};
-		654860191D65855700C5D48B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = TLMessageViewUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = TLMessageView;
-			};
-			name = Debug;
-		};
-		6548601A1D65855700C5D48B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = TLMessageViewUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = aa.TLMessageViewUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = TLMessageView;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -685,24 +495,6 @@
 			buildConfigurations = (
 				654860131D65855700C5D48B /* Debug */,
 				654860141D65855700C5D48B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		654860151D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				654860161D65855700C5D48B /* Debug */,
-				654860171D65855700C5D48B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		654860181D65855700C5D48B /* Build configuration list for PBXNativeTarget "TLMessageViewUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				654860191D65855700C5D48B /* Debug */,
-				6548601A1D65855700C5D48B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
