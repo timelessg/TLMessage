@@ -14,7 +14,6 @@
 		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
 		65485FF51D65855700C5D48B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF41D65855700C5D48B /* Assets.xcassets */; };
 		65485FF81D65855700C5D48B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF61D65855700C5D48B /* LaunchScreen.storyboard */; };
-		6597B7CD1D6ACFFD003D7215 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6597B7CC1D6ACFFD003D7215 /* Reveal.framework */; };
 		6597B7D01D6AE52A003D7215 /* TLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6597B7CF1D6AE52A003D7215 /* TLButton.m */; };
 		659A76031D68660400329C83 /* TLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A75FC1D68660400329C83 /* TLMessageCell.m */; };
 		659A76041D68660400329C83 /* TLPhotoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A75FE1D68660400329C83 /* TLPhotoMessageCell.m */; };
@@ -44,7 +43,6 @@
 		65485FF71D65855700C5D48B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65485FF91D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		654860221D65867100C5D48B /* TLProjectMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLProjectMacro.h; sourceTree = "<group>"; };
-		6597B7CC1D6ACFFD003D7215 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		6597B7CE1D6AE52A003D7215 /* TLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLButton.h; sourceTree = "<group>"; };
 		6597B7CF1D6AE52A003D7215 /* TLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLButton.m; sourceTree = "<group>"; };
 		659A75FB1D68660400329C83 /* TLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMessageCell.h; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */,
-				6597B7CD1D6ACFFD003D7215 /* Reveal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +123,6 @@
 				65485FF41D65855700C5D48B /* Assets.xcassets */,
 				65485FF61D65855700C5D48B /* LaunchScreen.storyboard */,
 				65485FF91D65855700C5D48B /* Info.plist */,
-				6597B7CC1D6ACFFD003D7215 /* Reveal.framework */,
 				65485FE81D65855700C5D48B /* Supporting Files */,
 			);
 			path = TLMessageView;
