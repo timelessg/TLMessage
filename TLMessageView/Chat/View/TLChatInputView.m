@@ -104,14 +104,7 @@
     }];
 }
 -(void)backspace{
-    NSMutableString *text = [self.inputTextView.text mutableCopy];
-    if (text.length) {
-        [text deleteCharactersInRange:NSMakeRange(text.length - 2, 2)];
-    }
-    self.inputTextView.text = [text copy];
-    [self mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
-    }];
+    [self.inputTextView deleteBackward];
 }
 - (void)sendMessage{
     NSString *text = self.inputTextView.text;
