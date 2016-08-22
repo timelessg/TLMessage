@@ -14,6 +14,8 @@
 		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
 		65485FF51D65855700C5D48B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF41D65855700C5D48B /* Assets.xcassets */; };
 		65485FF81D65855700C5D48B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF61D65855700C5D48B /* LaunchScreen.storyboard */; };
+		6597B7CD1D6ACFFD003D7215 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6597B7CC1D6ACFFD003D7215 /* Reveal.framework */; };
+		6597B7D01D6AE52A003D7215 /* TLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6597B7CF1D6AE52A003D7215 /* TLButton.m */; };
 		659A76031D68660400329C83 /* TLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A75FC1D68660400329C83 /* TLMessageCell.m */; };
 		659A76041D68660400329C83 /* TLPhotoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A75FE1D68660400329C83 /* TLPhotoMessageCell.m */; };
 		659A76051D68660400329C83 /* TLTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A76001D68660400329C83 /* TLTextMessageCell.m */; };
@@ -42,6 +44,9 @@
 		65485FF71D65855700C5D48B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65485FF91D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		654860221D65867100C5D48B /* TLProjectMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLProjectMacro.h; sourceTree = "<group>"; };
+		6597B7CC1D6ACFFD003D7215 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		6597B7CE1D6AE52A003D7215 /* TLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLButton.h; sourceTree = "<group>"; };
+		6597B7CF1D6AE52A003D7215 /* TLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLButton.m; sourceTree = "<group>"; };
 		659A75FB1D68660400329C83 /* TLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMessageCell.h; sourceTree = "<group>"; };
 		659A75FC1D68660400329C83 /* TLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMessageCell.m; sourceTree = "<group>"; };
 		659A75FD1D68660400329C83 /* TLPhotoMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoMessageCell.h; sourceTree = "<group>"; };
@@ -79,6 +84,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */,
+				6597B7CD1D6ACFFD003D7215 /* Reveal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +126,7 @@
 				65485FF41D65855700C5D48B /* Assets.xcassets */,
 				65485FF61D65855700C5D48B /* LaunchScreen.storyboard */,
 				65485FF91D65855700C5D48B /* Info.plist */,
+				6597B7CC1D6ACFFD003D7215 /* Reveal.framework */,
 				65485FE81D65855700C5D48B /* Supporting Files */,
 			);
 			path = TLMessageView;
@@ -190,16 +197,18 @@
 		659A76321D6868B300329C83 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				659A76331D6868B300329C83 /* TLChatEmojiBoard.h */,
-				659A76341D6868B300329C83 /* TLChatEmojiBoard.m */,
 				659A76351D6868B300329C83 /* TLChatInputView.h */,
 				659A76361D6868B300329C83 /* TLChatInputView.m */,
 				659A76371D6868B300329C83 /* TLPluginBoardView.h */,
 				659A76381D6868B300329C83 /* TLPluginBoardView.m */,
+				659A76331D6868B300329C83 /* TLChatEmojiBoard.h */,
+				659A76341D6868B300329C83 /* TLChatEmojiBoard.m */,
 				659A76391D6868B300329C83 /* TLRecordVoiceHUD.h */,
 				659A763A1D6868B300329C83 /* TLRecordVoiceHUD.m */,
 				6529C99E1D69AF3E001FB89A /* TLPhotoBrowser.h */,
 				6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */,
+				6597B7CE1D6AE52A003D7215 /* TLButton.h */,
+				6597B7CF1D6AE52A003D7215 /* TLButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -339,6 +348,7 @@
 				659A762C1D68689000329C83 /* TLRecordVoice.m in Sources */,
 				659A76061D68660400329C83 /* TLVoiceMessageCell.m in Sources */,
 				65485FED1D65855700C5D48B /* AppDelegate.m in Sources */,
+				6597B7D01D6AE52A003D7215 /* TLButton.m in Sources */,
 				659A76041D68660400329C83 /* TLPhotoMessageCell.m in Sources */,
 				659A762D1D68689000329C83 /* TLVoicePlayer.m in Sources */,
 				6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */,

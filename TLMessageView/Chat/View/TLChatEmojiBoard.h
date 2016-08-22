@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TLChatEmojiBoard : UIView
+@protocol TLChatEmojiBoardDelegate <NSObject>
+-(void)chatEmojiBoarDidSelectEmoji:(NSString *)emoji;
+-(void)chatEmojiBoarDidClickBackspace;
+-(void)chatEmojiBoarDidClickSend;
+@end
 
+@interface TLChatEmojiBoard : UIView
+@property(nonatomic,assign)BOOL show;
+@property(nonatomic,assign)id <TLChatEmojiBoardDelegate> delegate;
 @end

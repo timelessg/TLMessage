@@ -12,6 +12,7 @@
 
 @interface TLPluginBoardView ()
 @property(nonatomic,strong)NSMutableArray *btns;
+@property(nonatomic,strong)UIView *line;
 @end
 
 @implementation TLPluginBoardView
@@ -19,7 +20,7 @@
 -(instancetype)initWithDelegate:(id<TLPluginBoardViewDelegate>)delegate{
     if (self = [super init]) {
         self.delegate = delegate;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = UIColorFromRGB(0xF8F8F8);
         self.btns = [NSMutableArray array];
         NSArray *items = [self.delegate pluginBoardItems];
         for (int i = 0; i < items.count; i ++ ) {
@@ -29,6 +30,14 @@
             [self.btns addObject:btn];
             [btn addTarget:self action:@selector(didClickItem:) forControlEvents:UIControlEventTouchUpInside];
         }
+        
+        [self addSubview:self.line];
+        [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.mas_left).offset(0);
+            make.right.equalTo(self.mas_right).offset(0);
+            make.top.equalTo(self.mas_top).offset(0);
+            make.height.mas_offset(@0.5);
+        }];
     }
     return self;
 }
@@ -53,6 +62,13 @@
         }];
     }
 }
+-(UIView *)line{
+    if (!_line) {
+        _line = [[UIView alloc] init];
+        _line.backgroundColor = UIColorFromRGB(0xcccccc);
+    }
+    return _line;
+}
 @end
 
 @implementation TLPluginBoardItem
@@ -70,9 +86,9 @@
     if (self = [super init]) {
         [self setImage:[UIImage imageNamed:item.icoNamed] forState:UIControlStateNormal];
         [self setTitle:item.title forState:UIControlStateNormal];
-        [self setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [self setTitleColor:UIColorFromRGB(0x6F7277) forState:UIControlStateNormal];
         self.backgroundColor = [UIColor clearColor];
-        self.titleLabel.font = [UIFont systemFontOfSize:14];
+        self.titleLabel.font = [UIFont systemFontOfSize:12];
         
     }
     return self;
@@ -81,7 +97,7 @@
     [super layoutSubviews];
     CGPoint center = self.imageView.center;
     center.x = self.frame.size.width / 2;
-    center.y = self.imageView.frame.size.height / 2;
+    center.y = self.imageView.frame.size.height / 2 + 5;
     self.imageView.center = center;
     
     CGRect newFrame = [self titleLabel].frame;

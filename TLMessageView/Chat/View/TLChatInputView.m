@@ -89,6 +89,30 @@
     
     return YES;
 }
+-(void)appendEmoji:(NSString *)emoji{
+    NSMutableString *text = [self.inputTextView.text mutableCopy];
+    [text appendString:emoji];
+    self.inputTextView.text = [text copy];
+    
+    if (text.length > 300) {
+        self.inputTextView.text = [text substringWithRange:NSMakeRange(0, 300)];
+    }else{
+        self.inputTextView.text = [text copy];
+    }
+    [self mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
+    }];
+}
+-(void)backspace{
+    NSMutableString *text = [self.inputTextView.text mutableCopy];
+    if (text.length) {
+        [text deleteCharactersInRange:NSMakeRange(text.length - 2, 2)];
+    }
+    self.inputTextView.text = [text copy];
+    [self mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
+    }];
+}
 - (void)sendMessage{
     NSString *text = self.inputTextView.text;
     if ([text isEqualToString:@""] || !text) {
@@ -106,8 +130,11 @@
     self.tapVoiceBtn.hidden = !sender.selected;
     sender.selected ? [self.inputTextView resignFirstResponder] : [self.inputTextView becomeFirstResponder];
 }
--(void)didClickMore:(UIButton *)sender{
+-(void)didClickMoreAcion:(UIButton *)sender{
     if (self.didClickPlugin) self.didClickPlugin();
+}
+-(void)didClickEmojiAction:(UIButton *)sender{
+    if (self.didClickEmoji) self.didClickEmoji();
 }
 -(void)resignInputTextViewFirstResponder{
     [self.inputTextView resignFirstResponder];
@@ -155,6 +182,7 @@
         _emojiKeyboardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_emojiKeyboardBtn setImage:[UIImage imageNamed:@"icon_xiaolian"] forState:UIControlStateNormal];
         [_emojiKeyboardBtn setImage:[UIImage imageNamed:@"icon_kyb"] forState:UIControlStateSelected];
+        [_emojiKeyboardBtn addTarget:self action:@selector(didClickEmojiAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _emojiKeyboardBtn;
 }
@@ -162,7 +190,7 @@
     if (!_moreBtn) {
         _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_moreBtn setImage:[UIImage imageNamed:@"icon_+"] forState:UIControlStateNormal];
-        [_moreBtn addTarget:self action:@selector(didClickMore:) forControlEvents:UIControlEventTouchUpInside];
+        [_moreBtn addTarget:self action:@selector(didClickMoreAcion:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _moreBtn;
 }

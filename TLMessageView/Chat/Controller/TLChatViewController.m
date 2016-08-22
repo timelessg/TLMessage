@@ -16,11 +16,22 @@
 #import "TLChatInputView.h"
 #import "TLPluginBoardView.h"
 #import "TLRCManager.h"
+#import "TLChatEmojiBoard.h"
 
-@interface TLChatViewController () <UITableViewDelegate,UITableViewDataSource,TLPluginBoardViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,TLRCManagerDelegate>
+static NSInteger BoardHeight = 223;
+
+@interface TLChatViewController ()
+<UITableViewDelegate,
+UITableViewDataSource,
+TLPluginBoardViewDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate,
+TLRCManagerDelegate,
+TLChatEmojiBoardDelegate>
 @property(nonatomic,strong)UITableView *chatTableView;
 @property(nonatomic,strong)TLChatInputView *inputView;
 @property(nonatomic,strong)TLPluginBoardView *pluginBoard;
+@property(nonatomic,strong)TLChatEmojiBoard *emojiBoard;
 @property(nonatomic,strong)NSMutableArray *messages;
 @property(nonatomic,strong)UITapGestureRecognizer *touchTap;
 @end
@@ -55,8 +66,16 @@
     [self.pluginBoard mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(0);
         make.right.equalTo(self.view.mas_right).offset(0);
-        make.bottom.equalTo(self.view.mas_bottom).offset(240);
-        make.height.mas_offset(@240);
+        make.bottom.equalTo(self.view.mas_bottom).offset(BoardHeight);
+        make.height.mas_offset(BoardHeight);
+    }];
+    
+    [self.view addSubview:self.emojiBoard];
+    [self.emojiBoard mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(0);
+        make.right.equalTo(self.view.mas_right).offset(0);
+        make.bottom.equalTo(self.view.mas_bottom).offset(BoardHeight);
+        make.height.mas_offset(BoardHeight);
     }];
     
     weakifySelf;
@@ -74,6 +93,12 @@
         strongifySelf;
         [self.inputView resignInputTextViewFirstResponder];
         [self showPluginBoard:!self.pluginBoard.show];
+    };
+    
+    self.inputView.didClickEmoji = ^(){
+        strongifySelf;
+        [self.inputView resignInputTextViewFirstResponder];
+        [self showEmojiBoard:!self.emojiBoard.show];
     };
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -168,6 +193,17 @@
     }
 }
 
+#pragma - mark emojiBoardViewDelegate
+-(void)chatEmojiBoarDidSelectEmoji:(NSString *)emoji{
+    [self.inputView appendEmoji:emoji];
+}
+-(void)chatEmojiBoarDidClickBackspace{
+    [self.inputView backspace];
+}
+-(void)chatEmojiBoarDidClickSend{
+    [self.inputView sendMessage];
+}
+
 #pragma - mark UIImagePickerControllerDelegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
@@ -213,25 +249,54 @@
 -(void)showPluginBoard:(BOOL)show{
     self.pluginBoard.show = show;
     
+    if (show) {
+        [self chatTableViewScrollToBottomWithoffsetY:BoardHeight];
+        [self showEmojiBoard:NO];
+    }
+    
     [self.pluginBoard mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : 240);
+        make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : BoardHeight);
     }];
     
     [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(show ? -240 : 0);
+        make.bottom.equalTo(self.view.mas_bottom).offset(show ? - BoardHeight : 0);
     }];
     
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
     }];
     
+}
+- (void)showEmojiBoard:(BOOL)show{
     if (show) {
-        [self chatTableViewScrollToBottomWithoffsetY:240];
+        [self chatTableViewScrollToBottomWithoffsetY:BoardHeight];
+        [self showPluginBoard:NO];
     }
+    
+    self.emojiBoard.show = show;
+    [self.emojiBoard mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : BoardHeight);
+    }];
+    
+    [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(show ? - BoardHeight : 0);
+    }];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
 }
 - (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
     [self.inputView resignInputTextViewFirstResponder];
-    [self showPluginBoard:NO];
+    
+    if (self.pluginBoard.show) {
+        [self showPluginBoard:NO];
+    }
+    
+    if (self.emojiBoard.show) {
+        [self showEmojiBoard:NO];
+    }
     
     [self.chatTableView removeGestureRecognizer:self.touchTap];
 }
@@ -259,7 +324,12 @@
 
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
-    [self showPluginBoard:NO];
+    if (self.pluginBoard.show) {
+        [self showPluginBoard:NO];
+    }
+    if (self.emojiBoard.show) {
+        [self showEmojiBoard:NO];
+    }
     NSDictionary *userInfo = [sender userInfo];
     CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -298,7 +368,7 @@
         _chatTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _chatTableView.delegate = self;
         _chatTableView.dataSource = self;
-        _chatTableView.backgroundColor = UIColorFromRGB(0xf5fbfb);
+        _chatTableView.backgroundColor = UIColorFromRGB(0xebebeb);
         _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _chatTableView.backgroundColor = UIColorFromRGB(0xf8f8f8);
         _chatTableView.separatorColor = UIColorFromRGB(0xeeeeee);
@@ -319,6 +389,13 @@
         _pluginBoard = [[TLPluginBoardView alloc] initWithDelegate:self];
     }
     return _pluginBoard;
+}
+-(TLChatEmojiBoard *)emojiBoard{
+    if (!_emojiBoard) {
+        _emojiBoard = [[TLChatEmojiBoard alloc] init];
+        _emojiBoard.delegate = self;
+    }
+    return _emojiBoard;
 }
 -(UITapGestureRecognizer *)touchTap{
     if (!_touchTap) {
