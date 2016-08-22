@@ -12,6 +12,7 @@
 @interface TLChatInputView : UIView
 @property(nonatomic,copy)void (^sendTextMsgAction)(RCTextMessage *x);
 @property(nonatomic,copy)void (^sendVoiceMsgAction)(RCVoiceMessage *x);
+@property(nonatomic,copy)void (^didClickVoiceKeybaord)(BOOL selected);
 @property(nonatomic,copy)void (^didClickPlugin)();
 @property(nonatomic,copy)void (^didClickEmoji)();
 -(void)resignInputTextViewFirstResponder;

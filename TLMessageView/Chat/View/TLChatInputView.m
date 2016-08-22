@@ -129,6 +129,7 @@
     sender.selected = !sender.selected;
     self.tapVoiceBtn.hidden = !sender.selected;
     sender.selected ? [self.inputTextView resignFirstResponder] : [self.inputTextView becomeFirstResponder];
+    if (self.didClickVoiceKeybaord) self.didClickVoiceKeybaord(sender.selected);
 }
 -(void)didClickMoreAcion:(UIButton *)sender{
     if (self.didClickPlugin) self.didClickPlugin();

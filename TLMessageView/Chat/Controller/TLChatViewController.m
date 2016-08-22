@@ -84,6 +84,13 @@ TLChatEmojiBoardDelegate>
         [self sendMessage:x];
     };
     
+    self.inputView.didClickVoiceKeybaord = ^(BOOL selected){
+        strongifySelf;
+        if (selected) {
+            [self hidePluginAndEmojiBoard];
+        }
+    };
+    
     self.inputView.sendVoiceMsgAction = ^(RCVoiceMessage *x){
         strongifySelf;
         [self sendMessage:x];
@@ -289,7 +296,11 @@ TLChatEmojiBoardDelegate>
 }
 - (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
     [self.inputView resignInputTextViewFirstResponder];
+    [self hidePluginAndEmojiBoard];
     
+    [self.chatTableView removeGestureRecognizer:self.touchTap];
+}
+- (void)hidePluginAndEmojiBoard{
     if (self.pluginBoard.show) {
         [self showPluginBoard:NO];
     }
@@ -297,8 +308,6 @@ TLChatEmojiBoardDelegate>
     if (self.emojiBoard.show) {
         [self showEmojiBoard:NO];
     }
-    
-    [self.chatTableView removeGestureRecognizer:self.touchTap];
 }
 - (void)chatTableViewScrollToBottomWithoffsetY:(CGFloat)offsetY{
     if (offsetY > 0) {
@@ -324,12 +333,7 @@ TLChatEmojiBoardDelegate>
 
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
-    if (self.pluginBoard.show) {
-        [self showPluginBoard:NO];
-    }
-    if (self.emojiBoard.show) {
-        [self showEmojiBoard:NO];
-    }
+    [self hidePluginAndEmojiBoard];
     NSDictionary *userInfo = [sender userInfo];
     CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];

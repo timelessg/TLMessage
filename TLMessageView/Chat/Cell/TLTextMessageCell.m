@@ -22,6 +22,16 @@
     }
     return self;
 }
+-(void)updateDirection:(RCMessageDirection)direction{
+    [super updateDirection:direction];
+    [self.messageLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        if (direction == MessageDirection_RECEIVE) {
+            make.edges.mas_offset(UIEdgeInsetsMake(10, 15, 10, 10));
+        }else{
+            make.edges.mas_offset(UIEdgeInsetsMake(10, 10, 10, 15));
+        }
+    }];
+}
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
     [super updateMessage:message showDate:showDate];
     
