@@ -19,6 +19,6 @@
 - (void)initEnv;
 - (void)connectWithToken:(NSString*)token;
 - (void)sendMessage:(RCMessage *)message
-        successBlock:(void(^)())successBlock
-         failedBlock:(void(^)())failedBlock;
+        successBlock:(void(^)(RCMessage *))successBlock
+         failedBlock:(void(^)(RCMessage *))failedBlock;
 @end

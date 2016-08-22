@@ -31,4 +31,5 @@
 
 -(void)updateDirection:(RCMessageDirection)direction;
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate;
+-(void)setMsgStatus:(RCSentStatus)msgStatus;
 @end

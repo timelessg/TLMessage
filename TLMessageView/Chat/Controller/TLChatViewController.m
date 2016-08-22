@@ -152,14 +152,6 @@ TLChatEmojiBoardDelegate>
     }];
     return height;
 }
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    RCMessage *msg = self.messages[indexPath.row];
-    [msg addObserver:cell forKeyPath:@"sentStatus" options:NSKeyValueObservingOptionNew context:nil];
-}
--(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    RCMessage *msg = self.messages[indexPath.row];
-    [msg removeObserver:cell forKeyPath:@"sentStatus"];
-}
 #pragma - mark pluginBoardViewDelegate
 
 -(NSArray *)pluginBoardItems{
@@ -244,14 +236,22 @@ TLChatEmojiBoardDelegate>
 - (void)insertMessage:(RCMessage *)message{
     [self.messages addObject:message];
     [self.chatTableView insertRowsAtIndexPaths:@[[self lastMessageIndexPath]] withRowAnimation:UITableViewRowAnimationBottom];
+    
     [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 - (void)retrySendMessage:(RCMessage *)message{
-    [[TLRCManager shareManager] sendMessage:message successBlock:^(){
-        message.sentStatus = SentStatus_SENT;
-    } failedBlock:^{
-        message.sentStatus = SentStatus_FAILED;
+    [[TLRCManager shareManager] sendMessage:message successBlock:^(RCMessage *x){
+        x.sentStatus = SentStatus_SENT;
+        [self updateCellStatusWithMsg:x];
+    } failedBlock:^(RCMessage *x){
+        x.sentStatus = SentStatus_FAILED;
+        [self updateCellStatusWithMsg:x];
     }];
+}
+-(void)updateCellStatusWithMsg:(RCMessage *)msg{
+    NSInteger index = [self.messages indexOfObject:msg];
+    TLMessageCell *cell = [self.chatTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [cell setMsgStatus:msg.sentStatus];
 }
 -(void)showPluginBoard:(BOOL)show{
     self.pluginBoard.show = show;

@@ -53,19 +53,19 @@ static NSString *RongCloundKey = @"y745wfm844a4v";
     }];
 }
 - (void) sendMessage:(RCMessage *)message
-        successBlock:(void(^)())successBlock
-         failedBlock:(void(^)())failedBlock
+        successBlock:(void(^)(RCMessage *))successBlock
+         failedBlock:(void(^)(RCMessage *))failedBlock
 {
     [[RCIMClient sharedRCIMClient] sendMessage:message.conversationType targetId:message.targetId content:message.content pushContent:nil pushData:nil success:^(long messageId) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (successBlock) {
-                successBlock();
+                successBlock(message);
             }
         });
     } error:^(RCErrorCode nErrorCode, long messageId) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (failedBlock) {
-                failedBlock();
+                failedBlock(message);
             }
         });
     }];

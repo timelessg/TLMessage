@@ -28,6 +28,8 @@
 		659A763C1D6868B300329C83 /* TLChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A76361D6868B300329C83 /* TLChatInputView.m */; };
 		659A763D1D6868B300329C83 /* TLPluginBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A76381D6868B300329C83 /* TLPluginBoardView.m */; };
 		659A763E1D6868B300329C83 /* TLRecordVoiceHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A763A1D6868B300329C83 /* TLRecordVoiceHUD.m */; };
+		65CCC97C1D6B01D400793B5F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CCC97B1D6B01D400793B5F /* LoginViewController.m */; };
+		65CCC97E1D6B027400793B5F /* account.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65CCC97D1D6B027400793B5F /* account.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,8 +39,8 @@
 		6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoBrowser.m; sourceTree = "<group>"; };
 		65485FE51D65855700C5D48B /* TLMessageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLMessageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65485FE91D65855700C5D48B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
-		65485FEC1D65855700C5D48B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
+		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		65485FEC1D65855700C5D48B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		65485FF41D65855700C5D48B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65485FF71D65855700C5D48B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65485FF91D65855700C5D48B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,6 +73,9 @@
 		659A76381D6868B300329C83 /* TLPluginBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPluginBoardView.m; sourceTree = "<group>"; };
 		659A76391D6868B300329C83 /* TLRecordVoiceHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLRecordVoiceHUD.h; sourceTree = "<group>"; };
 		659A763A1D6868B300329C83 /* TLRecordVoiceHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRecordVoiceHUD.m; sourceTree = "<group>"; };
+		65CCC97A1D6B01D400793B5F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		65CCC97B1D6B01D400793B5F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		65CCC97D1D6B027400793B5F /* account.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = account.plist; sourceTree = "<group>"; };
 		6F96D07CC0AB7C0FE3283500 /* Pods-TLMessageView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLMessageView.release.xcconfig"; path = "Pods/Target Support Files/Pods-TLMessageView/Pods-TLMessageView.release.xcconfig"; sourceTree = "<group>"; };
 		791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TLMessageView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBAD4FEC4CD361ADEA2B4EA9 /* Pods-TLMessageView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLMessageView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TLMessageView/Pods-TLMessageView.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +124,11 @@
 			isa = PBXGroup;
 			children = (
 				6548601B1D65857C00C5D48B /* Chat */,
+				65485FEB1D65855700C5D48B /* AppDelegate.h */,
+				65485FEC1D65855700C5D48B /* AppDelegate.m */,
+				65CCC97A1D6B01D400793B5F /* LoginViewController.h */,
+				65CCC97B1D6B01D400793B5F /* LoginViewController.m */,
+				65CCC97D1D6B027400793B5F /* account.plist */,
 				654860221D65867100C5D48B /* TLProjectMacro.h */,
 				65485FF41D65855700C5D48B /* Assets.xcassets */,
 				65485FF61D65855700C5D48B /* LaunchScreen.storyboard */,
@@ -139,8 +149,6 @@
 		6548601B1D65857C00C5D48B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				65485FEB1D65855700C5D48B /* AppDelegate.h */,
-				65485FEC1D65855700C5D48B /* AppDelegate.m */,
 				659A76321D6868B300329C83 /* View */,
 				659A762E1D6868A700329C83 /* Controller */,
 				659A76111D68669B00329C83 /* Vendor */,
@@ -277,6 +285,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65CCC97E1D6B027400793B5F /* account.plist in Resources */,
 				65485FF81D65855700C5D48B /* LaunchScreen.storyboard in Resources */,
 				65485FF51D65855700C5D48B /* Assets.xcassets in Resources */,
 			);
@@ -352,6 +361,7 @@
 				659A763B1D6868B300329C83 /* TLChatEmojiBoard.m in Sources */,
 				659A763E1D6868B300329C83 /* TLRecordVoiceHUD.m in Sources */,
 				659A76311D6868A700329C83 /* TLChatViewController.m in Sources */,
+				65CCC97C1D6B01D400793B5F /* LoginViewController.m in Sources */,
 				659A763C1D6868B300329C83 /* TLChatInputView.m in Sources */,
 				659A763D1D6868B300329C83 /* TLPluginBoardView.m in Sources */,
 				65485FEA1D65855700C5D48B /* main.m in Sources */,
