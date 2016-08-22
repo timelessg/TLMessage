@@ -36,7 +36,7 @@
 ##使用说明
 >克隆项目后，需要使用Cocoapods updte/install
 >
->部分素材来源于融云IMKit，请勿直接将TLMessage用于实际项目。
+>部分图片素材来源于融云IMKit，如需将TLMessage用于实际项目，请替换资源图片
 >
 
 ##截图

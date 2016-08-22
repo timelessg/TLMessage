@@ -255,10 +255,11 @@ TLChatEmojiBoardDelegate>
 }
 -(void)showPluginBoard:(BOOL)show{
     self.pluginBoard.show = show;
-    
     if (show) {
-        [self chatTableViewScrollToBottomWithoffsetY:BoardHeight];
-        [self showEmojiBoard:NO];
+        [self chatTableViewScrollToBottomWithoffsetY:642];
+        if (self.emojiBoard.show) {
+            [self showEmojiBoard:NO];
+        }
     }
     
     [self.pluginBoard mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -272,15 +273,15 @@ TLChatEmojiBoardDelegate>
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
     }];
-    
 }
 - (void)showEmojiBoard:(BOOL)show{
-    if (show) {
-        [self chatTableViewScrollToBottomWithoffsetY:BoardHeight];
-        [self showPluginBoard:NO];
-    }
-    
     self.emojiBoard.show = show;
+    if (show) {
+        [self chatTableViewScrollToBottomWithoffsetY:642];
+        if (self.pluginBoard.show) {
+            [self showPluginBoard:NO];
+        }
+    }
     [self.emojiBoard mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : BoardHeight);
     }];
@@ -292,7 +293,6 @@ TLChatEmojiBoardDelegate>
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
     }];
-    
 }
 - (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
     [self.inputView resignInputTextViewFirstResponder];

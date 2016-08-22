@@ -150,6 +150,9 @@
         [constraint uninstall];
     }
 }
+-(void)retryBtnAction{
+    if (self.reSendAction) self.reSendAction(self.message);
+}
 -(UILabel *)dateTimeLabel{
     if (!_dateTimeLabel) {
         _dateTimeLabel = [[UILabel alloc] init];
@@ -178,6 +181,7 @@
     if (!_retryBtn) {
         _retryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_retryBtn setImage:[UIImage imageNamed:@"news_failinsend"] forState:UIControlStateNormal];
+        [_retryBtn addTarget:self action:@selector(retryBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _retryBtn;
 }
