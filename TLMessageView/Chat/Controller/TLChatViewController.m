@@ -54,7 +54,7 @@ TLLocationViewControllerDelegate>
         make.left.equalTo(self.view.mas_left).offset(0);
         make.right.equalTo(self.view.mas_right).offset(0);
         make.bottom.equalTo(self.view.mas_bottom).offset(0);
-        make.height.mas_offset(@49);
+        make.height.mas_offset(@45);
     }];
     
     [self.view addSubview:self.chatTableView];

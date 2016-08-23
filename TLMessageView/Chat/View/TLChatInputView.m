@@ -20,7 +20,6 @@
 @property(nonatomic,strong)UIButton *moreBtn;
 @property(nonatomic,strong)UIButton *tapVoiceBtn;
 @property(nonatomic,strong)TLRecordVoice *recorder;
-
 @end
 
 @implementation TLChatInputView
@@ -94,11 +93,7 @@
     [text appendString:emoji];
     self.inputTextView.text = [text copy];
     
-    if (text.length > 300) {
-        self.inputTextView.text = [text substringWithRange:NSMakeRange(0, 300)];
-    }else{
-        self.inputTextView.text = [text copy];
-    }
+    self.inputTextView.text = text.length > 300 ? [text substringWithRange:NSMakeRange(0, 300)] : [text copy];
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
     }];
