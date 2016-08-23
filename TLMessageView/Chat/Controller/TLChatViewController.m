@@ -105,10 +105,14 @@ TLLocationViewControllerDelegate>
         [self showPluginBoard:!self.pluginBoard.show hideInput:YES];
     };
     
-    self.inputView.didClickEmoji = ^(){
+    self.inputView.didClickEmoji = ^(BOOL selected){
         strongifySelf;
-        [self.inputView resignInputTextViewFirstResponder];
         [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
+        if (selected) {
+            [self.inputView resignInputTextViewFirstResponder];
+        }else{
+            [self.inputView becomeInputTextViewFirstResponder];
+        }
     };
     
     [[NSNotificationCenter defaultCenter] addObserver:self

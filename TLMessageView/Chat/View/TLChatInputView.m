@@ -123,12 +123,15 @@
     if (self.didClickPlugin) self.didClickPlugin();
 }
 -(void)didClickEmojiAction:(UIButton *)sender{
-    if (self.didClickEmoji) self.didClickEmoji();
+    sender.selected = !sender.selected;
+    if (self.didClickEmoji) self.didClickEmoji(sender.selected);
 }
 -(void)resignInputTextViewFirstResponder{
     [self.inputTextView resignFirstResponder];
 }
-
+-(void)becomeInputTextViewFirstResponder{
+    [self.inputView becomeFirstResponder];
+}
 #pragma - mark tapVoiceBtnAction
 
 -(void)beginRecordVoice:(UIButton *)sender{

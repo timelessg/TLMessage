@@ -92,7 +92,6 @@ UITableViewDataSource>
     return self.dataSource.count;
 }
 #pragma mark – CLLocationManagerDelegate
-//成功回调
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation{
@@ -105,7 +104,6 @@ UITableViewDataSource>
 
     }
 }
-//失败回调
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error{
     
@@ -134,7 +132,6 @@ UITableViewDataSource>
 }
 -(MKMapView *)mapView{
     if (!_mapView) {
-        _mapView = [[MKMapView alloc] init];
         _mapView = [[MKMapView alloc] init];
         _mapView.mapType = MKMapTypeStandard;
         _mapView.showsUserLocation = YES;

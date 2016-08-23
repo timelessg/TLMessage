@@ -14,8 +14,9 @@
 @property(nonatomic,copy)void (^sendVoiceMsgAction)(RCVoiceMessage *x);
 @property(nonatomic,copy)void (^didClickVoiceKeybaord)(BOOL selected);
 @property(nonatomic,copy)void (^didClickPlugin)();
-@property(nonatomic,copy)void (^didClickEmoji)();
+@property(nonatomic,copy)void (^didClickEmoji)(BOOL selected);
 -(void)resignInputTextViewFirstResponder;
+-(void)becomeInputTextViewFirstResponder;
 -(void)appendEmoji:(NSString *)emoji;
 -(void)backspace;
 -(void)sendMessage;
