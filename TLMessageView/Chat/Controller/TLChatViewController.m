@@ -107,10 +107,11 @@ TLLocationViewControllerDelegate>
     
     self.inputView.didClickEmoji = ^(BOOL selected){
         strongifySelf;
-        [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
-        if (selected) {
+        if (!self.emojiBoard.show) {
             [self.inputView resignInputTextViewFirstResponder];
+            [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
         }else{
+            [self showEmojiBoard:!self.emojiBoard.show hideInput:NO];
             [self.inputView becomeInputTextViewFirstResponder];
         }
     };
@@ -282,6 +283,7 @@ TLLocationViewControllerDelegate>
 }
 - (void)showEmojiBoard:(BOOL)show hideInput:(BOOL)hideInput{
     self.emojiBoard.show = show;
+    self.inputView.emojiKeyboardBtn.selected = show;
     [self.emojiBoard mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : BoardHeight);
     }];
@@ -297,7 +299,7 @@ TLLocationViewControllerDelegate>
     }];
     
     if (show) {
-        [self chatTableViewScrollToBottomWithoffsetY:642];
+        [self chatTableViewScrollToBottomWithoffsetY:BoardHeight];
         if (self.pluginBoard.show) {
             [self showPluginBoard:NO hideInput:NO];
         }

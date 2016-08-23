@@ -10,6 +10,7 @@
 #import <RongIMLib/RongIMLib.h>
 
 @interface TLChatInputView : UIView
+@property(nonatomic,strong)UIButton *emojiKeyboardBtn;
 @property(nonatomic,copy)void (^sendTextMsgAction)(RCTextMessage *x);
 @property(nonatomic,copy)void (^sendVoiceMsgAction)(RCVoiceMessage *x);
 @property(nonatomic,copy)void (^didClickVoiceKeybaord)(BOOL selected);

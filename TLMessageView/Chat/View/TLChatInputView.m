@@ -16,7 +16,6 @@
 @interface TLChatInputView () <UITextViewDelegate,TLRecorderVoiceDelegate>
 @property(nonatomic,strong)LPlaceholderTextView *inputTextView;
 @property(nonatomic,strong)UIButton *voiceKeybaordBtn;
-@property(nonatomic,strong)UIButton *emojiKeyboardBtn;
 @property(nonatomic,strong)UIButton *moreBtn;
 @property(nonatomic,strong)UIButton *tapVoiceBtn;
 @property(nonatomic,strong)TLRecordVoice *recorder;
@@ -130,7 +129,7 @@
     [self.inputTextView resignFirstResponder];
 }
 -(void)becomeInputTextViewFirstResponder{
-    [self.inputView becomeFirstResponder];
+    [self.inputTextView becomeFirstResponder];
 }
 #pragma - mark tapVoiceBtnAction
 
