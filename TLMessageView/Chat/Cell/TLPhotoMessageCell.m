@@ -45,7 +45,7 @@
     RCImageMessage *imgMessage = (RCImageMessage *)message.content;
     self.photoImageView.image = imgMessage.thumbnailImage;
     
-    CGSize size = CGSizeMake(100, 100);
+    CGSize size = CGSizeMake(150, 150);
     
     UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:self.bubbleImageView.image];
     imageViewMask.frame = CGRectMake(0, 0, size.width, size.height);

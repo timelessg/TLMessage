@@ -170,38 +170,23 @@ TLLocationViewControllerDelegate>
     switch (itemIndex) {
         case 0:
         {
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-                picker.delegate = self;
-                picker.allowsEditing = YES;
-                picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:picker animated:YES completion:^{
-                }];
-            }
+            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         }
             break;
         case 1:
         {
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-                picker.delegate = self;
-                picker.allowsEditing = YES;
-                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                [self presentViewController:picker animated:YES completion:^{}];
-            }
+            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
         }
             break;
         case 2:
         {
-            TLLocationViewController *vc = [[TLLocationViewController alloc] init];
-            vc.delegate = self;
+            TLLocationViewController *vc = [[TLLocationViewController alloc] initWithDelegate:self];
             [self.navigationController pushViewController:vc animated:YES];
         }
         default:
             break;
     }
 }
-
 #pragma - mark LocationViewControllerDelegate
 -(void)locationViewControllerSendMsg:(RCLocationMessage *)msg{
     [self sendMessage:msg];
@@ -351,6 +336,15 @@ TLLocationViewControllerDelegate>
     return  dic[NSStringFromClass([msg.content class])];
 }
 
+-(void)showImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType{
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = sourceType;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
     [self hidePluginAndEmojiBoard];

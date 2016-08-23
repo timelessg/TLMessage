@@ -25,7 +25,12 @@ UITableViewDataSource>
 @end
 
 @implementation TLLocationViewController
-
+-(instancetype)initWithDelegate:(id<TLLocationViewControllerDelegate>)delegate{
+    if (self = [super init]) {
+        self.delegate = delegate;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

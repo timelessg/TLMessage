@@ -14,5 +14,6 @@
 @end
 
 @interface TLLocationViewController : UIViewController
+-(instancetype)initWithDelegate:(id <TLLocationViewControllerDelegate>)delegate;
 @property(nonatomic,assign)id <TLLocationViewControllerDelegate> delegate;
 @end
