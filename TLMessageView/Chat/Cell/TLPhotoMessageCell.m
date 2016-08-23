@@ -17,10 +17,6 @@
 @implementation TLPhotoMessageCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self.bubbleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_offset(CGSizeMake(100, 100)).priorityHigh(1);
-        }];
-        
         [self.bubbleImageView addSubview:self.photoImageView];
         [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.bubbleImageView);
@@ -49,9 +45,15 @@
     RCImageMessage *imgMessage = (RCImageMessage *)message.content;
     self.photoImageView.image = imgMessage.thumbnailImage;
     
+    CGSize size = CGSizeMake(100, 100);
+    
     UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:self.bubbleImageView.image];
-    imageViewMask.frame = CGRectMake(0, 0, 100, 100);
+    imageViewMask.frame = CGRectMake(0, 0, size.width, size.height);
     self.photoImageView.layer.mask = imageViewMask.layer;
+    
+    [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_offset(size);
+    }];
 }
 -(UIImageView *)photoImageView{
     if (!_photoImageView) {

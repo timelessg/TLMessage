@@ -13,10 +13,12 @@
 #import "TLTextMessageCell.h"
 #import "TLPhotoMessageCell.h"
 #import "TLVoiceMessageCell.h"
+#import "TLLocationMessageCell.h"
 #import "TLChatInputView.h"
 #import "TLPluginBoardView.h"
 #import "TLRCManager.h"
 #import "TLChatEmojiBoard.h"
+#import "TLLocationViewController.h"
 
 static NSInteger BoardHeight = 223;
 
@@ -27,7 +29,8 @@ TLPluginBoardViewDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 TLRCManagerDelegate,
-TLChatEmojiBoardDelegate>
+TLChatEmojiBoardDelegate,
+TLLocationViewControllerDelegate>
 @property(nonatomic,strong)UITableView *chatTableView;
 @property(nonatomic,strong)TLChatInputView *inputView;
 @property(nonatomic,strong)TLPluginBoardView *pluginBoard;
@@ -157,10 +160,11 @@ TLChatEmojiBoardDelegate>
 -(NSArray *)pluginBoardItems{
     TLPluginBoardItem *photo = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_picture_icon" title:@"相册"];
     TLPluginBoardItem *can = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_camera_icon" title:@"相机"];
+    TLPluginBoardItem *local = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_location_icon" title:@"位置"];
     TLPluginBoardItem *audio = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_audio_call_icon" title:@"语音"];
     TLPluginBoardItem *file = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_file_icon" title:@"文件"];
     TLPluginBoardItem *video = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_video_call_icon" title:@"视频"];
-    return @[photo,can,audio,file,video];
+    return @[photo,can,local,audio,file,video];
 }
 -(void)pluginBoardDidClickItemIndex:(NSInteger)itemIndex{
     switch (itemIndex) {
@@ -187,9 +191,20 @@ TLChatEmojiBoardDelegate>
             }
         }
             break;
+        case 2:
+        {
+            TLLocationViewController *vc = [[TLLocationViewController alloc] init];
+            vc.delegate = self;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         default:
             break;
     }
+}
+
+#pragma - mark LocationViewControllerDelegate
+-(void)locationViewControllerSendMsg:(RCLocationMessage *)msg{
+    [self sendMessage:msg];
 }
 
 #pragma - mark emojiBoardViewDelegate
@@ -332,7 +347,7 @@ TLChatEmojiBoardDelegate>
     return index > 0 ? self.messages[index - 1] : nil;
 }
 -(NSString *)cellIdentifierWithMsg:(RCMessage *)msg{
-    NSDictionary *dic = @{@"RCTextMessage":@"textcell",@"RCVoiceMessage":@"voicecell",@"RCImageMessage":@"photocell"};
+    NSDictionary *dic = @{@"RCTextMessage":@"textcell",@"RCVoiceMessage":@"voicecell",@"RCImageMessage":@"photocell",@"RCLocationMessage":@"locationcell"};
     return  dic[NSStringFromClass([msg.content class])];
 }
 
@@ -384,6 +399,7 @@ TLChatEmojiBoardDelegate>
         [_chatTableView registerClass:[TLTextMessageCell class] forCellReuseIdentifier:@"textcell"];
         [_chatTableView registerClass:[TLPhotoMessageCell class] forCellReuseIdentifier:@"photocell"];
         [_chatTableView registerClass:[TLVoiceMessageCell class] forCellReuseIdentifier:@"voicecell"];
+        [_chatTableView registerClass:[TLLocationMessageCell class] forCellReuseIdentifier:@"locationcell"];
     }
     return _chatTableView;
 }

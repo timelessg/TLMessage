@@ -10,6 +10,8 @@
 		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
 		6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C9991D686F46001FB89A /* TLRCManager.m */; };
 		6529C9A01D69AF3E001FB89A /* TLPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */; };
+		6540AE061D6BF9B800093BA9 /* TLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6540AE051D6BF9B800093BA9 /* TLLocationViewController.m */; };
+		6540AE091D6C10F000093BA9 /* TLLocationMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6540AE081D6C10F000093BA9 /* TLLocationMessageCell.m */; };
 		65485FEA1D65855700C5D48B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FE91D65855700C5D48B /* main.m */; };
 		65485FED1D65855700C5D48B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FEC1D65855700C5D48B /* AppDelegate.m */; };
 		65485FF51D65855700C5D48B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65485FF41D65855700C5D48B /* Assets.xcassets */; };
@@ -37,6 +39,10 @@
 		6529C9991D686F46001FB89A /* TLRCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRCManager.m; sourceTree = "<group>"; };
 		6529C99E1D69AF3E001FB89A /* TLPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoBrowser.h; sourceTree = "<group>"; };
 		6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoBrowser.m; sourceTree = "<group>"; };
+		6540AE041D6BF9B800093BA9 /* TLLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLLocationViewController.h; sourceTree = "<group>"; };
+		6540AE051D6BF9B800093BA9 /* TLLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLLocationViewController.m; sourceTree = "<group>"; };
+		6540AE071D6C10F000093BA9 /* TLLocationMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLLocationMessageCell.h; sourceTree = "<group>"; };
+		6540AE081D6C10F000093BA9 /* TLLocationMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLLocationMessageCell.m; sourceTree = "<group>"; };
 		65485FE51D65855700C5D48B /* TLMessageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLMessageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65485FE91D65855700C5D48B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		65485FEB1D65855700C5D48B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -162,12 +168,14 @@
 			children = (
 				659A75FB1D68660400329C83 /* TLMessageCell.h */,
 				659A75FC1D68660400329C83 /* TLMessageCell.m */,
-				659A75FD1D68660400329C83 /* TLPhotoMessageCell.h */,
-				659A75FE1D68660400329C83 /* TLPhotoMessageCell.m */,
 				659A75FF1D68660400329C83 /* TLTextMessageCell.h */,
 				659A76001D68660400329C83 /* TLTextMessageCell.m */,
 				659A76011D68660400329C83 /* TLVoiceMessageCell.h */,
 				659A76021D68660400329C83 /* TLVoiceMessageCell.m */,
+				659A75FD1D68660400329C83 /* TLPhotoMessageCell.h */,
+				659A75FE1D68660400329C83 /* TLPhotoMessageCell.m */,
+				6540AE071D6C10F000093BA9 /* TLLocationMessageCell.h */,
+				6540AE081D6C10F000093BA9 /* TLLocationMessageCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -194,6 +202,8 @@
 			children = (
 				659A762F1D6868A700329C83 /* TLChatViewController.h */,
 				659A76301D6868A700329C83 /* TLChatViewController.m */,
+				6540AE041D6BF9B800093BA9 /* TLLocationViewController.h */,
+				6540AE051D6BF9B800093BA9 /* TLLocationViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -347,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6529C9A01D69AF3E001FB89A /* TLPhotoBrowser.m in Sources */,
+				6540AE061D6BF9B800093BA9 /* TLLocationViewController.m in Sources */,
 				659A76161D68669B00329C83 /* LPlaceholderTextView.m in Sources */,
 				659A76031D68660400329C83 /* TLMessageCell.m in Sources */,
 				659A76171D68669B00329C83 /* NSDate+Utils.m in Sources */,
@@ -356,6 +367,7 @@
 				6597B7D01D6AE52A003D7215 /* TLButton.m in Sources */,
 				659A76041D68660400329C83 /* TLPhotoMessageCell.m in Sources */,
 				659A762D1D68689000329C83 /* TLVoicePlayer.m in Sources */,
+				6540AE091D6C10F000093BA9 /* TLLocationMessageCell.m in Sources */,
 				6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */,
 				659A76051D68660400329C83 /* TLTextMessageCell.m in Sources */,
 				659A763B1D6868B300329C83 /* TLChatEmojiBoard.m in Sources */,
