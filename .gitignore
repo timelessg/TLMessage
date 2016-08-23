@@ -27,3 +27,4 @@ BiLin/BLVersionHeader.h
 .flowconfig
 tags
 npm-debug.log
+Podfile.lock
