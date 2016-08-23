@@ -271,7 +271,9 @@ TLLocationViewControllerDelegate>
     }
     
     [UIView animateWithDuration:0.25 animations:^{
+        [self.chatTableView beginUpdates];
         [self.view layoutIfNeeded];
+        [self.chatTableView endUpdates];
     }];
     
     if (show) {
@@ -295,7 +297,9 @@ TLLocationViewControllerDelegate>
     }
     
     [UIView animateWithDuration:0.25 animations:^{
+        [self.chatTableView beginUpdates];
         [self.view layoutIfNeeded];
+        [self.chatTableView endUpdates];
     }];
     
     if (show) {
@@ -322,7 +326,9 @@ TLLocationViewControllerDelegate>
 }
 - (void)chatTableViewScrollToBottomWithoffsetY:(CGFloat)offsetY{
     if (offsetY > 0) {
+        [self.chatTableView beginUpdates];
         [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+        [self.chatTableView endUpdates];
     }
     
     if (self.messages.count) {
