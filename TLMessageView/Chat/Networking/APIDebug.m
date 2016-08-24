@@ -35,7 +35,6 @@ static NSString *const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
         
         NSMutableCharacterSet * allowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
         [allowedCharacterSet removeCharactersInString:[kAFCharactersGeneralDelimitersToEncode stringByAppendingString:kAFCharactersSubDelimitersToEncode]];
-        
         switch (x) {
             case 1:
             {
@@ -172,6 +171,9 @@ static NSString *const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
     return self;
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        return ;
+    }
     self.actionBlock(buttonIndex);
 }
 @end

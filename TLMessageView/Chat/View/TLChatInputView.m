@@ -153,10 +153,14 @@ static CGFloat   maxInputTextViewHeight = 60.0f;
     if (self.didClickEmoji) self.didClickEmoji(sender.selected);
 }
 -(void)resignInputTextViewFirstResponder{
-    [self.inputTextView resignFirstResponder];
+    if (self.inputTextView.isFirstResponder){
+        [self.inputTextView resignFirstResponder];
+    }
 }
 -(void)becomeInputTextViewFirstResponder{
-    [self.inputTextView becomeFirstResponder];
+    if (!self.inputTextView.isFirstResponder){
+        [self.inputTextView becomeFirstResponder];
+    }
 }
 #pragma - mark tapVoiceBtnAction
 
@@ -179,6 +183,9 @@ static CGFloat   maxInputTextViewHeight = 60.0f;
 -(void)remindDragEnter:(UIButton *)sender{
     [TLRecordVoiceHUD showRecording];
     sender.backgroundColor = UIColorFromRGB(0x333333);
+}
+-(BOOL)inputTextViewIsFirstResponder{
+    return self.inputTextView.isFirstResponder;
 }
 -(TLRecordVoice *)recorder{
     if (!_recorder) {

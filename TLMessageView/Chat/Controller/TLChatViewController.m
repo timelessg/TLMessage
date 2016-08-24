@@ -108,13 +108,20 @@ TLLocationViewControllerDelegate>
     
     self.inputView.didClickEmoji = ^(BOOL selected){
         strongifySelf;
-        if (!self.emojiBoard.show) {
-            [self.inputView resignInputTextViewFirstResponder];
-            [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
+        if (self.inputView.inputTextViewIsFirstResponder && self.emojiBoard.show) {
+            
         }else{
-            [self showEmojiBoard:!self.emojiBoard.show hideInput:NO];
-            [self.inputView becomeInputTextViewFirstResponder];
+            
         }
+//        strongifySelf;
+//        [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
+//        if (!self.emojiBoard.show) {
+//            [self.inputView resignInputTextViewFirstResponder];
+//            [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
+//        }else{
+//            [self showEmojiBoard:!self.emojiBoard.show hideInput:NO];
+//            [self.inputView becomeInputTextViewFirstResponder];
+//        }
     };
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -243,6 +250,9 @@ TLLocationViewControllerDelegate>
     [self retrySendMessage:msg];
 }
 - (void)insertMessage:(RCMessage *)message{
+    if (!message.content) {
+        return;
+    }
     [self.messages addObject:message];
     [self.chatTableView insertRowsAtIndexPaths:@[[self lastMessageIndexPath]] withRowAnimation:UITableViewRowAnimationBottom];
     
@@ -262,6 +272,7 @@ TLLocationViewControllerDelegate>
     TLMessageCell *cell = [self.chatTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     [cell setMsgStatus:msg.sentStatus];
 }
+
 -(void)showPluginBoard:(BOOL)show hideInput:(BOOL)hideInput{
     self.pluginBoard.show = show;
     [self.pluginBoard mas_updateConstraints:^(MASConstraintMaker *make) {

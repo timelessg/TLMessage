@@ -16,6 +16,7 @@
 @property(nonatomic,copy)void (^didClickPlugin)();
 @property(nonatomic,copy)void (^didClickEmoji)(BOOL selected);
 @property(nonatomic,assign)BOOL emojiBtnSelected;
+@property(nonatomic,assign)BOOL inputTextViewIsFirstResponder;
 -(void)resignInputTextViewFirstResponder;
 -(void)becomeInputTextViewFirstResponder;
 -(void)appendEmoji:(NSString *)emoji;
