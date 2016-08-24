@@ -61,12 +61,33 @@
             make.centerY.equalTo(self.statusView.mas_centerY).offset(0);
             make.centerX.equalTo(self.statusView.mas_centerX).offset(0);
         }];
+        
+//        [self.bubbleImageView addGestureRecognizer: [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longTap:)]];
+        
     }
     return self;
 }
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    self.msgStatus = self.message.sentStatus;
-}
+//-(void)longTap:(UILongPressGestureRecognizer *)longRecognizer{
+//    if (longRecognizer.state == UIGestureRecognizerStateBegan) {
+//        
+//        [longRecognizer.view canBecomeFirstResponder];
+//        [longRecognizer.view becomeFirstResponder];
+//        
+//        UIMenuController *menu = [UIMenuController sharedMenuController];
+//        
+//        UIMenuItem *copyItem = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyItemClicked:)];
+//        
+//        UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(resendItemClicked:)];
+//        
+//        [menu setMenuItems:@[copyItem,resendItem]];
+//        
+//        [menu setTargetRect:self.bubbleImageView.bounds inView:self];
+//        
+//        [menu setMenuVisible:YES animated:YES];
+//        
+//    }
+//    
+//}
 -(void)updateDirection:(RCMessageDirection)direction{
     [self removeAllConstraints];
     
@@ -126,6 +147,9 @@
     self.dateTimeLabel.text = [NSString stringWithFormat:@"%@ %02d:%02d",dateStr,(int)[lastDate hour],(int)[lastDate minute]];
 }
 -(void)updateMessage:(RCMessage *)message showDate:(BOOL)showDate{
+    if (!message.content) {
+        return;
+    }
     [self updateDirection:message.messageDirection];
     [self updateDate:message.sentTime showDate:showDate];
     self.message = message;
@@ -153,6 +177,13 @@
 -(void)retryBtnAction{
     if (self.reSendAction) self.reSendAction(self.message);
 }
+-(BOOL)canBecomeFirstResponder{
+    return YES;
+}
+-(BOOL)canResignFirstResponder{
+    return YES;
+}
+
 -(UILabel *)dateTimeLabel{
     if (!_dateTimeLabel) {
         _dateTimeLabel = [[UILabel alloc] init];
@@ -194,9 +225,9 @@
     }
     return _activityIndicator;
 }
--(UIImageView *)bubbleImageView{
+-(TLMessageBubble *)bubbleImageView{
     if (!_bubbleImageView) {
-        _bubbleImageView = [[UIImageView alloc] init];
+        _bubbleImageView = [[TLMessageBubble alloc] init];
         _bubbleImageView.userInteractionEnabled = YES;
     }
     return _bubbleImageView;
@@ -206,5 +237,13 @@
         _arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sharp"]];
     }
     return _arrowImageView;
+}
+@end
+
+
+
+@implementation TLMessageBubble
+-(BOOL)canBecomeFirstResponder{
+    return YES;
 }
 @end

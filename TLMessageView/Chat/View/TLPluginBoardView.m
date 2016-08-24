@@ -12,7 +12,6 @@
 
 @interface TLPluginBoardView ()
 @property(nonatomic,strong)NSMutableArray *btns;
-@property(nonatomic,strong)UIView *line;
 @end
 
 @implementation TLPluginBoardView
@@ -30,14 +29,6 @@
             [self.btns addObject:btn];
             [btn addTarget:self action:@selector(didClickItem:) forControlEvents:UIControlEventTouchUpInside];
         }
-        
-        [self addSubview:self.line];
-        [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(0);
-            make.right.equalTo(self.mas_right).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
-            make.height.mas_offset(@0.5);
-        }];
     }
     return self;
 }
@@ -61,13 +52,6 @@
             make.size.mas_offset(CGSizeMake(60, 90));
         }];
     }
-}
--(UIView *)line{
-    if (!_line) {
-        _line = [[UIView alloc] init];
-        _line.backgroundColor = UIColorFromRGB(0xcccccc);
-    }
-    return _line;
 }
 @end
 

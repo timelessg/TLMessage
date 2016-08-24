@@ -18,7 +18,6 @@
 @property(nonatomic,strong)UIButton *sendBtn;
 @property(nonatomic,strong)UIPageControl *pageControl;
 @property(nonatomic,strong)NSMutableArray *pageViews;
-@property(nonatomic,strong)UIView *line;
 @end
 
 @implementation TLChatEmojiBoard
@@ -55,15 +54,7 @@
             make.bottom.equalTo(self.bottomView.mas_bottom).offset(0);
             make.width.mas_offset(@52);
         }];
-        
-        [self addSubview:self.line];
-        [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(0);
-            make.right.equalTo(self.mas_right).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
-            make.height.mas_offset(@0.5);
-        }];
-        
+                
         NSArray *emojis = @[
                             @[@"😊",@"😨",@"😍",@"😳",@"😎",@"😭",@"😌",@"😵",@"😴",@"😢",@"😅",@"😡",@"😜",@"😀",@"😲",@"😟",@"😤",@"😞",@"😫",@"😣",@"😈",@"😉",@"😯",@""],
                             @[@"😕",@"😰",@"😋",@"😝",@"😓",@"😀",@"😂",@"😘",@"😒",@"😏",@"😶",@"😱",@"😖",@"😩",@"😔",@"😑",@"😚",@"😪",@"😇",@"🙊",@"👊",@"👎",@"☝️",@""],
@@ -228,12 +219,5 @@
         [_sendBtn addTarget:self action:@selector(didClickSend:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sendBtn;
-}
--(UIView *)line{
-    if (!_line) {
-        _line = [[UIView alloc] init];
-        _line.backgroundColor = UIColorFromRGB(0xcccccc);
-    }
-    return _line;
 }
 @end

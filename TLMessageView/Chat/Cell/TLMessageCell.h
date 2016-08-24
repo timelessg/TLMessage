@@ -14,8 +14,12 @@
 
 #define SMAS(x) [self.constraints addObject:x]
 
+@interface TLMessageBubble : UIImageView
+
+@end
+
 @interface TLMessageCell : UITableViewCell
-@property(nonatomic,strong)UIImageView *bubbleImageView;
+@property(nonatomic,strong)TLMessageBubble *bubbleImageView;
 @property(nonatomic,strong)UIImageView *arrowImageView;
 @property(nonatomic,strong)UIView *statusView;
 @property(nonatomic,strong)UIActivityIndicatorView *activityIndicator;

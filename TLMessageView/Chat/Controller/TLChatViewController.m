@@ -19,6 +19,7 @@
 #import "TLRCManager.h"
 #import "TLChatEmojiBoard.h"
 #import "TLLocationViewController.h"
+#import "APIDebug.h"
 
 static NSInteger BoardHeight = 223;
 
@@ -124,6 +125,8 @@ TLLocationViewControllerDelegate>
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+
+    [APIDebug configWithVC:self];
 }
 
 #pragma - mark tableviewDelegate
@@ -233,6 +236,7 @@ TLLocationViewControllerDelegate>
 #pragma - mark private
 -(void)sendMessage:(id)message{
     RCMessage *msg = [[RCMessage alloc] initWithType:ConversationType_PRIVATE targetId:@"111" direction:MessageDirection_SEND messageId:0 content:message];
+    
     msg.sentStatus = SentStatus_SENDING;
     msg.receivedStatus = ReceivedStatus_READ;
     [self insertMessage:msg];
@@ -285,7 +289,7 @@ TLLocationViewControllerDelegate>
 }
 - (void)showEmojiBoard:(BOOL)show hideInput:(BOOL)hideInput{
     self.emojiBoard.show = show;
-    self.inputView.emojiKeyboardBtn.selected = show;
+    self.inputView.emojiBtnSelected = show;
     [self.emojiBoard mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : BoardHeight);
     }];
@@ -357,6 +361,25 @@ TLLocationViewControllerDelegate>
         [self presentViewController:picker animated:YES completion:nil];
     }
 }
+//-(void)setupLongPress{
+//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
+//    [self.chatTableView addGestureRecognizer:longPress];
+//}
+//-(void)longPressAction:(UILongPressGestureRecognizer *)sender{
+//    CGPoint point = [sender locationInView:self.chatTableView];
+//    NSIndexPath * indexPaZth = [self.chatTableView indexPathForRowAtPoint:point];
+//    TLMessageCell *cell = [self.chatTableView cellForRowAtIndexPath:indexPath];
+//    [cell.bubbleImageView becomeFirstResponder];
+//    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyText:)];
+//    
+//    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink,nil]];
+//    
+//    [[UIMenuController sharedMenuController] setTargetRect:cell.frame inView:self.chatTableView];
+//    
+//    [[UIMenuController sharedMenuController] setMenuVisible:YES animated: YES];
+//}
+
+
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
     [self hidePluginAndEmojiBoard];
