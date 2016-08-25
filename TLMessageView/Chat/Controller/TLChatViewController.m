@@ -41,7 +41,9 @@ TLLocationViewControllerDelegate>
 @end
 
 @implementation TLChatViewController
-
+{
+    BOOL _lastContentOffset;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -100,39 +102,20 @@ TLLocationViewControllerDelegate>
         [self sendMessage:x];
     };
     
-    self.inputView.didClickPlugin = ^(){
+    self.inputView.didClickPlugin = ^(BOOL selected){
         strongifySelf;
-        [self.inputView resignInputTextViewFirstResponder];
-        [self showPluginBoard:!self.pluginBoard.show hideInput:YES];
+        [self changeBoard];
     };
     
     self.inputView.didClickEmoji = ^(BOOL selected){
         strongifySelf;
-        if (self.inputView.inputTextViewIsFirstResponder && self.emojiBoard.show) {
-            
-        }else{
-            
-        }
-//        strongifySelf;
-//        [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
-//        if (!self.emojiBoard.show) {
-//            [self.inputView resignInputTextViewFirstResponder];
-//            [self showEmojiBoard:!self.emojiBoard.show hideInput:YES];
-//        }else{
-//            [self showEmojiBoard:!self.emojiBoard.show hideInput:NO];
-//            [self.inputView becomeInputTextViewFirstResponder];
-//        }
+        [self changeBoard];
     };
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-
     [APIDebug configWithVC:self];
 }
 
@@ -273,43 +256,40 @@ TLLocationViewControllerDelegate>
     [cell setMsgStatus:msg.sentStatus];
 }
 
--(void)showPluginBoard:(BOOL)show hideInput:(BOOL)hideInput{
-    self.pluginBoard.show = show;
+-(void)changeBoard{
+    BOOL pluginShow = self.inputView.moreBtn.selected;
+    BOOL emojiSshow = self.inputView.emojiKeyboardBtn.selected;
+    
+    if (pluginShow) {
+        pluginShow = NO;
+        emojiSshow = YES;
+    }else if (emojiSshow){
+        pluginShow = YES;
+        emojiSshow = NO;
+    }
+    
+//    if (emojiSshow) {
+//        pluginShow = NO;
+//        self.inputView.moreBtn.selected = YES;
+//    }
+    
+    BOOL showBoard = pluginShow || emojiSshow;
+    
+    if (showBoard && self.inputView.inputTextViewIsFirstResponder) {
+        [self.inputView resignInputTextViewFirstResponder];
+    }
+    
     [self.pluginBoard mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : BoardHeight);
+        make.bottom.equalTo(self.view.mas_bottom).offset(pluginShow ? 0 : BoardHeight);
     }];
     
-    if (hideInput) {
-        [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view.mas_bottom).offset(show ? - BoardHeight : 0);
-        }];
-    }
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.chatTableView beginUpdates];
-        [self.view layoutIfNeeded];
-        [self.chatTableView endUpdates];
-    }];
-    
-    if (show) {
-        [self chatTableViewScrollToBottomWithoffsetY:BoardHeight];
-        if (self.emojiBoard.show) {
-            [self showEmojiBoard:NO hideInput:NO];
-        }
-    }
-}
-- (void)showEmojiBoard:(BOOL)show hideInput:(BOOL)hideInput{
-    self.emojiBoard.show = show;
-    self.inputView.emojiBtnSelected = show;
     [self.emojiBoard mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(show ? 0 : BoardHeight);
+        make.bottom.equalTo(self.view.mas_bottom).offset(emojiSshow ? 0 : BoardHeight);
     }];
     
-    if (hideInput) {
-        [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view.mas_bottom).offset(show ? - BoardHeight : 0);
-        }];
-    }
+    [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(showBoard ? - BoardHeight : 0);
+    }];
     
     [UIView animateWithDuration:0.25 animations:^{
         [self.chatTableView beginUpdates];
@@ -317,38 +297,39 @@ TLLocationViewControllerDelegate>
         [self.chatTableView endUpdates];
     }];
     
-    if (show) {
-        [self chatTableViewScrollToBottomWithoffsetY:BoardHeight];
-        if (self.pluginBoard.show) {
-            [self showPluginBoard:NO hideInput:NO];
-        }
-    }
+//    if (self.inputView.moreBtn.selected) {
+//        self.inputView.moreBtn.selected = NO;
+//    }
+//    
+//    if (self.inputView.emojiKeyboardBtn.selected) {
+//        self.inputView.emojiKeyboardBtn.selected = NO;
+//    }
+    
+    [self chatTableViewScrollToBottomWithoffsetY:showBoard];
 }
 - (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
     [self.inputView resignInputTextViewFirstResponder];
     [self hidePluginAndEmojiBoard];
-    
     [self.chatTableView removeGestureRecognizer:self.touchTap];
 }
 - (void)hidePluginAndEmojiBoard{
-    if (self.pluginBoard.show) {
-        [self showPluginBoard:NO hideInput:YES];
-    }
-    
-    if (self.emojiBoard.show) {
-        [self showEmojiBoard:NO hideInput:YES];
-    }
+    self.inputView.emojiKeyboardBtn.selected = NO;
+    self.inputView.moreBtn.selected = NO;
+    [self changeBoard];
 }
 - (void)chatTableViewScrollToBottomWithoffsetY:(CGFloat)offsetY{
-    if (offsetY > 0) {
-        [self.chatTableView beginUpdates];
-        [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
-        [self.chatTableView endUpdates];
+    if (_lastContentOffset != offsetY) {
+        if (offsetY > 0) {
+            [self.chatTableView beginUpdates];
+            [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+            [self.chatTableView endUpdates];
+        }
     }
     
     if (self.messages.count) {
         [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
+    _lastContentOffset = offsetY;
     
     [self.chatTableView addGestureRecognizer:self.touchTap];
 }
@@ -372,53 +353,29 @@ TLLocationViewControllerDelegate>
         [self presentViewController:picker animated:YES completion:nil];
     }
 }
-//-(void)setupLongPress{
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
-//    [self.chatTableView addGestureRecognizer:longPress];
-//}
-//-(void)longPressAction:(UILongPressGestureRecognizer *)sender{
-//    CGPoint point = [sender locationInView:self.chatTableView];
-//    NSIndexPath * indexPaZth = [self.chatTableView indexPathForRowAtPoint:point];
-//    TLMessageCell *cell = [self.chatTableView cellForRowAtIndexPath:indexPath];
-//    [cell.bubbleImageView becomeFirstResponder];
-//    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyText:)];
-//    
-//    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink,nil]];
-//    
-//    [[UIMenuController sharedMenuController] setTargetRect:cell.frame inView:self.chatTableView];
-//    
-//    [[UIMenuController sharedMenuController] setMenuVisible:YES animated: YES];
-//}
-
-
 #pragma mark - keybaordObserver
 - (void)keyboardWillShow:(NSNotification *)sender{
     [self hidePluginAndEmojiBoard];
     NSDictionary *userInfo = [sender userInfo];
     CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
     [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).offset(- keyboardRect.size.height);
-    }];
-    [UIView animateWithDuration:duration animations:^{
-        [self.view layoutIfNeeded];
-    }];
-    CGFloat offsetY = self.chatTableView.contentSize.height - self.chatTableView.bounds.size.height + keyboardRect.size.height;
-    
-    [self chatTableViewScrollToBottomWithoffsetY:offsetY];
-}
-- (void)keyboardWillHide:(NSNotification *)sender{
-    NSDictionary *userInfo = [sender userInfo];
-    CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(0);
     }];
     [UIView animateWithDuration:duration animations:^{
         [self.chatTableView beginUpdates];
         [self.view layoutIfNeeded];
         [self.chatTableView endUpdates];
     }];
+    
+    CGFloat offsetY = self.chatTableView.contentSize.height - self.chatTableView.bounds.size.height + keyboardRect.size.height;
+    
+    [self chatTableViewScrollToBottomWithoffsetY:offsetY];
 }
+//- (void)keyboardWillHide:(NSNotification *)sender{
+//    [self hidePluginAndEmojiBoard];
+//}
 
 #pragma - mark getter
 -(NSMutableArray *)messages{

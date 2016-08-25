@@ -20,9 +20,7 @@ static CGFloat   maxInputTextViewHeight = 60.0f;
 
 @interface TLChatInputView () <UITextViewDelegate,TLRecorderVoiceDelegate>
 @property(nonatomic,strong)LPlaceholderTextView *inputTextView;
-@property(nonatomic,strong)UIButton *emojiKeyboardBtn;
 @property(nonatomic,strong)UIButton *voiceKeybaordBtn;
-@property(nonatomic,strong)UIButton *moreBtn;
 @property(nonatomic,strong)UIButton *tapVoiceBtn;
 @property(nonatomic,strong)TLRecordVoice *recorder;
 @property(nonatomic,strong)UIView *line;
@@ -80,18 +78,15 @@ static CGFloat   maxInputTextViewHeight = 60.0f;
             make.bottom.equalTo(self.mas_bottom).offset(0);
             make.height.mas_offset(@0.5);
         }];
-        
-        [self addObserver:self forKeyPath:@"emojiBtnSelected" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"emojiBtnSelected"]) {
-        self.emojiKeyboardBtn.selected = self.emojiBtnSelected;
-        self.tapVoiceBtn.hidden = YES;
-        self.voiceKeybaordBtn.selected = NO;
-    }
-}
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+//    if ([object isEqual:self.emojiKeyboardBtn]) {
+//        self.tapVoiceBtn.hidden = YES;
+//        self.voiceKeybaordBtn.selected = NO;
+//    }
+//}
 -(void)recorderVoiceSuccessWithVoiceData:(NSData *)voiceData duration:(long)duration{
     if (self.sendVoiceMsgAction) self.sendVoiceMsgAction([RCVoiceMessage messageWithAudio:voiceData duration:duration]);
 }
@@ -146,7 +141,8 @@ static CGFloat   maxInputTextViewHeight = 60.0f;
     if (self.didClickVoiceKeybaord) self.didClickVoiceKeybaord(sender.selected);
 }
 -(void)didClickMoreAcion:(UIButton *)sender{
-    if (self.didClickPlugin) self.didClickPlugin();
+    sender.selected = !sender.selected;
+    if (self.didClickPlugin) self.didClickPlugin(sender.selected);
 }
 -(void)didClickEmojiAction:(UIButton *)sender{
     sender.selected = !sender.selected;
@@ -206,7 +202,7 @@ static CGFloat   maxInputTextViewHeight = 60.0f;
     if (!_emojiKeyboardBtn) {
         _emojiKeyboardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_emojiKeyboardBtn setImage:[UIImage imageNamed:@"icon_xiaolian"] forState:UIControlStateNormal];
-        [_emojiKeyboardBtn setImage:[UIImage imageNamed:@"icon_kyb"] forState:UIControlStateSelected];
+        [_emojiKeyboardBtn setImage:[UIImage imageNamed:@"icon_kyb"] forState:UIControlStateReserved];
         [_emojiKeyboardBtn addTarget:self action:@selector(didClickEmojiAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _emojiKeyboardBtn;
