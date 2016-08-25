@@ -9,6 +9,10 @@
 #ifndef Header_h
 #define Header_h
 
+#import <Masonry.h>
+#import <UITableView+FDTemplateLayoutCell.h>
+#import <RongIMLib/RongIMLib.h>
+
 /**
  *  Weaky self
  */

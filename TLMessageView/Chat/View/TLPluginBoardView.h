@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSInteger pluginBoardHeight = 223;
+
 @protocol TLPluginBoardViewDelegate <NSObject>
 -(NSArray *)pluginBoardItems;
 -(void)pluginBoardDidClickItemIndex:(NSInteger)itemIndex;

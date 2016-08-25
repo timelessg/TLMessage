@@ -8,7 +8,6 @@
 
 #import "TLChatEmojiBoard.h"
 #import "TLProjectMacro.h"
-#import <Masonry.h>
 #import "TLButton.h"
 
 @interface TLChatEmojiBoard () <UIScrollViewDelegate>
@@ -18,9 +17,13 @@
 @property(nonatomic,strong)UIButton *sendBtn;
 @property(nonatomic,strong)UIPageControl *pageControl;
 @property(nonatomic,strong)NSMutableArray *pageViews;
+@property(nonatomic,strong)NSArray *emojis;
 @end
 
 @implementation TLChatEmojiBoard
+{
+    BOOL hasLayout;
+}
 -(instancetype)init{
     if (self = [super init]) {
         [self addSubview:self.pageScrollView];
@@ -54,19 +57,10 @@
             make.bottom.equalTo(self.bottomView.mas_bottom).offset(0);
             make.width.mas_offset(@52);
         }];
-                
-        NSArray *emojis = @[
-                            @[@"😊",@"😨",@"😍",@"😳",@"😎",@"😭",@"😌",@"😵",@"😴",@"😢",@"😅",@"😡",@"😜",@"😀",@"😲",@"😟",@"😤",@"😞",@"😫",@"😣",@"😈",@"😉",@"😯",@""],
-                            @[@"😕",@"😰",@"😋",@"😝",@"😓",@"😀",@"😂",@"😘",@"😒",@"😏",@"😶",@"😱",@"😖",@"😩",@"😔",@"😑",@"😚",@"😪",@"😇",@"🙊",@"👊",@"👎",@"☝️",@""],
-                            @[@"✌️",@"😬",@"😷",@"🙈",@"👌",@"👋",@"✊",@"💪",@"😆",@"☺️",@"🙉",@"👍",@"🙏",@"✋",@"☀️",@"☕️",@"⛄️",@"📚",@"🎁",@"🎉",@"🍦",@"☁️",@"❄️",@""],
-                            @[@"⚡️",@"💰",@"🎂",@"🎓",@"🍖",@"☔️",@"⛅️",@"✏️",@"💩",@"🎄",@"🍷",@"🎤",@"🏀",@"🀄️",@"💣",@"📢",@"🌍",@"🍫",@"🎲",@"🏂",@"💡",@"💤",@"🚫",@""],
-                            @[@"🌻",@"🍻",@"🎵",@"🏡",@"💢",@"📞",@"🚿",@"🍚",@"👪",@"👼",@"💊",@"🔫",@"🌹",@"🐶",@"💄",@"👫",@"👽",@"💋",@"🌙",@"🍉",@"🐷",@"💔",@"👻",@""],
-                            @[@"😈",@"💍",@"🌲",@"🐴",@"👑",@"🔥",@"⭐️",@"⚽️",@"🕖",@"⏰",@"😁",@"🚀",@"⏳",@""]
-                            ];
         
         self.pageViews = [NSMutableArray array];
-        for (int i = 0; i < emojis.count; i ++ ) {
-            NSArray *emojiArray = emojis[i];
+        for (int i = 0; i < self.emojis.count; i ++ ) {
+            NSArray *emojiArray = self.emojis[i];
             UIView *pageView = [[UIView alloc] init];
             [self.pageScrollView addSubview:pageView];
             [self.pageViews addObject:pageView];
@@ -83,8 +77,7 @@
             }
         }
         
-        self.pageControl.numberOfPages = emojis.count;
-        
+        self.pageControl.numberOfPages = self.emojis.count;
         [self addSubview:self.pageControl];
         [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.mas_centerX).offset(0);
@@ -115,6 +108,11 @@
 }
 -(void)layoutSubviews{
     [super layoutSubviews];
+    
+    if (hasLayout) {
+        return;
+    }
+    hasLayout = YES;
     
     CGSize emojiBtnSize = CGSizeMake(30, 34);
     
@@ -175,6 +173,19 @@
         }
         lastView = pageView;
     }
+}
+-(NSArray *)emojis{
+    if (!_emojis) {
+        _emojis = @[
+                    @[@"😊",@"😨",@"😍",@"😳",@"😎",@"😭",@"😌",@"😵",@"😴",@"😢",@"😅",@"😡",@"😜",@"😀",@"😲",@"😟",@"😤",@"😞",@"😫",@"😣",@"😈",@"😉",@"😯",@""],
+                    @[@"😕",@"😰",@"😋",@"😝",@"😓",@"😀",@"😂",@"😘",@"😒",@"😏",@"😶",@"😱",@"😖",@"😩",@"😔",@"😑",@"😚",@"😪",@"😇",@"🙊",@"👊",@"👎",@"☝️",@""],
+                    @[@"✌️",@"😬",@"😷",@"🙈",@"👌",@"👋",@"✊",@"💪",@"😆",@"☺️",@"🙉",@"👍",@"🙏",@"✋",@"☀️",@"☕️",@"⛄️",@"📚",@"🎁",@"🎉",@"🍦",@"☁️",@"❄️",@""],
+                    @[@"⚡️",@"💰",@"🎂",@"🎓",@"🍖",@"☔️",@"⛅️",@"✏️",@"💩",@"🎄",@"🍷",@"🎤",@"🏀",@"🀄️",@"💣",@"📢",@"🌍",@"🍫",@"🎲",@"🏂",@"💡",@"💤",@"🚫",@""],
+                    @[@"🌻",@"🍻",@"🎵",@"🏡",@"💢",@"📞",@"🚿",@"🍚",@"👪",@"👼",@"💊",@"🔫",@"🌹",@"🐶",@"💄",@"👫",@"👽",@"💋",@"🌙",@"🍉",@"🐷",@"💔",@"👻",@""],
+                    @[@"😈",@"💍",@"🌲",@"🐴",@"👑",@"🔥",@"⭐️",@"⚽️",@"🕖",@"⏰",@"😁",@"🚀",@"⏳",@""]
+                    ];
+    }
+    return _emojis;
 }
 -(UIScrollView *)pageScrollView{
     if (!_pageScrollView) {

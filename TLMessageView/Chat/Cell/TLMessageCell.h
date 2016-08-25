@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TLProjectMacro.h"
 #import "NSDate+Utils.h"
-#import <Masonry.h>
-#import <RongIMLib/RongIMLib.h>
 
 #define SMAS(x) [self.constraints addObject:x]
 

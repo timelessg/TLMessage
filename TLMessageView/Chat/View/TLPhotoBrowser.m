@@ -8,7 +8,6 @@
 
 #import "TLPhotoBrowser.h"
 #import "TLProjectMacro.h"
-#import <Masonry.h>
 
 @interface TLPhotoBrowser () <UIActionSheetDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *bgScrollView;

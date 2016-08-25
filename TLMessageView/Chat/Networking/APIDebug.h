@@ -6,8 +6,7 @@
 //  Copyright © 2016年 com.garry.message. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <RongIMLib/RongIMLib.h>
+#import "TLProjectMacro.h"
 
 @interface APIDebug : NSObject
 +(void)configWithVC:(UIViewController *)vc;

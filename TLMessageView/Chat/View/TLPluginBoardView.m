@@ -8,14 +8,15 @@
 
 #import "TLPluginBoardView.h"
 #import "TLProjectMacro.h"
-#import <Masonry.h>
 
 @interface TLPluginBoardView ()
 @property(nonatomic,strong)NSMutableArray *btns;
 @end
 
 @implementation TLPluginBoardView
-
+{
+    BOOL hasLayout;
+}
 -(instancetype)initWithDelegate:(id<TLPluginBoardViewDelegate>)delegate{
     if (self = [super init]) {
         self.delegate = delegate;
@@ -39,6 +40,11 @@
 }
 -(void)layoutSubviews{
     [super layoutSubviews];
+    
+    if (hasLayout) {
+        return;
+    }
+    hasLayout = YES;
     
     CGFloat icoSpacingWidth = (self.frame.size.width - 60 * 4) / 5;
     CGFloat icoSpacingHeight = (self.frame.size.height - 90 * 2) / 3;

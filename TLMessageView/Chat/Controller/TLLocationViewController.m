@@ -8,8 +8,6 @@
 
 #import "TLLocationViewController.h"
 #import <MapKit/MapKit.h>
-#import <Masonry.h>
-#import "TLProjectMacro.h"
 
 @interface TLLocationViewController ()
 <MKMapViewDelegate,

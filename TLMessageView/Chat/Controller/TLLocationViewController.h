@@ -6,8 +6,7 @@
 //  Copyright © 2016年 com.garry.message. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <RongIMLib/RongIMLib.h>
+#import "TLProjectMacro.h"
 
 @protocol TLLocationViewControllerDelegate <NSObject>
 -(void)locationViewControllerSendMsg:(RCLocationMessage *)msg;

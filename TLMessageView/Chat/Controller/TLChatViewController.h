@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TLChatViewController : UIViewController
-
+@property(nonatomic,strong)UITableView *chatTableView;
+-(void)scrollToBottom;
 @end

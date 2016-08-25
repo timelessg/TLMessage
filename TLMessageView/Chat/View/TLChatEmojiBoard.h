@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSInteger emojiBoardHeight = 223;
+
 @protocol TLChatEmojiBoardDelegate <NSObject>
 -(void)chatEmojiBoarDidSelectEmoji:(NSString *)emoji;
 -(void)chatEmojiBoarDidClickBackspace;

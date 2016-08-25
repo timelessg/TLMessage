@@ -61,33 +61,9 @@
             make.centerY.equalTo(self.statusView.mas_centerY).offset(0);
             make.centerX.equalTo(self.statusView.mas_centerX).offset(0);
         }];
-        
-//        [self.bubbleImageView addGestureRecognizer: [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longTap:)]];
-        
     }
     return self;
 }
-//-(void)longTap:(UILongPressGestureRecognizer *)longRecognizer{
-//    if (longRecognizer.state == UIGestureRecognizerStateBegan) {
-//        
-//        [longRecognizer.view canBecomeFirstResponder];
-//        [longRecognizer.view becomeFirstResponder];
-//        
-//        UIMenuController *menu = [UIMenuController sharedMenuController];
-//        
-//        UIMenuItem *copyItem = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyItemClicked:)];
-//        
-//        UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(resendItemClicked:)];
-//        
-//        [menu setMenuItems:@[copyItem,resendItem]];
-//        
-//        [menu setTargetRect:self.bubbleImageView.bounds inView:self];
-//        
-//        [menu setMenuVisible:YES animated:YES];
-//        
-//    }
-//    
-//}
 -(void)updateDirection:(RCMessageDirection)direction{
     [self removeAllConstraints];
     

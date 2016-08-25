@@ -7,43 +7,26 @@
 //
 
 #import "TLChatViewController.h"
-#import <Masonry.h>
-#import <UITableView+FDTemplateLayoutCell.h>
 #import "TLProjectMacro.h"
 #import "TLTextMessageCell.h"
 #import "TLPhotoMessageCell.h"
 #import "TLVoiceMessageCell.h"
 #import "TLLocationMessageCell.h"
 #import "TLChatInputView.h"
-#import "TLPluginBoardView.h"
 #import "TLRCManager.h"
-#import "TLChatEmojiBoard.h"
-#import "TLLocationViewController.h"
 #import "APIDebug.h"
 
-static NSInteger BoardHeight = 223;
-
 @interface TLChatViewController ()
+
 <UITableViewDelegate,
 UITableViewDataSource,
-TLPluginBoardViewDelegate,
-UIImagePickerControllerDelegate,
-UINavigationControllerDelegate,
-TLRCManagerDelegate,
-TLChatEmojiBoardDelegate,
-TLLocationViewControllerDelegate>
-@property(nonatomic,strong)UITableView *chatTableView;
+TLRCManagerDelegate>
+
 @property(nonatomic,strong)TLChatInputView *inputView;
-@property(nonatomic,strong)TLPluginBoardView *pluginBoard;
-@property(nonatomic,strong)TLChatEmojiBoard *emojiBoard;
 @property(nonatomic,strong)NSMutableArray *messages;
-@property(nonatomic,strong)UITapGestureRecognizer *touchTap;
 @end
 
 @implementation TLChatViewController
-{
-    BOOL _lastContentOffset;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -68,54 +51,14 @@ TLLocationViewControllerDelegate>
         make.bottom.equalTo(self.inputView.mas_top).offset(0);
     }];
     
-    [self.view addSubview:self.pluginBoard];
-    [self.pluginBoard mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(0);
-        make.right.equalTo(self.view.mas_right).offset(0);
-        make.bottom.equalTo(self.view.mas_bottom).offset(BoardHeight);
-        make.height.mas_offset(BoardHeight);
-    }];
-    
-    [self.view addSubview:self.emojiBoard];
-    [self.emojiBoard mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(0);
-        make.right.equalTo(self.view.mas_right).offset(0);
-        make.bottom.equalTo(self.view.mas_bottom).offset(BoardHeight);
-        make.height.mas_offset(BoardHeight);
-    }];
-    
     weakifySelf;
-    self.inputView.sendTextMsgAction = ^(RCTextMessage *x){
+    //发送文字消息回调
+    self.inputView.sendMsgAction =  ^(RCMessageContent *x){
         strongifySelf;
         [self sendMessage:x];
     };
     
-    self.inputView.didClickVoiceKeybaord = ^(BOOL selected){
-        strongifySelf;
-        if (selected) {
-            [self hidePluginAndEmojiBoard];
-        }
-    };
-    
-    self.inputView.sendVoiceMsgAction = ^(RCVoiceMessage *x){
-        strongifySelf;
-        [self sendMessage:x];
-    };
-    
-    self.inputView.didClickPlugin = ^(BOOL selected){
-        strongifySelf;
-        [self changeBoard];
-    };
-    
-    self.inputView.didClickEmoji = ^(BOOL selected){
-        strongifySelf;
-        [self changeBoard];
-    };
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
+    //navbar上的一个APIDebug调试，可注释掉
     [APIDebug configWithVC:self];
 }
 
@@ -152,66 +95,6 @@ TLLocationViewControllerDelegate>
         [cell updateMessage:msg showDate:(msg.sentTime - lastMsg.sentTime > 60 * 5 * 1000)];
     }];
     return height;
-}
-#pragma - mark pluginBoardViewDelegate
-
--(NSArray *)pluginBoardItems{
-    TLPluginBoardItem *photo = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_picture_icon" title:@"相册"];
-    TLPluginBoardItem *can = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_camera_icon" title:@"相机"];
-    TLPluginBoardItem *local = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_location_icon" title:@"位置"];
-    TLPluginBoardItem *audio = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_audio_call_icon" title:@"语音"];
-    TLPluginBoardItem *file = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_file_icon" title:@"文件"];
-    TLPluginBoardItem *video = [[TLPluginBoardItem alloc] initWithIcoNamed:@"actionbar_video_call_icon" title:@"视频"];
-    return @[photo,can,local,audio,file,video];
-}
--(void)pluginBoardDidClickItemIndex:(NSInteger)itemIndex{
-    switch (itemIndex) {
-        case 0:
-        {
-            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        }
-            break;
-        case 1:
-        {
-            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
-        }
-            break;
-        case 2:
-        {
-            TLLocationViewController *vc = [[TLLocationViewController alloc] initWithDelegate:self];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        default:
-            break;
-    }
-}
-#pragma - mark LocationViewControllerDelegate
--(void)locationViewControllerSendMsg:(RCLocationMessage *)msg{
-    [self sendMessage:msg];
-}
-
-#pragma - mark emojiBoardViewDelegate
--(void)chatEmojiBoarDidSelectEmoji:(NSString *)emoji{
-    [self.inputView appendEmoji:emoji];
-}
--(void)chatEmojiBoarDidClickBackspace{
-    [self.inputView backspace];
-}
--(void)chatEmojiBoarDidClickSend{
-    [self.inputView sendMessage];
-}
-
-#pragma - mark UIImagePickerControllerDelegate
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    [self dismissViewControllerAnimated:YES completion:^{
-        RCImageMessage *msg = [RCImageMessage messageWithImage:image];
-        [self sendMessage:msg];
-    }];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma - mark RCManagerDelegate
@@ -255,83 +138,10 @@ TLLocationViewControllerDelegate>
     TLMessageCell *cell = [self.chatTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     [cell setMsgStatus:msg.sentStatus];
 }
-
--(void)changeBoard{
-    BOOL pluginShow = self.inputView.moreBtn.selected;
-    BOOL emojiSshow = self.inputView.emojiKeyboardBtn.selected;
-    
-    if (pluginShow) {
-        pluginShow = NO;
-        emojiSshow = YES;
-    }else if (emojiSshow){
-        pluginShow = YES;
-        emojiSshow = NO;
-    }
-    
-//    if (emojiSshow) {
-//        pluginShow = NO;
-//        self.inputView.moreBtn.selected = YES;
-//    }
-    
-    BOOL showBoard = pluginShow || emojiSshow;
-    
-    if (showBoard && self.inputView.inputTextViewIsFirstResponder) {
-        [self.inputView resignInputTextViewFirstResponder];
-    }
-    
-    [self.pluginBoard mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(pluginShow ? 0 : BoardHeight);
-    }];
-    
-    [self.emojiBoard mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(emojiSshow ? 0 : BoardHeight);
-    }];
-    
-    [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(showBoard ? - BoardHeight : 0);
-    }];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.chatTableView beginUpdates];
-        [self.view layoutIfNeeded];
-        [self.chatTableView endUpdates];
-    }];
-    
-//    if (self.inputView.moreBtn.selected) {
-//        self.inputView.moreBtn.selected = NO;
-//    }
-//    
-//    if (self.inputView.emojiKeyboardBtn.selected) {
-//        self.inputView.emojiKeyboardBtn.selected = NO;
-//    }
-    
-    [self chatTableViewScrollToBottomWithoffsetY:showBoard];
-}
-- (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
-    [self.inputView resignInputTextViewFirstResponder];
-    [self hidePluginAndEmojiBoard];
-    [self.chatTableView removeGestureRecognizer:self.touchTap];
-}
-- (void)hidePluginAndEmojiBoard{
-    self.inputView.emojiKeyboardBtn.selected = NO;
-    self.inputView.moreBtn.selected = NO;
-    [self changeBoard];
-}
-- (void)chatTableViewScrollToBottomWithoffsetY:(CGFloat)offsetY{
-    if (_lastContentOffset != offsetY) {
-        if (offsetY > 0) {
-            [self.chatTableView beginUpdates];
-            [self.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
-            [self.chatTableView endUpdates];
-        }
-    }
-    
+-(void)scrollToBottom{
     if (self.messages.count) {
         [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-    _lastContentOffset = offsetY;
-    
-    [self.chatTableView addGestureRecognizer:self.touchTap];
 }
 -(NSIndexPath *)lastMessageIndexPath{
     return [NSIndexPath indexPathForItem:self.messages.count - 1 inSection:0];
@@ -343,40 +153,6 @@ TLLocationViewControllerDelegate>
     NSDictionary *dic = @{@"RCTextMessage":@"textcell",@"RCVoiceMessage":@"voicecell",@"RCImageMessage":@"photocell",@"RCLocationMessage":@"locationcell"};
     return  dic[NSStringFromClass([msg.content class])];
 }
-
--(void)showImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType{
-    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.delegate = self;
-        picker.allowsEditing = YES;
-        picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
-    }
-}
-#pragma mark - keybaordObserver
-- (void)keyboardWillShow:(NSNotification *)sender{
-    [self hidePluginAndEmojiBoard];
-    NSDictionary *userInfo = [sender userInfo];
-    CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(- keyboardRect.size.height);
-    }];
-    [UIView animateWithDuration:duration animations:^{
-        [self.chatTableView beginUpdates];
-        [self.view layoutIfNeeded];
-        [self.chatTableView endUpdates];
-    }];
-    
-    CGFloat offsetY = self.chatTableView.contentSize.height - self.chatTableView.bounds.size.height + keyboardRect.size.height;
-    
-    [self chatTableViewScrollToBottomWithoffsetY:offsetY];
-}
-//- (void)keyboardWillHide:(NSNotification *)sender{
-//    [self hidePluginAndEmojiBoard];
-//}
-
 #pragma - mark getter
 -(NSMutableArray *)messages{
     if (!_messages) {
@@ -402,29 +178,9 @@ TLLocationViewControllerDelegate>
 }
 -(TLChatInputView *)inputView{
     if (!_inputView) {
-        _inputView = [[TLChatInputView alloc] init];
+        _inputView = [[TLChatInputView alloc] initWithChatVc:self];
     }
     return _inputView;
-}
--(TLPluginBoardView *)pluginBoard{
-    if (!_pluginBoard) {
-        _pluginBoard = [[TLPluginBoardView alloc] initWithDelegate:self];
-    }
-    return _pluginBoard;
-}
--(TLChatEmojiBoard *)emojiBoard{
-    if (!_emojiBoard) {
-        _emojiBoard = [[TLChatEmojiBoard alloc] init];
-        _emojiBoard.delegate = self;
-    }
-    return _emojiBoard;
-}
--(UITapGestureRecognizer *)touchTap{
-    if (!_touchTap) {
-        _touchTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHideKeyboard:)];
-        _touchTap.cancelsTouchesInView = NO;
-    }
-    return _touchTap;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

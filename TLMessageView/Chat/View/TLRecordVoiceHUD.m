@@ -8,7 +8,6 @@
 
 #import "TLRecordVoiceHUD.h"
 #import "TLProjectMacro.h"
-#import <Masonry.h>
 
 @interface TLRecordVoiceHUD ()
 @end
