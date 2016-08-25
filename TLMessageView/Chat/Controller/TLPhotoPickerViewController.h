@@ -15,6 +15,7 @@
 
 @interface TLPhotoPickerViewController : UIViewController
 @property(nonatomic,assign)id <TLPhotoPickerDelegate> delegate;
+-(instancetype)initWithDelegate:(id <TLPhotoPickerDelegate>)delegate;
 @end
 
 

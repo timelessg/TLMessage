@@ -10,6 +10,10 @@
 #import <UIImageView+WebCache.h>
 #import "TLPhotoBrowser.h"
 
+static  CGFloat fitImgWidth  = 150;
+static  CGFloat fitImgHeight = 150;
+
+
 @interface TLPhotoMessageCell ()
 @property(nonatomic,strong)UIImageView *photoImageView;
 @end
@@ -45,14 +49,20 @@
     RCImageMessage *imgMessage = (RCImageMessage *)message.content;
     self.photoImageView.image = imgMessage.thumbnailImage;
     
-    CGSize size = CGSizeMake(150, 150);
+    CGSize imgSize = imgMessage.thumbnailImage.size;
+    CGFloat scale = imgSize.width / imgSize.height;
+    
+    CGFloat newWidth  = MAX(MIN(imgSize.width, fitImgWidth), fitImgWidth);
+    CGFloat newHeight = MAX(MIN(imgSize.height, fitImgHeight), fitImgHeight);
+    
+    CGSize newSize = scale > 1 ? CGSizeMake(newWidth, newWidth / scale) : CGSizeMake(newHeight * scale, newHeight);
     
     UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:self.bubbleImageView.image];
-    imageViewMask.frame = CGRectMake(0, 0, size.width, size.height);
+    imageViewMask.frame = CGRectMake(0, 0, newSize.width, newSize.height);
     self.photoImageView.layer.mask = imageViewMask.layer;
     
     [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_offset(size);
+        make.size.mas_offset(newSize).priorityHigh(1);
     }];
 }
 -(UIImageView *)photoImageView{

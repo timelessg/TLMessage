@@ -167,10 +167,9 @@ TLPhotoPickerDelegate>
     switch (itemIndex) {
         case 0:
         {
-            TLPhotoPickerViewController *vc = [[TLPhotoPickerViewController alloc] init];
-            vc.delegate = self;
-            [self.chatVc.navigationController pushViewController:vc animated:YES];
-//            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            TLPhotoPickerViewController *vc = [[TLPhotoPickerViewController alloc] initWithDelegate:self];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.chatVc presentViewController :nav animated:YES completion:nil];
         }
             break;
         case 1:
@@ -245,7 +244,8 @@ TLPhotoPickerDelegate>
 -(void)didSendPhotos:(NSArray *)photos{
     for (PHAsset *item in photos) {
         [[PHImageManager defaultManager] requestImageForAsset:item targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            
+            RCImageMessage *msg = [RCImageMessage messageWithImage:result];
+            if (self.sendMsgAction) self.sendMsgAction(msg);
         }];
     }
 }

@@ -27,7 +27,12 @@ UICollectionViewDataSource>
 @end
 
 @implementation TLPhotoPickerViewController
-
+-(instancetype)initWithDelegate:(id<TLPhotoPickerDelegate>)delegate{
+    if (self = [super init]) {
+        self.delegate = delegate;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"照相机胶卷";
@@ -102,9 +107,11 @@ UICollectionViewDataSource>
     [self.photoCollectionView reloadData];
 }
 -(void)sendPhotoAction:(UIButton *)sender{
-    if ([self.delegate respondsToSelector:@selector(didSendPhotos:)]) {
-        [self.delegate didSendPhotos:self.selectPhotos];
-    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.delegate respondsToSelector:@selector(didSendPhotos:)]) {
+            [self.delegate didSendPhotos:self.selectPhotos];
+        }
+    }];
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TLPhotoThumbCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
@@ -119,7 +126,8 @@ UICollectionViewDataSource>
             x.selected ? [self.selectPhotos addObject:x] : [self.selectPhotos removeObject:x];
             self.countLabel.text = @(self.selectPhotos.count).stringValue;
             self.countLabel.hidden = !self.selectPhotos.count;
-            self.sendBtn.enabled = !self.selectPhotos.count;
+            self.sendBtn.enabled = self.selectPhotos.count;
+            self.previewBtn.enabled = self.selectPhotos.count;
             return YES;
         }
     };
@@ -171,20 +179,22 @@ UICollectionViewDataSource>
     if (!_previewBtn) {
         _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_previewBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
-        [_previewBtn setTitleColor:UIColorFromRGB(0xcccccc) forState:UIControlStateSelected];
+        [_previewBtn setTitleColor:UIColorFromRGB(0xcccccc) forState:UIControlStateDisabled];
         [_previewBtn setTitle:@"预览" forState:UIControlStateNormal];
         _previewBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        _previewBtn.enabled = NO;
     }
     return _previewBtn;
 }
 -(UIButton *)sendBtn{
     if (!_sendBtn) {
         _sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sendBtn setTitleColor:UIColorFromRGB(0xa3cdff) forState:UIControlStateNormal];
-        [_sendBtn setTitleColor:UIColorFromRGB(0x007AFF) forState:UIControlStateDisabled];
+        [_sendBtn setTitleColor:UIColorFromRGB(0x007AFF) forState:UIControlStateNormal];
+        [_sendBtn setTitleColor:UIColorFromRGB(0xa3cdff) forState:UIControlStateDisabled];
         [_sendBtn setTitle:@"发送" forState:UIControlStateNormal];
         _sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_sendBtn addTarget:self action:@selector(sendPhotoAction:) forControlEvents:UIControlEventTouchUpInside];
+        _sendBtn.enabled = NO;
     }
     return _sendBtn;
 }
@@ -194,6 +204,7 @@ UICollectionViewDataSource>
         _countLabel.backgroundColor = UIColorFromRGB(0x007AFF);
         _countLabel.textColor = UIColorFromRGB(0xffffff);
         _countLabel.font = [UIFont systemFontOfSize:15];
+        _countLabel.hidden = YES;
     }
     return _countLabel;
 }
