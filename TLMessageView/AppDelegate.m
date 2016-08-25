@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "TLChatViewController.h"
 #import "TLRCManager.h"
-#import "LoginViewController.h"
 
 @interface AppDelegate ()
 

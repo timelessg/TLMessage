@@ -10,6 +10,9 @@
 		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
 		6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C9991D686F46001FB89A /* TLRCManager.m */; };
 		6529C9A01D69AF3E001FB89A /* TLPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */; };
+		6532810E1D6EE368007FAFF3 /* TLPhotoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532810D1D6EE368007FAFF3 /* TLPhotoPickerViewController.m */; };
+		653281111D6EE548007FAFF3 /* TLPhotoThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 653281101D6EE548007FAFF3 /* TLPhotoThumbCell.m */; };
+		653281141D6EFFE0007FAFF3 /* TLPhotoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 653281131D6EFFE0007FAFF3 /* TLPhotoPreviewViewController.m */; };
 		6540AE061D6BF9B800093BA9 /* TLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6540AE051D6BF9B800093BA9 /* TLLocationViewController.m */; };
 		6540AE091D6C10F000093BA9 /* TLLocationMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6540AE081D6C10F000093BA9 /* TLLocationMessageCell.m */; };
 		65485FEA1D65855700C5D48B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65485FE91D65855700C5D48B /* main.m */; };
@@ -31,7 +34,6 @@
 		659A763C1D6868B300329C83 /* TLChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A76361D6868B300329C83 /* TLChatInputView.m */; };
 		659A763D1D6868B300329C83 /* TLPluginBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A76381D6868B300329C83 /* TLPluginBoardView.m */; };
 		659A763E1D6868B300329C83 /* TLRecordVoiceHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A763A1D6868B300329C83 /* TLRecordVoiceHUD.m */; };
-		65CCC97C1D6B01D400793B5F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CCC97B1D6B01D400793B5F /* LoginViewController.m */; };
 		65CCC97E1D6B027400793B5F /* account.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65CCC97D1D6B027400793B5F /* account.plist */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +42,12 @@
 		6529C9991D686F46001FB89A /* TLRCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRCManager.m; sourceTree = "<group>"; };
 		6529C99E1D69AF3E001FB89A /* TLPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoBrowser.h; sourceTree = "<group>"; };
 		6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoBrowser.m; sourceTree = "<group>"; };
+		6532810C1D6EE368007FAFF3 /* TLPhotoPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoPickerViewController.h; sourceTree = "<group>"; };
+		6532810D1D6EE368007FAFF3 /* TLPhotoPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoPickerViewController.m; sourceTree = "<group>"; };
+		6532810F1D6EE548007FAFF3 /* TLPhotoThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoThumbCell.h; sourceTree = "<group>"; };
+		653281101D6EE548007FAFF3 /* TLPhotoThumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoThumbCell.m; sourceTree = "<group>"; };
+		653281121D6EFFE0007FAFF3 /* TLPhotoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoPreviewViewController.h; sourceTree = "<group>"; };
+		653281131D6EFFE0007FAFF3 /* TLPhotoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPhotoPreviewViewController.m; sourceTree = "<group>"; };
 		6540AE041D6BF9B800093BA9 /* TLLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLLocationViewController.h; sourceTree = "<group>"; };
 		6540AE051D6BF9B800093BA9 /* TLLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLLocationViewController.m; sourceTree = "<group>"; };
 		6540AE071D6C10F000093BA9 /* TLLocationMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLLocationMessageCell.h; sourceTree = "<group>"; };
@@ -82,8 +90,6 @@
 		659A76381D6868B300329C83 /* TLPluginBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPluginBoardView.m; sourceTree = "<group>"; };
 		659A76391D6868B300329C83 /* TLRecordVoiceHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLRecordVoiceHUD.h; sourceTree = "<group>"; };
 		659A763A1D6868B300329C83 /* TLRecordVoiceHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRecordVoiceHUD.m; sourceTree = "<group>"; };
-		65CCC97A1D6B01D400793B5F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		65CCC97B1D6B01D400793B5F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		65CCC97D1D6B027400793B5F /* account.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = account.plist; sourceTree = "<group>"; };
 		6F96D07CC0AB7C0FE3283500 /* Pods-TLMessageView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLMessageView.release.xcconfig"; path = "Pods/Target Support Files/Pods-TLMessageView/Pods-TLMessageView.release.xcconfig"; sourceTree = "<group>"; };
 		791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TLMessageView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,8 +141,6 @@
 				6548601B1D65857C00C5D48B /* Chat */,
 				65485FEB1D65855700C5D48B /* AppDelegate.h */,
 				65485FEC1D65855700C5D48B /* AppDelegate.m */,
-				65CCC97A1D6B01D400793B5F /* LoginViewController.h */,
-				65CCC97B1D6B01D400793B5F /* LoginViewController.m */,
 				65CCC97D1D6B027400793B5F /* account.plist */,
 				654860221D65867100C5D48B /* TLProjectMacro.h */,
 				65485FF41D65855700C5D48B /* Assets.xcassets */,
@@ -189,6 +193,8 @@
 				659A75FE1D68660400329C83 /* TLPhotoMessageCell.m */,
 				6540AE071D6C10F000093BA9 /* TLLocationMessageCell.h */,
 				6540AE081D6C10F000093BA9 /* TLLocationMessageCell.m */,
+				6532810F1D6EE548007FAFF3 /* TLPhotoThumbCell.h */,
+				653281101D6EE548007FAFF3 /* TLPhotoThumbCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -217,6 +223,10 @@
 				659A76301D6868A700329C83 /* TLChatViewController.m */,
 				6540AE041D6BF9B800093BA9 /* TLLocationViewController.h */,
 				6540AE051D6BF9B800093BA9 /* TLLocationViewController.m */,
+				6532810C1D6EE368007FAFF3 /* TLPhotoPickerViewController.h */,
+				6532810D1D6EE368007FAFF3 /* TLPhotoPickerViewController.m */,
+				653281121D6EFFE0007FAFF3 /* TLPhotoPreviewViewController.h */,
+				653281131D6EFFE0007FAFF3 /* TLPhotoPreviewViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -370,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6529C9A01D69AF3E001FB89A /* TLPhotoBrowser.m in Sources */,
+				6532810E1D6EE368007FAFF3 /* TLPhotoPickerViewController.m in Sources */,
 				6540AE061D6BF9B800093BA9 /* TLLocationViewController.m in Sources */,
 				659A76161D68669B00329C83 /* LPlaceholderTextView.m in Sources */,
 				659A76031D68660400329C83 /* TLMessageCell.m in Sources */,
@@ -383,11 +394,12 @@
 				6540AE091D6C10F000093BA9 /* TLLocationMessageCell.m in Sources */,
 				6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */,
 				659A76051D68660400329C83 /* TLTextMessageCell.m in Sources */,
+				653281111D6EE548007FAFF3 /* TLPhotoThumbCell.m in Sources */,
 				659A763B1D6868B300329C83 /* TLChatEmojiBoard.m in Sources */,
 				659A763E1D6868B300329C83 /* TLRecordVoiceHUD.m in Sources */,
 				659A76311D6868A700329C83 /* TLChatViewController.m in Sources */,
-				65CCC97C1D6B01D400793B5F /* LoginViewController.m in Sources */,
 				659A763C1D6868B300329C83 /* TLChatInputView.m in Sources */,
+				653281141D6EFFE0007FAFF3 /* TLPhotoPreviewViewController.m in Sources */,
 				659A763D1D6868B300329C83 /* TLPluginBoardView.m in Sources */,
 				6593DDB81D6D5E8C006E302A /* APIDebug.m in Sources */,
 				65485FEA1D65855700C5D48B /* main.m in Sources */,

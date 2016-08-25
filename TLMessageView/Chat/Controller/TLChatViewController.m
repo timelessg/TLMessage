@@ -52,7 +52,7 @@ TLRCManagerDelegate>
     }];
     
     weakifySelf;
-    //发送文字消息回调
+    //发送消息回调
     self.inputView.sendMsgAction =  ^(RCMessageContent *x){
         strongifySelf;
         [self sendMessage:x];
@@ -120,7 +120,8 @@ TLRCManagerDelegate>
         return;
     }
     [self.messages addObject:message];
-    [self.chatTableView insertRowsAtIndexPaths:@[[self lastMessageIndexPath]] withRowAnimation:UITableViewRowAnimationBottom];
+    
+    [self.chatTableView insertRowsAtIndexPaths:@[[self lastMessageIndexPath]] withRowAnimation:UITableViewRowAnimationFade];
     
     [self.chatTableView scrollToRowAtIndexPath:[self lastMessageIndexPath] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
@@ -150,7 +151,10 @@ TLRCManagerDelegate>
     return index > 0 ? self.messages[index - 1] : nil;
 }
 -(NSString *)cellIdentifierWithMsg:(RCMessage *)msg{
-    NSDictionary *dic = @{@"RCTextMessage":@"textcell",@"RCVoiceMessage":@"voicecell",@"RCImageMessage":@"photocell",@"RCLocationMessage":@"locationcell"};
+    NSDictionary *dic = @{@"RCTextMessage":@"textcell",
+                          @"RCVoiceMessage":@"voicecell",
+                          @"RCImageMessage":@"photocell",
+                          @"RCLocationMessage":@"locationcell"};
     return  dic[NSStringFromClass([msg.content class])];
 }
 #pragma - mark getter

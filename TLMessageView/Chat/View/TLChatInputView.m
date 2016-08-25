@@ -13,6 +13,7 @@
 #import "TLPluginBoardView.h"
 #import "TLChatEmojiBoard.h"
 #import "TLLocationViewController.h"
+#import "TLPhotoPickerViewController.h"
 
 typedef NS_ENUM(NSUInteger, BoardAction) {
     BoardActionChangeEmojiBoard = 1,
@@ -33,7 +34,8 @@ TLPluginBoardViewDelegate,
 TLChatEmojiBoardDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
-TLLocationViewControllerDelegate>
+TLLocationViewControllerDelegate,
+TLPhotoPickerDelegate>
 
 @property(nonatomic,weak)TLChatViewController *chatVc;
 @property(nonatomic,strong)UIButton *voiceKeybaordBtn;
@@ -49,6 +51,7 @@ TLLocationViewControllerDelegate>
 @property(nonatomic,strong)TLChatEmojiBoard *emojiBoard;
 
 @property(nonatomic,strong)UITapGestureRecognizer *touchTap;
+@property(nonatomic,strong)PHImageRequestOptions *options;
 @end
 
 @implementation TLChatInputView
@@ -58,6 +61,7 @@ TLLocationViewControllerDelegate>
 }
 -(void)dealloc{
     [self removeObserver:self forKeyPath:@"emojiBtnSelected"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(instancetype)initWithChatVc:(TLChatViewController *)vc{
     if (self = [super init]) {
@@ -163,12 +167,15 @@ TLLocationViewControllerDelegate>
     switch (itemIndex) {
         case 0:
         {
-            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            TLPhotoPickerViewController *vc = [[TLPhotoPickerViewController alloc] init];
+            vc.delegate = self;
+            [self.chatVc.navigationController pushViewController:vc animated:YES];
+//            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         }
             break;
         case 1:
         {
-            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+//            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
         }
             break;
         case 2:
@@ -234,6 +241,14 @@ TLLocationViewControllerDelegate>
     
     return YES;
 }
+#pragma mark - 
+-(void)didSendPhotos:(NSArray *)photos{
+    for (PHAsset *item in photos) {
+        [[PHImageManager defaultManager] requestImageForAsset:item targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            
+        }];
+    }
+}
 
 #pragma mark - buttonActions
 -(void)switchVoice:(UIButton *)sender{
@@ -258,7 +273,6 @@ TLLocationViewControllerDelegate>
     }else{
         [self.inputView becomeInputTextViewFirstResponder];
     }
-    
 }
 
 #pragma - mark tapVoiceBtnAction
@@ -412,6 +426,13 @@ TLLocationViewControllerDelegate>
     [self changeBoard:BoardActionHideAllBoard height:emojiBoardHeight offsetY:0];
 }
 
+
+-(PHImageRequestOptions *)options{
+    if (!_options) {
+        _options = [[PHImageRequestOptions alloc] init];
+    }
+    return _options;
+}
 #pragma mark - gatter
 -(UITapGestureRecognizer *)touchTap{
     if (!_touchTap) {
