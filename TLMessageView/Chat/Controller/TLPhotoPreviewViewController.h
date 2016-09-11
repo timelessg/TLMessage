@@ -11,3 +11,8 @@
 @interface TLPhotoPreviewViewController : UIViewController
 
 @end
+
+
+@interface TLCountLabel : UILabel
+
+@end

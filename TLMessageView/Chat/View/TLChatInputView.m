@@ -242,11 +242,26 @@ TLPhotoPickerDelegate>
 }
 #pragma mark - 
 -(void)didSendPhotos:(NSArray *)photos{
-    for (PHAsset *item in photos) {
-        [[PHImageManager defaultManager] requestImageForAsset:item targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            RCImageMessage *msg = [RCImageMessage messageWithImage:result];
-            if (self.sendMsgAction) self.sendMsgAction(msg);
-        }];
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t quque = dispatch_queue_create("aaa", DISPATCH_QUEUE_SERIAL);
+    
+    for (int i = 0; i < photos.count; i ++ ) {
+        PHAsset *item = photos[i];
+        
+        dispatch_group_enter(group);
+        dispatch_group_async(group, quque, ^{
+            [[PHImageManager defaultManager] requestImageForAsset:item targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    RCImageMessage *msg = [RCImageMessage messageWithImage:result];
+                    if (self.sendMsgAction) self.sendMsgAction(msg);
+                });
+                dispatch_group_leave(group);
+            }];
+        });
+        
+        dispatch_group_notify(group, quque, ^{
+            NSLog(@"dispatch_group_Notify 结束");
+        });
     }
 }
 

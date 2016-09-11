@@ -9,6 +9,7 @@
 #import "TLPhotoPickerViewController.h"
 #import "TLProjectMacro.h"
 #import "TLPhotoThumbCell.h"
+#import "TLPhotoPreviewViewController.h"
 
 @interface TLPhotoPickerViewController ()
 
@@ -37,6 +38,8 @@ UICollectionViewDataSource>
     [super viewDidLoad];
     self.title = @"照相机胶卷";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
 
     [self.view addSubview:self.photoCollectionView];
     [self.photoCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,6 +88,9 @@ UICollectionViewDataSource>
     }];
     
     [self loadPhotos];
+}
+- (void)cancel{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)loadPhotos{
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
@@ -230,29 +236,5 @@ UICollectionViewDataSource>
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-@end
-
-
-
-
-@implementation TLCountLabel
--(instancetype)init{
-    if (self = [super init]) {
-        self.clipsToBounds = YES;
-        self.textAlignment = NSTextAlignmentCenter;
-        self.backgroundColor = UIColorFromRGB(0xff514e);
-        self.font = [UIFont systemFontOfSize:15];
-        self.textColor = UIColorFromRGB(0xffffff);
-    }
-    return self;
-}
--(CGSize)intrinsicContentSize{
-    CGSize size = [super intrinsicContentSize];
-    return CGSizeMake(MAX(size.width + 8, size.height + 4), size.height + 4);
-}
--(void)layoutSubviews{
-    [super layoutSubviews];
-    self.layer.cornerRadius = self.frame.size.height / 2.0;
 }
 @end
