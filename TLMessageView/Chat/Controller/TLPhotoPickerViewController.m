@@ -122,7 +122,9 @@ UICollectionViewDataSource>
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TLPhotoThumbCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.item = self.dataSource[indexPath.row];
+    weakifySelf;
     cell.selectBlock = ^(PHAsset *x){
+        strongifySelf;
         if (self.selectPhotos.count > 8 && x.selected) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"最多只能选择9张照片" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
@@ -138,6 +140,11 @@ UICollectionViewDataSource>
         }
     };
     return cell;
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    PHAsset *item = self.dataSource[indexPath.row];
+    TLPhotoPreviewViewController *vc = [[TLPhotoPreviewViewController alloc] initWithSelectedAsset:item assets:self.dataSource];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.dataSource.count;

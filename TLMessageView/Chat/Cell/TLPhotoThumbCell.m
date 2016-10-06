@@ -39,7 +39,7 @@
 -(void)setItem:(PHAsset *)item{
     _item = item;
     self.selectBtn.selected = item.selected;
-    [[PHImageManager defaultManager] requestImageForAsset:item targetSize:CGSizeMake(UI_SCREEN_HEIGHT / 2, UI_SCREEN_HEIGHT / 2) contentMode:PHImageContentModeDefault options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+    [[PHImageManager defaultManager] requestImageForAsset:item targetSize:CGSizeMake(UI_SCREEN_HEIGHT / 4, UI_SCREEN_HEIGHT / 4) contentMode:PHImageContentModeDefault options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         self.imageView.image = result;
     }];
 }
