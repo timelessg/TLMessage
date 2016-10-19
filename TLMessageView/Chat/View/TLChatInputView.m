@@ -60,7 +60,7 @@ TLPhotoPickerDelegate>
     CGFloat _lastContentOffset;
 }
 -(void)dealloc{
-    [self removeObserver:self forKeyPath:@"emojiBtnSelected"];
+    [self.voiceKeybaordBtn removeObserver:self forKeyPath:@"selected"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(instancetype)initWithChatVc:(TLChatViewController *)vc{
