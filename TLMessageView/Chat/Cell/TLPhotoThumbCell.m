@@ -8,8 +8,8 @@
 
 #import "TLPhotoThumbCell.h"
 #import "TLProjectMacro.h"
-#import <objc/runtime.h>
 #import "TLButton.h"
+#import "PHAsset+Extend.h"
 
 @interface TLPhotoThumbCell ()
 @property(nonatomic,strong)UIImageView *imageView;
@@ -71,17 +71,5 @@
         _options = [[PHImageRequestOptions alloc] init];
     }
     return _options;
-}
-@end
-
-
-static char selectedKey;
-
-@implementation PHAsset (extend)
--(void)setSelected:(BOOL)selected{
-    objc_setAssociatedObject(self, &selectedKey, @(selected), OBJC_ASSOCIATION_ASSIGN);
-}
--(BOOL)selected{
-    return [objc_getAssociatedObject(self, &selectedKey) boolValue];
 }
 @end

@@ -8,6 +8,7 @@
 
 #import "TLPhotoPreviewViewController.h"
 #import "TLProjectMacro.h"
+#import "PHAsset+Extend.h"
 
 @interface TLPhotoPreviewViewController ()
 <UICollectionViewDelegate,
@@ -44,8 +45,9 @@ TLImageScrollViewDelegate>
     if (self = [super init]) {
         self.selectedAsset = selectedAsset;
         self.assets = asstes;
-        
         _currentIndex = [self.assets indexOfObject:selectedAsset];
+        self.selectBtn.selected = selectedAsset.selected;
+        self.sendOriginalImgBtn.selected = selectedAsset.isOriginal;
     }
     return self;
 }
@@ -57,7 +59,6 @@ TLImageScrollViewDelegate>
     self.view.backgroundColor = [UIColor blackColor];
     
     self.collectionView.contentOffset = CGPointMake(_currentIndex * self.collectionView.bounds.size.width, 0);
-    
     
     [self.view addSubview:self.navView];
     [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,17 +72,52 @@ TLImageScrollViewDelegate>
         make.centerY.equalTo(self.navView.mas_centerY).offset(0);
     }];
     
+    [self.navView addSubview:self.selectBtn];
+    [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.navView.mas_right).offset(-10);
+        make.centerY.equalTo(self.navView.mas_centerY).offset(0);
+    }];
+    
     [self.view addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.left.right.equalTo(self.view);
         make.height.mas_offset(@44);
+    }];
+    
+    [self.bottomView addSubview:self.sendOriginalImgBtn];
+    [self.sendOriginalImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bottomView.mas_left).offset(10);
+        make.centerY.equalTo(self.bottomView.mas_centerY).offset(0);
+    }];
+    
+    [self.bottomView addSubview:self.sendBtn];
+    [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.bottomView.mas_right).offset(-10);
+        make.centerY.equalTo(self.bottomView.mas_centerY).offset(0);
     }];
 }
 -(void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)sendPhotoAction:(UIButton *)sender{
-    
+    if ([self.delegate respondsToSelector:@selector(sendPhotos)]) {
+        [self.delegate sendPhotos];
+    }
+}
+-(void)selectAction:(UIButton *)sender{
+    PHAsset *currentAsset = self.assets[_currentIndex];
+    currentAsset.selected = !currentAsset.selected;
+    sender.selected = currentAsset.selected;
+    if (currentAsset.selected) {
+        [self.delegate selectedPhoto:currentAsset];
+    }else{
+        [self.delegate removePhoto:currentAsset];
+    }
+}
+-(void)sendOriginalImgAction:(UIButton *)sender{
+    PHAsset *currentAsset = self.assets[_currentIndex];
+    currentAsset.isOriginal = !currentAsset.isOriginal;
+    sender.selected = currentAsset.isOriginal;
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TLPhotoPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
@@ -92,17 +128,20 @@ TLImageScrollViewDelegate>
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.assets.count;
 }
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return collectionView.frame.size;
+#pragma mark - UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(self.view.bounds.size.width + 20, self.view.bounds.size.height);
 }
--(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return 0;
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 0;
-}
--(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    return YES;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    CGFloat offsetX = scrollView.contentOffset.x;
+    CGFloat itemWidth = self.collectionView.frame.size.width;
+    if (offsetX >= 0){
+        NSInteger index = offsetX / itemWidth;
+        _currentIndex = index;
+        PHAsset *currentAsset = self.assets[_currentIndex];
+        self.sendOriginalImgBtn.selected = currentAsset.isOriginal;
+        self.selectBtn.selected = currentAsset.selected;
+    }
 }
 -(void)imageScrollViewTap:(UITapGestureRecognizer *)sender{
     [self.navView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -123,12 +162,12 @@ TLImageScrollViewDelegate>
 }
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.colletionLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(- 10, 0, self.view.bounds.size.width + 20, self.view.bounds.size.height + 1) collectionViewLayout:self.colletionLayout];
         _collectionView.backgroundColor = [UIColor blackColor];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        
         _collectionView.pagingEnabled = YES;
+        _collectionView.showsHorizontalScrollIndicator = YES;
         [_collectionView registerClass:[TLPhotoPreviewCell class] forCellWithReuseIdentifier:@"cell"];
         self.colletionLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     }
@@ -137,6 +176,9 @@ TLImageScrollViewDelegate>
 -(UICollectionViewFlowLayout *)colletionLayout{
     if (!_colletionLayout) {
         _colletionLayout = [[UICollectionViewFlowLayout alloc] init];
+        _colletionLayout.minimumInteritemSpacing = 0;
+        _colletionLayout.minimumLineSpacing = 0;
+        _colletionLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     }
     return _colletionLayout;
 }
@@ -172,6 +214,15 @@ TLImageScrollViewDelegate>
     }
     return _backBtn;
 }
+-(UIButton *)selectBtn{
+    if (!_selectBtn) {
+        _selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_selectBtn setImage:[UIImage imageNamed:@"photo_preview_unselected"] forState:UIControlStateNormal];
+        [_selectBtn setImage:[UIImage imageNamed:@"photo_preview_selected"] forState:UIControlStateSelected];
+        [_selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _selectBtn;
+}
 -(TLCountLabel *)countLabel{
     if (!_countLabel) {
         _countLabel = [[TLCountLabel alloc] init];
@@ -185,13 +236,14 @@ TLImageScrollViewDelegate>
 -(UIButton *)sendOriginalImgBtn{
     if (!_sendOriginalImgBtn) {
         _sendOriginalImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sendOriginalImgBtn setImage:[UIImage imageNamed:@"photo_preview_unselected"] forState:UIControlStateNormal];
-        [_sendOriginalImgBtn setImage:[UIImage imageNamed:@"photo_preview_selected"] forState:UIControlStateSelected];
+        [_sendOriginalImgBtn setImage:[UIImage imageNamed:@"unselected_full"] forState:UIControlStateNormal];
+        [_sendOriginalImgBtn setImage:[UIImage imageNamed:@"selected_full"] forState:UIControlStateSelected];
         [_sendOriginalImgBtn setTitle:@"原图" forState:UIControlStateNormal];
         [_sendOriginalImgBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
         [_sendOriginalImgBtn setTitleColor:UIColorFromRGB(0xcccccc) forState:UIControlStateSelected];
         _sendOriginalImgBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         _sendOriginalImgBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+        [_sendOriginalImgBtn addTarget:self action:@selector(sendOriginalImgAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sendOriginalImgBtn;
 }

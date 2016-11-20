@@ -13,7 +13,3 @@
 @property(nonatomic,strong)PHAsset *item;
 @property(nonatomic,copy)BOOL (^selectBlock)(PHAsset *x);
 @end
-
-@interface PHAsset (extend)
-@property(nonatomic,assign)BOOL selected;
-@end

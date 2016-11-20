@@ -10,11 +10,13 @@
 #import "TLProjectMacro.h"
 #import "TLPhotoThumbCell.h"
 #import "TLPhotoPreviewViewController.h"
+#import "PHAsset+Extend.h"
 
 @interface TLPhotoPickerViewController ()
 
 <UICollectionViewDelegate,
-UICollectionViewDataSource>
+UICollectionViewDataSource,
+TLPhotoPreviewDelegate>
 
 @property(nonatomic,strong)UICollectionView *photoCollectionView;
 @property(nonatomic,strong)UICollectionViewFlowLayout *colletionLayout;
@@ -28,6 +30,10 @@ UICollectionViewDataSource>
 @end
 
 @implementation TLPhotoPickerViewController
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.photoCollectionView reloadData];
+}
 -(instancetype)initWithDelegate:(id<TLPhotoPickerDelegate>)delegate{
     if (self = [super init]) {
         self.delegate = delegate;
@@ -40,7 +46,7 @@ UICollectionViewDataSource>
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-
+    
     [self.view addSubview:self.photoCollectionView];
     [self.photoCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).offset(0);
@@ -112,12 +118,31 @@ UICollectionViewDataSource>
     }
     [self.photoCollectionView reloadData];
 }
--(void)sendPhotoAction:(UIButton *)sender{
+-(void)sendPhotoAction{
     [self dismissViewControllerAnimated:YES completion:^{
         if ([self.delegate respondsToSelector:@selector(didSendPhotos:)]) {
             [self.delegate didSendPhotos:self.selectPhotos];
         }
     }];
+}
+-(void)selectedPhoto:(PHAsset *)photo{
+    if ([self.selectPhotos indexOfObject:photo] != NSIntegerMax) {
+        return;
+    }
+    [self.selectPhotos addObject:photo];
+    [self updateSelectedCount];
+}
+-(void)removePhoto:(PHAsset *)photo{
+    if ([self.selectPhotos indexOfObject:photo] != NSIntegerMax) {
+        [self.selectPhotos removeObject:photo];
+    }
+    [self updateSelectedCount];
+}
+-(void)updateSelectedCount{
+    self.countLabel.text = @(self.selectPhotos.count).stringValue;
+    self.countLabel.hidden = !self.selectPhotos.count;
+    self.sendBtn.enabled = self.selectPhotos.count;
+    self.previewBtn.enabled = self.selectPhotos.count;
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TLPhotoThumbCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
@@ -132,10 +157,7 @@ UICollectionViewDataSource>
             return NO;
         }else{
             x.selected ? [self.selectPhotos addObject:x] : [self.selectPhotos removeObject:x];
-            self.countLabel.text = @(self.selectPhotos.count).stringValue;
-            self.countLabel.hidden = !self.selectPhotos.count;
-            self.sendBtn.enabled = self.selectPhotos.count;
-            self.previewBtn.enabled = self.selectPhotos.count;
+            [self updateSelectedCount];
             return YES;
         }
     };
@@ -144,6 +166,7 @@ UICollectionViewDataSource>
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     PHAsset *item = self.dataSource[indexPath.row];
     TLPhotoPreviewViewController *vc = [[TLPhotoPreviewViewController alloc] initWithSelectedAsset:item assets:self.dataSource];
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -161,6 +184,12 @@ UICollectionViewDataSource>
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 5.0;
+}
+-(void)reloadPhotos{
+    [self.photoCollectionView reloadData];
+}
+-(void)sendPhotos{
+    [self sendPhotoAction];
 }
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
@@ -206,7 +235,7 @@ UICollectionViewDataSource>
         [_sendBtn setTitleColor:UIColorFromRGB(0xa3cdff) forState:UIControlStateDisabled];
         [_sendBtn setTitle:@"发送" forState:UIControlStateNormal];
         _sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_sendBtn addTarget:self action:@selector(sendPhotoAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_sendBtn addTarget:self action:@selector(sendPhotoAction) forControlEvents:UIControlEventTouchUpInside];
         _sendBtn.enabled = NO;
     }
     return _sendBtn;

@@ -10,7 +10,14 @@
 #import <Photos/Photos.h>
 #import "TLPhotoBrowser.h"
 
+@protocol TLPhotoPreviewDelegate <NSObject>
+-(void)selectedPhoto:(PHAsset *)photo;
+-(void)removePhoto:(PHAsset *)photo;
+-(void)sendPhotos;
+@end
+
 @interface TLPhotoPreviewViewController : UIViewController
+@property(nonatomic,assign)id <TLPhotoPreviewDelegate> delegate;
 -(instancetype)initWithSelectedAsset:(PHAsset *)selectedAsset assets:(NSArray *)asstes;
 @end
 

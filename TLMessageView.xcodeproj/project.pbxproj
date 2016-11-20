@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D64899EF81D029CB869C98E /* libPods-TLMessageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 791DEB54B7A6A68D4BE26AF8 /* libPods-TLMessageView.a */; };
+		4BE6099E1DE19D7B00E2885C /* PHAsset+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6099D1DE19D7B00E2885C /* PHAsset+Extend.m */; };
 		6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C9991D686F46001FB89A /* TLRCManager.m */; };
 		6529C9A01D69AF3E001FB89A /* TLPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6529C99F1D69AF3E001FB89A /* TLPhotoBrowser.m */; };
 		6532810E1D6EE368007FAFF3 /* TLPhotoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532810D1D6EE368007FAFF3 /* TLPhotoPickerViewController.m */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4BE6099C1DE19D7B00E2885C /* PHAsset+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Extend.h"; sourceTree = "<group>"; };
+		4BE6099D1DE19D7B00E2885C /* PHAsset+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Extend.m"; sourceTree = "<group>"; };
 		6529C9981D686F46001FB89A /* TLRCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLRCManager.h; sourceTree = "<group>"; };
 		6529C9991D686F46001FB89A /* TLRCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRCManager.m; sourceTree = "<group>"; };
 		6529C99E1D69AF3E001FB89A /* TLPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPhotoBrowser.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				659A76131D68669B00329C83 /* LPlaceholderTextView.m */,
 				659A76141D68669B00329C83 /* NSDate+Utils.h */,
 				659A76151D68669B00329C83 /* NSDate+Utils.m */,
+				4BE6099C1DE19D7B00E2885C /* PHAsset+Extend.h */,
+				4BE6099D1DE19D7B00E2885C /* PHAsset+Extend.m */,
 				659A76261D68689000329C83 /* TLRecordVoice.h */,
 				659A76271D68689000329C83 /* TLRecordVoice.m */,
 				659A76281D68689000329C83 /* TLVoicePlayer.h */,
@@ -390,6 +395,7 @@
 				65485FED1D65855700C5D48B /* AppDelegate.m in Sources */,
 				6597B7D01D6AE52A003D7215 /* TLButton.m in Sources */,
 				659A76041D68660400329C83 /* TLPhotoMessageCell.m in Sources */,
+				4BE6099E1DE19D7B00E2885C /* PHAsset+Extend.m in Sources */,
 				659A762D1D68689000329C83 /* TLVoicePlayer.m in Sources */,
 				6540AE091D6C10F000093BA9 /* TLLocationMessageCell.m in Sources */,
 				6529C99A1D686F46001FB89A /* TLRCManager.m in Sources */,
