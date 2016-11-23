@@ -297,6 +297,7 @@
 				TargetAttributes = {
 					65485FE41D65855700C5D48B = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = HLFH2Z48FU;
 					};
 				};
 			};
@@ -519,6 +520,7 @@
 			baseConfigurationReference = BBAD4FEC4CD361ADEA2B4EA9 /* Pods-TLMessageView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HLFH2Z48FU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -537,6 +539,7 @@
 			baseConfigurationReference = 6F96D07CC0AB7C0FE3283500 /* Pods-TLMessageView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HLFH2Z48FU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

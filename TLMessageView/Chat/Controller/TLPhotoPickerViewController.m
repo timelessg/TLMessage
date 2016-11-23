@@ -99,24 +99,32 @@ TLPhotoPreviewDelegate>
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)loadPhotos{
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"在设置中允许照片访问" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
-        return;
-    }
-    
-    PHFetchOptions *options = [[PHFetchOptions alloc] init];
-    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    PHFetchResult *assetsFetchResults = [PHAsset fetchAssetsWithOptions:options];
-    for (NSInteger i = 0; i < assetsFetchResults.count; i++) {
-        PHAsset *asset = assetsFetchResults[i];
-        if (asset.mediaType == PHAssetMediaTypeImage) {
-            [self.dataSource addObject:asset];
+    void (^reloadPhoto)(void) = ^{
+        PHFetchOptions *options = [[PHFetchOptions alloc] init];
+        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+        PHFetchResult *assetsFetchResults = [PHAsset fetchAssetsWithOptions:options];
+        for (NSInteger i = 0; i < assetsFetchResults.count; i++) {
+            PHAsset *asset = assetsFetchResults[i];
+            if (asset.mediaType == PHAssetMediaTypeImage) {
+                [self.dataSource addObject:asset];
+            }
         }
+        [self.photoCollectionView reloadData];
+    };
+    
+    if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if (status == PHAuthorizationStatusAuthorized) {
+                reloadPhoto();
+            }else{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"在设置中允许照片访问" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    }else{
+        reloadPhoto();
     }
-    [self.photoCollectionView reloadData];
 }
 -(void)sendPhotoAction{
     [self dismissViewControllerAnimated:YES completion:^{
