@@ -109,7 +109,9 @@ TLPhotoPreviewDelegate>
                 [self.dataSource addObject:asset];
             }
         }
-        [self.photoCollectionView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.photoCollectionView reloadData];
+        });
     };
     
     if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusNotDetermined) {

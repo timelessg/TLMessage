@@ -9,6 +9,7 @@
 #import "TLPhotoPreviewViewController.h"
 #import "TLProjectMacro.h"
 #import "PHAsset+Extend.h"
+#import "TLButton.h"
 
 @interface TLPhotoPreviewViewController ()
 <UICollectionViewDelegate,
@@ -19,11 +20,11 @@ TLImageScrollViewDelegate>
 @property(nonatomic,strong)UICollectionViewFlowLayout *colletionLayout;
 @property(nonatomic,strong)UIVisualEffectView *bottomView;
 @property(nonatomic,strong)UIVisualEffectView *navView;
-@property(nonatomic,strong)UIButton *sendBtn;
+@property(nonatomic,strong)TLButton *sendBtn;
 @property(nonatomic,strong)TLCountLabel *countLabel;
-@property(nonatomic,strong)UIButton *selectBtn;
-@property(nonatomic,strong)UIButton *sendOriginalImgBtn;
-@property(nonatomic,strong)UIButton *backBtn;
+@property(nonatomic,strong)TLButton *selectBtn;
+@property(nonatomic,strong)TLButton *sendOriginalImgBtn;
+@property(nonatomic,strong)TLButton *backBtn;
 @property(nonatomic,strong)PHAsset *selectedAsset;
 @property(nonatomic,strong)NSArray *assets;
 @end
@@ -194,10 +195,9 @@ TLImageScrollViewDelegate>
     }
     return _bottomView;
 }
--(UIButton *)sendBtn{
+-(TLButton *)sendBtn{
     if (!_sendBtn) {
-        _sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _sendBtn = [TLButton buttonWithType:UIButtonTypeCustom];
         [_sendBtn setTitleColor:UIColorFromRGB(0x007AFF) forState:UIControlStateNormal];
         [_sendBtn setTitleColor:UIColorFromRGB(0xa3cdff) forState:UIControlStateDisabled];
         [_sendBtn setTitle:@"发送" forState:UIControlStateNormal];
@@ -206,17 +206,17 @@ TLImageScrollViewDelegate>
     }
     return _sendBtn;
 }
--(UIButton *)backBtn{
+-(TLButton *)backBtn{
     if (!_backBtn) {
-        _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backBtn = [TLButton buttonWithType:UIButtonTypeCustom];
         [_backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
 }
--(UIButton *)selectBtn{
+-(TLButton *)selectBtn{
     if (!_selectBtn) {
-        _selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _selectBtn = [TLButton buttonWithType:UIButtonTypeCustom];
         [_selectBtn setImage:[UIImage imageNamed:@"photo_preview_unselected"] forState:UIControlStateNormal];
         [_selectBtn setImage:[UIImage imageNamed:@"photo_preview_selected"] forState:UIControlStateSelected];
         [_selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -233,9 +233,9 @@ TLImageScrollViewDelegate>
     }
     return _countLabel;
 }
--(UIButton *)sendOriginalImgBtn{
+-(TLButton *)sendOriginalImgBtn{
     if (!_sendOriginalImgBtn) {
-        _sendOriginalImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _sendOriginalImgBtn = [TLButton buttonWithType:UIButtonTypeCustom];
         [_sendOriginalImgBtn setImage:[UIImage imageNamed:@"unselected_full"] forState:UIControlStateNormal];
         [_sendOriginalImgBtn setImage:[UIImage imageNamed:@"selected_full"] forState:UIControlStateSelected];
         [_sendOriginalImgBtn setTitle:@"原图" forState:UIControlStateNormal];
@@ -295,7 +295,7 @@ TLImageScrollViewDelegate>
     return self;
 }
 -(void)setAsset:(PHAsset *)asset{
-    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:[[PHImageRequestOptions alloc] init] resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(asset.pixelWidth, asset.pixelHeight) contentMode:PHImageContentModeDefault options:[[PHImageRequestOptions alloc] init] resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         self.imgScrollView.img = result;
     }];
 }

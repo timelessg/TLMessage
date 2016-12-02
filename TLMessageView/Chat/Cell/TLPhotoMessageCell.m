@@ -16,6 +16,7 @@ static  CGFloat fitImgHeight = 150;
 
 @interface TLPhotoMessageCell ()
 @property(nonatomic,strong)UIImageView *photoImageView;
+@property(nonatomic,strong)UIImageView *imageViewMask;
 @end
 
 @implementation TLPhotoMessageCell
@@ -57,13 +58,18 @@ static  CGFloat fitImgHeight = 150;
     
     CGSize newSize = scale > 1 ? CGSizeMake(newWidth, newWidth / scale) : CGSizeMake(newHeight * scale, newHeight);
     
-    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:self.bubbleImageView.image];
-    imageViewMask.frame = CGRectMake(0, 0, newSize.width, newSize.height);
-    self.photoImageView.layer.mask = imageViewMask.layer;
+    self.imageViewMask.frame = CGRectMake(0, 0, newSize.width, newSize.height);
+    self.photoImageView.layer.mask = self.imageViewMask.layer;
     
     [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.size.mas_offset(newSize).priorityHigh(1);
     }];
+}
+-(UIImageView *)imageViewMask{
+    if (!_imageViewMask) {
+        _imageViewMask = [[UIImageView alloc] initWithImage:self.bubbleImageView.image];
+    }
+    return _imageViewMask;
 }
 -(UIImageView *)photoImageView{
     if (!_photoImageView) {

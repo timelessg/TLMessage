@@ -276,9 +276,12 @@ TLPhotoPickerDelegate>
 }
 -(void)didClickMoreAcion:(UIButton *)sender{
     sender.selected = !sender.selected;
-    self.emojiKeyboardBtn.selected = NO;
-    [self changeBoard:BoardActionChangeEmojiBoard height:pluginBoardHeight offsetY:pluginBoardHeight];
-    
+    if (sender.selected) {
+        [self changeBoard:BoardActionChangeEmojiBoard height:pluginBoardHeight offsetY:pluginBoardHeight];
+//        self.voiceKeybaordBtn.selected = NO;
+    }else{
+        [self.inputView becomeInputTextViewFirstResponder];
+    }
 }
 -(void)didClickEmojiAction:(UIButton *)sender{
     sender.selected = !sender.selected;
