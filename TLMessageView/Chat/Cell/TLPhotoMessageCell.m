@@ -58,6 +58,7 @@ static  CGFloat fitImgHeight = 150;
     
     CGSize newSize = scale > 1 ? CGSizeMake(newWidth, newWidth / scale) : CGSizeMake(newHeight * scale, newHeight);
     
+    self.imageViewMask.image = self.bubbleImageView.image;
     self.imageViewMask.frame = CGRectMake(0, 0, newSize.width, newSize.height);
     self.photoImageView.layer.mask = self.imageViewMask.layer;
     
@@ -67,7 +68,7 @@ static  CGFloat fitImgHeight = 150;
 }
 -(UIImageView *)imageViewMask{
     if (!_imageViewMask) {
-        _imageViewMask = [[UIImageView alloc] initWithImage:self.bubbleImageView.image];
+        _imageViewMask = [[UIImageView alloc] init];
     }
     return _imageViewMask;
 }
