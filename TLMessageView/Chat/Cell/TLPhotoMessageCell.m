@@ -62,6 +62,9 @@ static  CGFloat fitImgHeight = 150;
     self.imageViewMask.frame = CGRectMake(0, 0, newSize.width, newSize.height);
     self.photoImageView.layer.mask = self.imageViewMask.layer;
     
+    [UIView performWithoutAnimation:^{
+        [self layoutIfNeeded];
+    }];
     [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.size.mas_offset(newSize).priorityHigh(1);
     }];
