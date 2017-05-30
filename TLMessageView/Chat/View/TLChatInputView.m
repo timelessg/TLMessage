@@ -174,7 +174,7 @@ TLPhotoPickerDelegate>
             break;
         case 1:
         {
-//            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            //            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
         }
             break;
         case 2:
@@ -240,7 +240,7 @@ TLPhotoPickerDelegate>
     
     return YES;
 }
-#pragma mark - 
+#pragma mark -
 -(void)didSendPhotos:(NSArray *)photos{
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t quque = dispatch_queue_create("aaa", DISPATCH_QUEUE_SERIAL);
@@ -278,7 +278,7 @@ TLPhotoPickerDelegate>
     sender.selected = !sender.selected;
     if (sender.selected) {
         [self changeBoard:BoardActionChangeEmojiBoard height:pluginBoardHeight offsetY:pluginBoardHeight];
-//        self.voiceKeybaordBtn.selected = NO;
+        //        self.voiceKeybaordBtn.selected = NO;
     }else{
         [self.inputView becomeInputTextViewFirstResponder];
     }
@@ -368,16 +368,10 @@ TLPhotoPickerDelegate>
         make.bottom.equalTo(self.chatVc.view.mas_bottom).offset(showBoard ? - height : 0);
     }];
     
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.chatVc.chatTableView beginUpdates];
-        [self.chatVc.view layoutIfNeeded];
-        [self.chatVc.chatTableView endUpdates];
-    }];
+    [self.chatVc.view layoutIfNeeded];
     
     if (_lastContentOffset != offsetY && offsetY > 0) {
-        [self.chatVc.chatTableView beginUpdates];
         [self.chatVc.chatTableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
-        [self.chatVc.chatTableView endUpdates];
     }
     
     [self.chatVc scrollToBottom];

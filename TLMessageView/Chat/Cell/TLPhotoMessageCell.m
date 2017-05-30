@@ -62,23 +62,11 @@ static  CGFloat fitImgHeight = 150;
     self.imageViewMask.frame = CGRectMake(0, 0, newSize.width, newSize.height);
     self.photoImageView.layer.mask = self.imageViewMask.layer;
     
-    [UIView performWithoutAnimation:^{
-        [self layoutIfNeeded];
-    }];
-    
     [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.size.mas_offset(newSize);
-    }];    
+    }];
 }
-- (UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize {
-    UIGraphicsBeginImageContext(CGSizeMake(image.size.width * scaleSize, image.size.height * scaleSize));
-    [image drawInRect:CGRectMake(0, 0, image.size.width * scaleSize, image.size.height * scaleSize)];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return scaledImage;
-    
-}
+
 -(UIImageView *)imageViewMask{
     if (!_imageViewMask) {
         _imageViewMask = [[UIImageView alloc] init];
