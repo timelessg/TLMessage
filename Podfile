@@ -9,7 +9,7 @@ target "TLMessageView" do
 	pod 'MJRefresh'
 	pod 'FMDB'
 	pod 'RongCloudIMLib'
-    pod 'UITableView+FDTemplateLayoutCell'
+    pod 'UITableView+FDTemplateLayoutCell', '~> 1.6'
     pod 'SDWebImage'
 end
 

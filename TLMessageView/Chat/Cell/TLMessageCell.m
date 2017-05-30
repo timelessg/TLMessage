@@ -19,6 +19,10 @@
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self).priorityHigh(1);
+        }];
+        
         [self.contentView addSubview:self.dateTimeLabel];
         [self.dateTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView.mas_top).offset(0);
@@ -37,7 +41,7 @@
         [self.contentView addSubview:self.bubbleImageView];
         [self.bubbleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.avatarImageView.mas_top).offset(0);
-            make.bottom.equalTo(self.contentView.mas_bottom).offset(-8);
+            make.bottom.equalTo(self.contentView.mas_bottom).offset(-8).priorityHigh(1);
             SMAS(make.left.equalTo(self.avatarImageView.mas_right).offset(7));
             SMAS(make.right.lessThanOrEqualTo(self.contentView.mas_right).offset(-78));
         }];
