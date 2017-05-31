@@ -6,8 +6,6 @@ platform :ios, '8.0'
 
 target "TLMessageView" do
 	pod 'Masonry'
-	pod 'MJRefresh'
-	pod 'FMDB'
 	pod 'RongCloudIMLib'
     pod 'UITableView+FDTemplateLayoutCell', '~> 1.6'
     pod 'SDWebImage'

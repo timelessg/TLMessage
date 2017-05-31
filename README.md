@@ -1,43 +1,37 @@
-##Welcome to TLMessage
+TLMessage
+==================
 
-##TODO
->1·聊天历史记录数据库持久化
->
->2·群聊
->
->3·文件消息
+# TODO
+* 群聊
+* 文件消息
 
-##介绍
->这是一个基于融云IMLib的IM框架。如果你需要使用IMLib来自己实现UI逻辑，不妨Clone下来这个轮子参考下。这个项目我会一直维护，实现更多的功能，最终的目的是完成一个开源的IMkit。
+# Introduce
+* 这是一个IMUI库。对接了目前比较流行的RongCloud实现聊天功能。
 
+# System Requirement
+* iOS 8.0 or later
+* Xcode 8.0 or later
 
-##特性
->1·接入融云IMLib，目前支持Text/Image/Voice/Location四种消息
->
->2·支持发送状态提示，失败后可点击重发
->
->3·布局完全使用Masonry（AutoLayout）
->
->4·支持扩展面板扩展
->
->5·支持Emoji面板输入
+# Character
+* 接入融云IMLib，支持Text/Image/Voice/Location消息收发
+* 支持发送状态提示，失败重发
+* 完全使用AutoLayout布局
+* 支持扩展面板扩展
+* 支持Emoji输入
 
-##依赖框架
->FMDB SQLite持久化历史消息
->
->Masonry AutoLayout框架
->
->UITableView+FDTemplateLayoutCell cell自适应高度框架
->
->SDWebImage 只是用了UIImageView + WebCache
+# Depend on Framwork
+* Masonry AutoLayout
+* FDTemplateLayoutCell Cell自适应高度
+* SDWebImage
+* RongCloudIMLib 融云通讯能力库
 
-##使用说明
->克隆项目后，需要使用Cocoapods updte/install
->
->部分图片素材来源于融云IMKit，如需将TLMessage用于实际项目，请替换资源图片
->
->目前项目尚处于开发阶段，不建议直接在企业项目中使用。
+# Usage
+* 克隆项目后，需要使用Cocoapods install
 
-##截图
+# Warning！
+* 部分图片素材来源于融云IMKit，使用前请替换资源图片
+* 目前项目尚处于开发阶段，不建议直接在企业项目中使用。
 
-![ScreenShot](https://github.com/timelessg/TLMessage/blob/master/ScreenShot/1.png?raw=true)
+# Images
+
+<img src="./ScreenShot/1.png" width="320">
