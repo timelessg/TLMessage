@@ -229,7 +229,9 @@ TLPhotoPickerDelegate>
         [self sendMessage];
         return NO;
     }
-    
+    return YES;
+}
+-(void)textViewDidChange:(UITextView *)textView {
     if ([textView.text length] > maxInputLength) {
         self.inputTextView.text = [textView.text substringWithRange:NSMakeRange(0, maxInputLength)];
     }else{
@@ -237,8 +239,6 @@ TLPhotoPickerDelegate>
             make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
         }];
     }
-    
-    return YES;
 }
 #pragma mark -
 -(void)didSendPhotos:(NSArray *)photos{
@@ -278,7 +278,6 @@ TLPhotoPickerDelegate>
     sender.selected = !sender.selected;
     if (sender.selected) {
         [self changeBoard:BoardActionChangeEmojiBoard height:pluginBoardHeight offsetY:pluginBoardHeight];
-        //        self.voiceKeybaordBtn.selected = NO;
     }else{
         [self.inputView becomeInputTextViewFirstResponder];
     }
@@ -398,9 +397,15 @@ TLPhotoPickerDelegate>
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
     }];
+    
+    NSRange bottom = NSMakeRange(self.inputTextView.text.length - 1, 1);
+    [self.inputTextView scrollRangeToVisible:bottom];
 }
 -(void)backspace{
     [self.inputTextView deleteBackward];
+    [self mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
+    }];
 }
 - (void)sendMessage{
     NSString *text = self.inputTextView.text;
@@ -518,6 +523,7 @@ TLPhotoPickerDelegate>
         _inputTextView.layer.cornerRadius = 4.0f;
         _inputTextView.layer.borderColor = UIColorFromRGB(0xcccccc).CGColor;
         _inputTextView.layer.borderWidth = 0.5;
+        _inputTextView.layoutManager.allowsNonContiguousLayout = NO;
         [_inputTextView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     }
     return _inputTextView;
