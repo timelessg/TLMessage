@@ -135,6 +135,14 @@ TLPhotoPreviewDelegate>
         }
     }];
 }
+-(void)previewAction {
+    [self showPreviewWithSelectedAsset:nil];
+}
+-(void)showPreviewWithSelectedAsset:(PHAsset *)asset {
+    TLPhotoPreviewViewController *vc = [[TLPhotoPreviewViewController alloc] initWithSelectedAsset:asset assets:self.dataSource];
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 -(void)selectedPhoto:(PHAsset *)photo{
     if ([self.selectPhotos indexOfObject:photo] != NSIntegerMax) {
         return;
@@ -175,9 +183,7 @@ TLPhotoPreviewDelegate>
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     PHAsset *item = self.dataSource[indexPath.row];
-    TLPhotoPreviewViewController *vc = [[TLPhotoPreviewViewController alloc] initWithSelectedAsset:item assets:self.dataSource];
-    vc.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self showPreviewWithSelectedAsset:item];
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.dataSource.count;
@@ -233,6 +239,7 @@ TLPhotoPreviewDelegate>
         [_previewBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [_previewBtn setTitleColor:UIColorFromRGB(0xcccccc) forState:UIControlStateDisabled];
         [_previewBtn setTitle:@"预览" forState:UIControlStateNormal];
+        [_previewBtn addTarget:self action:@selector(previewAction) forControlEvents:UIControlEventTouchUpInside];
         _previewBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         _previewBtn.enabled = NO;
     }

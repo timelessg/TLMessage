@@ -26,6 +26,7 @@ static NSString *const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
 @implementation APIDebug
 +(void)configWithVC:(UIViewController *)vc{
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"APIDebug" style:UIBarButtonItemStylePlain target:self action:@selector(debugAction)];
+    item.tintColor = [UIColor grayColor];
     vc.navigationItem.rightBarButtonItem = item;
 }
 +(void)debugAction{

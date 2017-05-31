@@ -44,11 +44,13 @@ TLImageScrollViewDelegate>
 }
 -(instancetype)initWithSelectedAsset:(PHAsset *)selectedAsset assets:(NSArray *)asstes{
     if (self = [super init]) {
-        self.selectedAsset = selectedAsset;
+        if (selectedAsset) {
+            self.selectedAsset = selectedAsset;
+            _currentIndex = [self.assets indexOfObject:selectedAsset];
+            self.selectBtn.selected = selectedAsset.selected;
+            self.sendOriginalImgBtn.selected = selectedAsset.isOriginal;
+        }
         self.assets = asstes;
-        _currentIndex = [self.assets indexOfObject:selectedAsset];
-        self.selectBtn.selected = selectedAsset.selected;
-        self.sendOriginalImgBtn.selected = selectedAsset.isOriginal;
     }
     return self;
 }
@@ -64,7 +66,7 @@ TLImageScrollViewDelegate>
     [self.view addSubview:self.navView];
     [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_offset(@69);
+        make.height.mas_offset(@49);
     }];
     
     [self.navView addSubview:self.backBtn];

@@ -174,7 +174,7 @@ TLPhotoPickerDelegate>
             break;
         case 1:
         {
-            //            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
         }
             break;
         case 2:

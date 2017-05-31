@@ -34,6 +34,7 @@ TLRCManagerDelegate>
     [TLRCManager shareManager].delegate = self;
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
     [self.view addSubview:self.inputView];
     [self.inputView mas_makeConstraints:^(MASConstraintMaker *make) {

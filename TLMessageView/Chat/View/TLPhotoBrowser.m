@@ -34,7 +34,7 @@
     
     [UIView animateWithDuration:0.25 animations:^{
         self.alpha = 1;
-    }];
+    }];    
 }
 -(void)imageScrollViewLongTap:(UILongPressGestureRecognizer *)sender{
     if (sender.state != UIGestureRecognizerStateBegan) {

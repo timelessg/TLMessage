@@ -32,9 +32,7 @@ UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *sendItem = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendLocationMsg)];
-    self.navigationItem.rightBarButtonItem = sendItem;
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self configNavBar];
     
     [self.view addSubview:self.mapView];
     [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,6 +55,21 @@ UITableViewDataSource>
     if([CLLocationManager locationServicesEnabled]){
         [self.locationManager startUpdatingLocation];
     }
+}
+- (void)configNavBar {
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    backItem.tintColor = [UIColor grayColor];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
+    UIBarButtonItem *sendItem = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendLocationMsg)];
+    sendItem.tintColor = [UIColor grayColor];
+    self.navigationItem.rightBarButtonItem = sendItem;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+}
+- (void)dismiss {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)sendLocationMsg{
     if (!self.userLocation) {
@@ -88,6 +101,10 @@ UITableViewDataSource>
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self sendLocationMsg];
 }
 #pragma mark – CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager

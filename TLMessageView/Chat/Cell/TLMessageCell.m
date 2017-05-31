@@ -65,6 +65,9 @@
             make.centerY.equalTo(self.statusView.mas_centerY).offset(0);
             make.centerX.equalTo(self.statusView.mas_centerX).offset(0);
         }];
+        
+        UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapAction)];
+        [self.avatarImageView addGestureRecognizer:avatarTap];
     }
     return self;
 }
@@ -148,6 +151,9 @@
         [self.activityIndicator stopAnimating];
         self.activityIndicator.hidden = YES;
     }
+}
+-(void)avatarTapAction {
+    self.clickAvatar(self.message.messageDirection);
 }
 -(void)removeAllConstraints{
     for (MASConstraint *constraint in self.constraints) {
