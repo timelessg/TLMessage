@@ -22,7 +22,7 @@
 UITableViewDataSource,
 TLRCManagerDelegate>
 
-@property(nonatomic,strong)TLChatInputView *inputView;
+@property(nonatomic,strong)TLChatInputView *chatInputView;
 @property(nonatomic,strong)NSMutableArray *messages;
 @end
 
@@ -36,8 +36,8 @@ TLRCManagerDelegate>
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
-    [self.view addSubview:self.inputView];
-    [self.inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.chatInputView];
+    [self.chatInputView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(0);
         make.right.equalTo(self.view.mas_right).offset(0);
         make.bottom.equalTo(self.view.mas_bottom).offset(0);
@@ -49,12 +49,12 @@ TLRCManagerDelegate>
         make.left.equalTo(self.view.mas_left).offset(0);
         make.right.equalTo(self.view.mas_right).offset(0);
         make.top.equalTo(self.mas_topLayoutGuideBottom).offset(0);
-        make.bottom.equalTo(self.inputView.mas_top).offset(0);
+        make.bottom.equalTo(self.chatInputView.mas_top).offset(0);
     }];
     
     weakifySelf;
     //发送消息回调
-    self.inputView.sendMsgAction =  ^(RCMessageContent *x){
+    self.chatInputView.sendMsgAction =  ^(RCMessageContent *x){
         strongifySelf;
         [self sendMessage:x];
     };
@@ -181,11 +181,11 @@ TLRCManagerDelegate>
     }
     return _chatTableView;
 }
--(TLChatInputView *)inputView{
-    if (!_inputView) {
-        _inputView = [[TLChatInputView alloc] initWithChatVc:self];
+-(TLChatInputView *)chatInputView{
+    if (!_chatInputView) {
+        _chatInputView = [[TLChatInputView alloc] initWithChatVc:self];
     }
-    return _inputView;
+    return _chatInputView;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

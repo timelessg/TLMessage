@@ -136,6 +136,11 @@ TLPhotoPickerDelegate>
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -151,6 +156,10 @@ TLPhotoPickerDelegate>
     
     CGFloat offsetY = self.chatVc.chatTableView.contentSize.height - self.chatVc.chatTableView.bounds.size.height + keyboardRect.size.height;
     [self changeBoard:BoardActionShowKeyBoard height:keyboardRect.size.height offsetY:offsetY];
+}
+-(void)keyboardWillHide:(NSNotification *)sender{
+    
+    [self changeBoard:BoardActionHideAllBoard height:keyboardRect.size.height offsetY:offsetY];
 }
 
 #pragma mark - TLPluginBoardViewDelegate
@@ -206,13 +215,13 @@ TLPhotoPickerDelegate>
 
 #pragma - mark emojiBoardViewDelegate
 -(void)chatEmojiBoarDidSelectEmoji:(NSString *)emoji{
-    [self.inputView appendEmoji:emoji];
+    [self appendEmoji:emoji];
 }
 -(void)chatEmojiBoarDidClickBackspace{
-    [self.inputView backspace];
+    [self backspace];
 }
 -(void)chatEmojiBoarDidClickSend{
-    [self.inputView sendMessage];
+    [self sendMessage];
 }
 
 #pragma mark - recorderVoiceDelegate
@@ -279,7 +288,7 @@ TLPhotoPickerDelegate>
     if (sender.selected) {
         [self changeBoard:BoardActionChangeEmojiBoard height:pluginBoardHeight offsetY:pluginBoardHeight];
     }else{
-        [self.inputView becomeInputTextViewFirstResponder];
+        [self becomeInputTextViewFirstResponder];
     }
 }
 -(void)didClickEmojiAction:(UIButton *)sender{
@@ -288,7 +297,7 @@ TLPhotoPickerDelegate>
         [self changeBoard:BoardActionChangePluginBoard height:emojiBoardHeight offsetY:emojiBoardHeight];
         self.voiceKeybaordBtn.selected = NO;
     }else{
-        [self.inputView becomeInputTextViewFirstResponder];
+        [self becomeInputTextViewFirstResponder];
     }
 }
 
@@ -324,14 +333,14 @@ TLPhotoPickerDelegate>
             self.pluginBoard.show = !self.pluginBoard.show;
             self.emojiBoard.show = NO;
             showKeyBoard = NO;
-            [self.inputView resignInputTextViewFirstResponder];
+            [self resignInputTextViewFirstResponder];
             break;
         }
         case BoardActionChangePluginBoard: {
             self.emojiBoard.show = !self.emojiBoard.show;
             self.pluginBoard.show = NO;
             showKeyBoard = NO;
-            [self.inputView resignInputTextViewFirstResponder];
+            [self resignInputTextViewFirstResponder];
             break;
         }
         case BoardActionShowKeyBoard: {
@@ -363,7 +372,7 @@ TLPhotoPickerDelegate>
         make.bottom.equalTo(self.chatVc.view.mas_bottom).offset(emojiSshow ? 0 : height);
     }];
     
-    [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.chatVc.view.mas_bottom).offset(showBoard ? - height : 0);
     }];
     
@@ -434,7 +443,7 @@ TLPhotoPickerDelegate>
     return self.inputTextView.isFirstResponder;
 }
 - (void)tapHideKeyboard:(UITapGestureRecognizer *)tap{
-    [self.inputView resignInputTextViewFirstResponder];
+    [self resignInputTextViewFirstResponder];
     [self hidePluginAndEmojiBoard];
     [self.chatVc.chatTableView removeGestureRecognizer:self.touchTap];
 }

@@ -10,6 +10,7 @@
 
 @interface TLTextMessageCell ()
 @property(nonatomic,strong)UILabel *messageLabel;
+@property(nonatomic,strong)UILongPressGestureRecognizer *longPress;
 @end
 
 @implementation TLTextMessageCell
@@ -19,6 +20,10 @@
         [self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_offset(UIEdgeInsetsMake(10, 15, 10, 15));
         }];
+        
+        self.bubbleImageView.userInteractionEnabled = YES;
+        self.messageLabel.userInteractionEnabled = YES;
+        [self.messageLabel addGestureRecognizer:self.longPress];
     }
     return self;
 }
@@ -38,6 +43,32 @@
     RCTextMessage* textMessage = (RCTextMessage*)message.content;
     self.messageLabel.text = textMessage.content;
 }
+-(void)longPressAction:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self.bubbleImageView layoutIfNeeded];
+        
+        [self becomeFirstResponder];
+        UIMenuItem *copyItem = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyAction)];
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        [menu setMenuItems:@[copyItem]];
+        
+        [menu setTargetRect:self.bubbleImageView.frame inView:self.contentView];
+        menu.arrowDirection = UIMenuControllerArrowDown;
+        [menu setMenuVisible:YES animated:YES];
+    }
+}
+-(void)copyAction {
+    [UIPasteboard generalPasteboard].string = self.messageLabel.text;
+}
+-(BOOL)canBecomeFirstResponder {
+    return YES;
+}
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender{
+    if (action == @selector(copyAction)) {
+        return YES;
+    }
+    return NO;
+}
 -(UILabel *)messageLabel{
     if (!_messageLabel) {
         _messageLabel = [[UILabel alloc] init];
@@ -46,5 +77,11 @@
         _messageLabel.numberOfLines = 0;
     }
     return _messageLabel;
+}
+-(UILongPressGestureRecognizer *)longPress {
+    if (!_longPress) {
+        _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
+    }
+    return _longPress;
 }
 @end
