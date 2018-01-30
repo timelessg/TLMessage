@@ -90,7 +90,11 @@
     [super setText:text];
     [self layoutGUI];
 }
-
+- (void)setAttributedText:(NSAttributedString *)attributedText
+{
+    [super setAttributedText:attributedText];
+    [self layoutGUI];
+}
 
 - (void)setPlaceholderText:(NSString*)placeholderText
 {

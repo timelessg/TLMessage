@@ -19,7 +19,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {        
         [self.bubbleImageView addSubview:self.previewImageView];
         [self.previewImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.bubbleImageView).priorityHigh(1);
+            make.edges.equalTo(self.bubbleImageView).priorityHigh();
         }];
         
         [self.previewImageView addSubview:self.placeLabel];

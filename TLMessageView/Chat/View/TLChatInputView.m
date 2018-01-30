@@ -232,11 +232,36 @@ TLPhotoPickerDelegate>
     return YES;
 }
 -(void)textViewDidChange:(UITextView *)textView {
+    UITextRange *markedTextRange = [textView markedTextRange];
+    UITextPosition *position = [textView positionFromPosition:markedTextRange.start offset:0];
+    
+    if (position) {
+        return;
+    }
+    
+    NSRange selectedRange = textView.selectedRange;
+    
+    NSMutableAttributedString *attributedComment = [[NSMutableAttributedString alloc] initWithString:textView.text attributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:13], NSForegroundColorAttributeName: UIColorFromRGB(0x333333) }];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 5.0;
+    [attributedComment addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedComment.length)];
+    
+    NSUInteger offset = textView.attributedText.length - attributedComment.length;
+    textView.attributedText = attributedComment;
+    textView.selectedRange = NSMakeRange(selectedRange.location - offset, 0);
+    
+    CGFloat height = textView.contentSize.height + 12;
+    
     if ([textView.text length] > maxInputLength) {
         self.inputTextView.text = [textView.text substringWithRange:NSMakeRange(0, maxInputLength)];
     }else{
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            [self layoutIfNeeded];
+        } completion:nil];
+        
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
+            make.height.mas_equalTo(height < 45 ? 45 : height);
         }];
     }
 }
@@ -389,17 +414,18 @@ TLPhotoPickerDelegate>
     }
 }
 -(void)appendEmoji:(NSString *)emoji{
-    NSMutableString *text = [self.inputTextView.text mutableCopy];
-    [text appendString:emoji];
-    self.inputTextView.text = [text copy];
+    NSRange selectedRange = self.inputTextView.selectedRange;
+
+    NSMutableAttributedString *emojiAttributedString = [[NSMutableAttributedString alloc] initWithString:emoji];
     
-    self.inputTextView.text = text.length > maxInputLength ? [text substringWithRange:NSMakeRange(0, maxInputLength)] : [text copy];
-    [self mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(self.inputTextView.contentSize.height + 12);
-    }];
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:self.inputTextView.attributedText];
+    [attributedText replaceCharactersInRange:selectedRange withAttributedString:emojiAttributedString];
+    self.inputTextView.attributedText = attributedText;
+    self.inputTextView.selectedRange = NSMakeRange(selectedRange.location + emojiAttributedString.length, 0);
     
-    NSRange bottom = NSMakeRange(self.inputTextView.text.length - 1, 1);
-    [self.inputTextView scrollRangeToVisible:bottom];
+    [self textViewDidChange:self.inputTextView];
+    
+    [self.inputTextView scrollRangeToVisible:NSMakeRange(self.inputTextView.text.length - 1, 1)];
 }
 -(void)backspace{
     [self.inputTextView deleteBackward];
@@ -525,6 +551,9 @@ TLPhotoPickerDelegate>
         _inputTextView.layer.borderWidth = 0.5;
         _inputTextView.layoutManager.allowsNonContiguousLayout = NO;
         [_inputTextView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        if (@available(iOS 11.0, *)) {
+            _inputTextView.textDragInteraction.enabled = NO;
+        }
     }
     return _inputTextView;
 }

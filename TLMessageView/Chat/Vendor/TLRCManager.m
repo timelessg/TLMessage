@@ -47,7 +47,7 @@ static NSString *RongCloundKey = @"y745wfm844a4v";
         NSLog(@"Rong uid is:%@", userId);
         NSLog(@"****************************************");
     } error:^(RCConnectErrorCode status) {
-        NSLog(@"💥Rong connectWithToken error:%ld", status);
+        NSLog(@"💥Rong connectWithToken error:%tu", status);
     } tokenIncorrect:^{
         NSLog(@"💥Rong connectWithToken incorrect");
     }];
@@ -82,6 +82,6 @@ static NSString *RongCloundKey = @"y745wfm844a4v";
 
 - (void)onConnectionStatusChanged:(RCConnectionStatus)status
 {
-    NSLog(@"Rong cloud status:%ld", status);
+    NSLog(@"Rong cloud status:%tu", status);
 }
 @end
